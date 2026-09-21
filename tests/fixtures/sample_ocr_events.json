@@ -1,0 +1,28 @@
+[
+  {
+    "event_id": 0,
+    "timestamp": 5.0,
+    "frame_index": 150,
+    "text": "from langgraph.graph import StateGraph",
+    "lines": ["from langgraph.graph import StateGraph"],
+    "boxes": [],
+    "mean_confidence": 0.94,
+    "code_likelihood": true,
+    "preprocessing": "clahe",
+    "evidence_frame": "evidence_frames/000000_005.000s.jpg",
+    "speech_context": "First we need to import the StateGraph class"
+  },
+  {
+    "event_id": 1,
+    "timestamp": 12.0,
+    "frame_index": 360,
+    "text": "class AgentState(TypedDict):\n    messages: list[str]",
+    "lines": ["class AgentState(TypedDict):", "    messages: list[str]"],
+    "boxes": [],
+    "mean_confidence": 0.91,
+    "code_likelihood": true,
+    "preprocessing": "raw",
+    "evidence_frame": "evidence_frames/000001_012.000s.jpg",
+    "speech_context": "Now let's define our agent state"
+  }
+]

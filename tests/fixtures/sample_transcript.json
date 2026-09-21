@@ -1,0 +1,30 @@
+{
+  "segments": [
+    {
+      "index": 0,
+      "start": 0.0,
+      "end": 3.5,
+      "text": "Welcome to this coding tutorial on building a state graph.",
+      "words": []
+    },
+    {
+      "index": 1,
+      "start": 4.0,
+      "end": 8.2,
+      "text": "First we need to import the StateGraph class from langgraph.",
+      "words": []
+    },
+    {
+      "index": 2,
+      "start": 10.0,
+      "end": 14.5,
+      "text": "Now let's define our agent state as a typed dictionary.",
+      "words": []
+    }
+  ],
+  "meta": {
+    "model": "small",
+    "language": "en",
+    "duration": 14.5
+  }
+}
