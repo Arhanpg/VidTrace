@@ -1,0 +1,15 @@
+# VidTrace — Tutorial Preset
+# Tuned for software demos and walkthroughs.
+
+whisper_model: small
+sample_interval: 2.0
+active_interval: 0.50
+active_window: 8.0
+scene_threshold: 0.065
+ocr_change_similarity: 0.960
+ocr_heartbeat: 3.0
+output_formats:
+  - md
+  - json
+  - html
+  - srt
