@@ -1,0 +1,14 @@
+# VidTrace — Meeting Preset
+# Tuned for recorded meetings. Lighter OCR, focus on transcript.
+
+whisper_model: small
+sample_interval: 5.0
+active_interval: 2.0
+active_window: 5.0
+scene_threshold: 0.065
+ocr_change_similarity: 0.980
+ocr_heartbeat: 10.0
+output_formats:
+  - md
+  - json
+  - srt
