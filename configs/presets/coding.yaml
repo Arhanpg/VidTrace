@@ -1,0 +1,15 @@
+# VidTrace — Coding Preset
+# Tuned for programming tutorials and live coding sessions.
+# Denser OCR sampling to catch rapid code changes.
+
+whisper_model: small
+sample_interval: 1.5
+active_interval: 0.40
+active_window: 10.0
+scene_threshold: 0.065
+ocr_change_similarity: 0.950
+ocr_heartbeat: 2.0
+output_formats:
+  - md
+  - json
+  - html
