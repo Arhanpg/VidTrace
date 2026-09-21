@@ -1,0 +1,66 @@
+# ─── Python ───────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+*.whl
+.eggs/
+
+# ─── Virtual environments ─────────────────────────────
+.venv*/
+venv*/
+env/
+ENV/
+
+# ─── IDE ──────────────────────────────────────────────
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# ─── Testing & Coverage ──────────────────────────────
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+htmlcov/
+.coverage
+coverage.xml
+
+# ─── ML Model caches ─────────────────────────────────
+# Whisper / CTranslate2 models
+*.bin
+*.pt
+*.onnx
+# PaddleOCR model cache
+~/.paddleocr/
+
+# ─── Video files (don't commit media) ────────────────
+*.mp4
+*.mkv
+*.mov
+*.avi
+*.webm
+*.m4v
+*.ts
+*.mts
+*.m2ts
+*.wav
+*.mp3
+
+# ─── VidTrace output ─────────────────────────────────
+lecture_extraction/
+output/
+evidence_frames/
+*.jsonl
+
+# ─── OS ───────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+Desktop.ini
