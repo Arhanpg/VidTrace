@@ -7,7 +7,8 @@ Coordinates the full extraction pipeline:
   Stage 3: Timeline fusion
   Stage 4: Output rendering (Markdown, JSON, HTML, SRT)
 
-Supports resume: if transcript.json already exists, Stage 1 is skipped.
+Supports resume via checkpoint: completed stages are skipped,
+partial OCR is resumed from the last processed frame.
 """
 
 from __future__ import annotations
@@ -41,6 +42,12 @@ from vidtrace.output.markdown import (
     write_video_report,
 )
 from vidtrace.output.srt import export_srt, export_vtt
+from vidtrace.pipeline.checkpoint import (
+    StageStatus,
+    VideoCheckpoint,
+    VideoIdentity,
+    format_checkpoint_status,
+)
 from vidtrace.pipeline.gpu import (
     detect_gpu,
     read_video_info,
@@ -95,20 +102,34 @@ class VideoProcessor:
         video_output.mkdir(parents=True, exist_ok=True)
         evidence_dir.mkdir(parents=True, exist_ok=True)
 
-        # ── State tracking ────────────────────────────────────
+        # ── Checkpoint ────────────────────────────────────────
         state_path = video_output / "state.json"
-        state: dict[str, Any] = {
-            "video": asdict(info),
-            "gpu": self.gpu_info,
-            "started_at": now_iso(),
-            "stages": {},
-        }
+        checkpoint = VideoCheckpoint.load(state_path) or VideoCheckpoint()
+
+        # Check if video changed since last run.
+        video_identity = VideoIdentity.from_file(video_path)
+
+        if checkpoint.is_video_changed(video_path):
+            if checkpoint.started_at:
+                logger.info(
+                    "[INVALIDATE] Video file changed. Re-running all stages."
+                )
+            checkpoint = VideoCheckpoint()
+
+        checkpoint.video = asdict(video_identity)
+        checkpoint.gpu = self.gpu_info
+        checkpoint.started_at = checkpoint.started_at or now_iso()
+
+        checkpoint.mark_stage(
+            "metadata", StageStatus.COMPLETE, state_path,
+            video_info=asdict(info),
+        )
 
         # ══════════════════════════════════════════════════════
         # STAGE 1: TRANSCRIPTION
         # ══════════════════════════════════════════════════════
         transcript, whisper_meta = self._run_transcription(
-            video_path, video_output, state, state_path,
+            video_path, video_output, checkpoint, state_path,
         )
 
         # ══════════════════════════════════════════════════════
@@ -116,26 +137,31 @@ class VideoProcessor:
         # ══════════════════════════════════════════════════════
         events = self._run_ocr(
             video_path, info, transcript,
-            video_output, evidence_dir, state, state_path,
+            video_output, evidence_dir, checkpoint, state_path,
         )
 
         # ══════════════════════════════════════════════════════
         # STAGE 3: TIMELINE FUSION
         # ══════════════════════════════════════════════════════
-        timeline = build_timeline(transcript, events)
+        if checkpoint.should_run_stage("fusion", self.config.force):
+            checkpoint.mark_stage("fusion", StageStatus.RUNNING, state_path)
 
-        timeline_json_path = video_output / "timeline.json"
-        export_timeline_json(timeline_json_path, timeline)
+            timeline = build_timeline(transcript, events)
 
-        timeline_jsonl_path = video_output / "events.jsonl"
-        export_timeline_jsonl(timeline_jsonl_path, timeline)
+            export_timeline_json(
+                video_output / "timeline.json", timeline,
+            )
+            export_timeline_jsonl(
+                video_output / "events.jsonl", timeline,
+            )
 
-        state["stages"]["fusion"] = {
-            "completed": True,
-            "timeline_events": len(timeline),
-            "finished_at": now_iso(),
-        }
-        write_json(state_path, state)
+            checkpoint.mark_stage(
+                "fusion", StageStatus.COMPLETE, state_path,
+                timeline_events=len(timeline),
+            )
+        else:
+            logger.info("[SKIP] Fusion already complete.")
+            timeline = build_timeline(transcript, events)
 
         # ══════════════════════════════════════════════════════
         # STAGE 4: OUTPUT RENDERING
@@ -145,12 +171,10 @@ class VideoProcessor:
             events, video_output,
         )
 
-        state["stages"]["output"] = {
-            "completed": True,
-            "formats": self.config.output_formats,
-            "finished_at": now_iso(),
-        }
-        write_json(state_path, state)
+        checkpoint.mark_stage(
+            "output", StageStatus.COMPLETE, state_path,
+            formats=self.config.output_formats,
+        )
 
         return report_path
 
@@ -162,7 +186,7 @@ class VideoProcessor:
         self,
         video_path: Path,
         video_output: Path,
-        state: dict,
+        checkpoint: VideoCheckpoint,
         state_path: Path,
     ) -> tuple[list[TranscriptSegment], dict[str, Any]]:
         """Run Whisper transcription with resume support."""
@@ -172,7 +196,21 @@ class VideoProcessor:
         transcript: list[TranscriptSegment] = []
         whisper_meta: dict[str, Any] = {}
 
-        if transcript_json_path.exists() and not self.config.force:
+        if not checkpoint.should_run_stage(
+            "transcription", self.config.force
+        ):
+            logger.info("[SKIP] Transcription already complete.")
+
+            saved = json.loads(
+                transcript_json_path.read_text(encoding="utf-8")
+            )
+            transcript = [
+                TranscriptSegment(**item)
+                for item in saved["segments"]
+            ]
+            whisper_meta = saved.get("meta", {})
+
+        elif transcript_json_path.exists() and not self.config.force:
             logger.info("[RESUME] Existing transcript found.")
 
             saved = json.loads(
@@ -184,7 +222,16 @@ class VideoProcessor:
             ]
             whisper_meta = saved.get("meta", {})
 
+            checkpoint.mark_stage(
+                "transcription", StageStatus.COMPLETE, state_path,
+                segments=len(transcript),
+            )
+
         else:
+            checkpoint.mark_stage(
+                "transcription", StageStatus.RUNNING, state_path,
+            )
+
             transcriber = WhisperTranscriber(self.config)
             try:
                 transcript, whisper_meta = transcriber.transcribe(video_path)
@@ -203,12 +250,10 @@ class VideoProcessor:
                 encoding="utf-8",
             )
 
-            state["stages"]["transcription"] = {
-                "completed": True,
-                "segments": len(transcript),
-                "finished_at": now_iso(),
-            }
-            write_json(state_path, state)
+            checkpoint.mark_stage(
+                "transcription", StageStatus.COMPLETE, state_path,
+                segments=len(transcript),
+            )
 
         # Ensure transcript.md exists even on resume.
         if not transcript_md_path.exists():
@@ -230,19 +275,53 @@ class VideoProcessor:
         transcript: list[TranscriptSegment],
         video_output: Path,
         evidence_dir: Path,
-        state: dict,
+        checkpoint: VideoCheckpoint,
         state_path: Path,
     ) -> list[OCREvent]:
-        """Run OCR with adaptive sampling and deduplication."""
-        logger.info("Starting visual analysis.")
-
+        """Run OCR with adaptive sampling, deduplication, and resume."""
         ocr_events_path = video_output / "ocr_events.json"
         ocr_candidates_path = video_output / "ocr_all_candidates.jsonl"
+
+        # Skip if already complete.
+        if not checkpoint.should_run_stage("ocr", self.config.force):
+            logger.info("[SKIP] OCR already complete.")
+            if ocr_events_path.exists():
+                data = json.loads(
+                    ocr_events_path.read_text(encoding="utf-8")
+                )
+                return [OCREvent(**item) for item in data]
+            return []
+
+        logger.info("Starting visual analysis.")
 
         # If forcing, delete old OCR output.
         if self.config.force:
             ocr_events_path.unlink(missing_ok=True)
             ocr_candidates_path.unlink(missing_ok=True)
+            checkpoint.ocr_last_timestamp = -1.0
+            checkpoint.ocr_last_frame = -1
+            checkpoint.ocr_event_count = 0
+
+        # Partial resume: load existing events.
+        events: list[OCREvent] = []
+        resume_from_timestamp = -1.0
+
+        if (
+            checkpoint.get_stage_status("ocr") == StageStatus.PARTIAL.value
+            and checkpoint.ocr_last_timestamp > 0
+            and ocr_events_path.exists()
+        ):
+            logger.info(
+                "[RESUME] OCR partial — resuming from t=%.1fs",
+                checkpoint.ocr_last_timestamp,
+            )
+            data = json.loads(
+                ocr_events_path.read_text(encoding="utf-8")
+            )
+            events = [OCREvent(**item) for item in data]
+            resume_from_timestamp = checkpoint.ocr_last_timestamp
+
+        checkpoint.mark_stage("ocr", StageStatus.RUNNING, state_path)
 
         ocr = PaddleOCREngine(
             prefer_gpu=not self.config.cpu_ocr,
@@ -255,10 +334,9 @@ class VideoProcessor:
             ocr.close()
             raise RuntimeError("Could not reopen video for OCR.")
 
-        events: list[OCREvent] = []
-        previous_text = ""
-        previous_event_time = -999.0
-        event_id = 0
+        previous_text = events[-1].text if events else ""
+        previous_event_time = events[-1].timestamp if events else -999.0
+        event_id = len(events)
         started = time.perf_counter()
         candidate_count = 0
 
@@ -274,6 +352,10 @@ class VideoProcessor:
                 active_window=self.config.active_window,
                 scene_threshold=self.config.scene_threshold,
             ):
+                # Skip frames already processed (partial resume).
+                if timestamp <= resume_from_timestamp:
+                    continue
+
                 candidate_count += 1
 
                 # Skip nearly black / empty frames.
@@ -364,6 +446,7 @@ class VideoProcessor:
                 previous_text = full_text
                 previous_event_time = timestamp
 
+                # Periodic checkpoint save for partial resume.
                 if event_id % 20 == 0:
                     elapsed = time.perf_counter() - started
                     logger.info(
@@ -372,20 +455,36 @@ class VideoProcessor:
                         format_time(timestamp),
                         elapsed / 60,
                     )
+                    checkpoint.update_ocr_progress(
+                        timestamp, frame_index, event_id,
+                    )
+                    checkpoint.mark_stage(
+                        "ocr", StageStatus.PARTIAL, state_path,
+                    )
+                    export_ocr_events_json(ocr_events_path, events)
+
+        except KeyboardInterrupt:
+            logger.info("OCR interrupted — saving partial progress.")
+            checkpoint.update_ocr_progress(
+                previous_event_time,
+                events[-1].frame_index if events else -1,
+                len(events),
+            )
+            checkpoint.mark_stage("ocr", StageStatus.PARTIAL, state_path)
+            export_ocr_events_json(ocr_events_path, events)
+            raise
 
         finally:
             cap.release()
             export_ocr_events_json(ocr_events_path, events)
             ocr.close()
 
-            state["stages"]["ocr"] = {
-                "completed": True,
-                "candidate_frames": candidate_count,
-                "semantic_events": len(events),
-                "elapsed_seconds": time.perf_counter() - started,
-                "finished_at": now_iso(),
-            }
-            write_json(state_path, state)
+        checkpoint.mark_stage(
+            "ocr", StageStatus.COMPLETE, state_path,
+            candidate_frames=candidate_count,
+            semantic_events=len(events),
+            elapsed_seconds=time.perf_counter() - started,
+        )
 
         return events
 
@@ -550,3 +649,20 @@ def run_pipeline(
     logger.info("=" * 70)
 
     return 0 if not failures else 3
+
+
+def get_video_status(input_path: Path, config: VidTraceConfig) -> str:
+    """Get checkpoint status for a video file."""
+    output_root = input_path.parent / config.output_folder
+    video_output = output_root / safe_filename(input_path.stem)
+    state_path = video_output / "state.json"
+
+    checkpoint = VideoCheckpoint.load(state_path)
+    if checkpoint is None:
+        return f"No checkpoint found for: {input_path.name}"
+
+    return (
+        f"Video: {input_path.name}\n"
+        f"Output: {video_output}\n"
+        f"{format_checkpoint_status(checkpoint)}"
+    )
