@@ -1,0 +1,96 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "vidtrace"
+version = "0.1.0"
+description = "Local-first, GPU-accelerated multimodal video extraction for speech, OCR, screen events, code, and timestamped knowledge."
+readme = "README.md"
+license = "Apache-2.0"
+requires-python = ">=3.10"
+authors = [
+    { name = "Arhan", email = "arhanpg@users.noreply.github.com" },
+]
+keywords = [
+    "video-processing",
+    "computer-vision",
+    "ocr",
+    "speech-to-text",
+    "whisper",
+    "paddleocr",
+    "multimodal-ai",
+    "video-understanding",
+    "knowledge-extraction",
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Education",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: Apache Software License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Multimedia :: Video",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Text Processing :: Indexing",
+]
+dependencies = [
+    "numpy>=1.24",
+    "opencv-python>=4.8",
+    "pyyaml>=6.0",
+    "rich>=13.0",
+]
+
+[project.optional-dependencies]
+whisper = [
+    "faster-whisper>=1.0",
+    "ctranslate2>=4.0",
+]
+ocr = [
+    "paddleocr>=2.7",
+    "paddlepaddle>=2.5",
+]
+all = [
+    "vidtrace[whisper,ocr]",
+]
+gpu = [
+    "paddlepaddle-gpu>=2.5",
+]
+dev = [
+    "pytest>=7.0",
+    "ruff>=0.4",
+    "mypy>=1.10",
+]
+
+[project.scripts]
+vidtrace = "vidtrace.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/Arhanpg/VidTrace"
+Repository = "https://github.com/Arhanpg/VidTrace"
+Issues = "https://github.com/Arhanpg/VidTrace/issues"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/vidtrace"]
+
+[tool.ruff]
+target-version = "py310"
+line-length = 100
+src = ["src"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "W", "UP", "B", "SIM"]
+ignore = ["E501"]
+
+[tool.mypy]
+python_version = "3.10"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = false
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
