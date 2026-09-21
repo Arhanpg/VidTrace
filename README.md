@@ -1,292 +1,324 @@
-<div align="center">
-
 # VidTrace
 
-**Extract the timeline of what was said and what appeared on screen.**
+**Extract what was said and what appeared on screen.**
 
-Local-first, GPU-accelerated multimodal video extraction for speech, OCR, screen events, code, and timestamped knowledge.
+A local-first, GPU-accelerated pipeline that converts any recorded video into a searchable, timestamped, multimodal knowledge artifact — by understanding both **what was spoken** and **what was visible**.
 
-[![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
-[![Python](https://img.shields.io/badge/Python-3.10+-green.svg)](https://python.org)
-
-</div>
+```
+Speech ───────┐
+OCR ──────────┤
+Scenes ───────┤
+Code ─────────┼──→ Unified Timeline ──→ Search / Export / RAG
+Screenshots ──┘
+```
 
 ---
 
-## What is VidTrace?
-
-VidTrace turns any recorded video into a **searchable, timestamped, multimodal knowledge artifact** by understanding both what was said and what appeared on screen.
-
-```
-Video
-  ├── Audio Track ──→ Speech Transcription (faster-whisper)
-  │                        │
-  └── Video Frames ──→ Adaptive Sampling ──→ OCR (PaddleOCR)
-                           │                      │
-                           └── Scene Detection     ├── Code Detection
-                                                   └── Screen Events
-                                    │
-                                    ▼
-                          Temporal Fusion Engine
-                                    │
-                    ┌───────────────┼───────────────┐
-                    │               │               │
-                    ▼               ▼               ▼
-               Markdown          JSON/JSONL     HTML Timeline
-               Report            Events         Viewer
-                                    │
-                                    ▼
-                               SRT / VTT
-                               Subtitles
-```
-
-**Output for each video:**
-```
-vidtrace_output/
-  └── My_Lecture/
-      ├── My_Lecture__analysis.md      # Full analysis report
-      ├── transcript.json              # Timestamped transcript
-      ├── transcript.md                # Human-readable transcript
-      ├── transcript.srt               # Subtitles (SRT)
-      ├── transcript.vtt               # Subtitles (WebVTT)
-      ├── ocr_events.json              # Deduplicated OCR events
-      ├── ocr_all_candidates.jsonl     # Raw OCR stream
-      ├── timeline.json                # Unified multimodal timeline
-      ├── events.jsonl                 # Timeline as JSONL
-      ├── timeline.html                # Interactive HTML viewer
-      ├── state.json                   # Pipeline state/progress
-      └── evidence_frames/             # Timestamped screenshots
-          ├── 000001_000120.500s.jpg
-          ├── 000002_000125.000s.jpg
-          └── ...
-```
-
 ## Quick Start
 
-### Install
+```bash
+pip install vidtrace
 
+# Full extraction
+vidtrace lecture.mp4
+
+# With a preset
+vidtrace run coding_tutorial.mp4 --preset coding
+
+# Transcribe only
+vidtrace transcribe meeting.mp4
+
+# Search across extracted data
+vidtrace search vidtrace_output/ "StateGraph"
+
+# Check pipeline status
+vidtrace status lecture.mp4
+```
+
+### Output
+
+```
+vidtrace_output/
+├── lecture/
+│   ├── transcript.json          # Timestamped speech segments
+│   ├── transcript.md            # Readable transcript
+│   ├── transcript.srt           # SRT subtitles
+│   ├── transcript.vtt           # WebVTT subtitles
+│   ├── ocr_events.json          # Deduplicated screen text
+│   ├── timeline.json            # Unified multimodal timeline
+│   ├── events.jsonl             # Streaming event format
+│   ├── timeline.html            # Interactive viewer
+│   ├── lecture__analysis.md     # Full analysis report
+│   ├── state.json               # Pipeline checkpoint
+│   └── evidence_frames/         # Timestamped screenshots
+│       ├── 000000_014.220s.jpg
+│       ├── 000001_018.410s.jpg
+│       └── ...
+└── run_summary.json
+```
+
+---
+
+## Why VidTrace?
+
+Most video tools treat video as **audio + frames**. VidTrace treats it as a **temporal multimodal stream**.
+
+| Approach | What you get |
+|----------|-------------|
+| YouTube transcript | Just speech, no screen content |
+| Screenshot OCR | Just one frame, no temporal context |
+| Video summarizer | Abstract summary, no evidence |
+| **VidTrace** | **Timestamped speech + screen text + code + visual changes, cross-referenced** |
+
+**Use cases:**
+- 🎓 **Lectures** — Extract slides, formulas, and spoken explanations
+- 💻 **Coding tutorials** — Capture code as it's typed, with temporal evolution
+- 🏢 **Meetings** — Searchable transcript + shared screen content
+- 📹 **Product demos** — Index UI states and narration
+- 🎙️ **Conference talks** — Slides + speaker notes + Q&A
+
+---
+
+## Installation
+
+### Core (no ML dependencies)
 ```bash
 pip install vidtrace
 ```
 
-### Run
+### With speech transcription
+```bash
+pip install "vidtrace[whisper]"
+```
+
+### With screen OCR
+```bash
+pip install "vidtrace[ocr]"
+```
+
+### Everything
+```bash
+pip install "vidtrace[all]"
+```
+
+### GPU Setup
+
+VidTrace uses a **sequential GPU strategy** optimized for low-VRAM setups (tested on RTX 3050 4GB):
+
+1. Whisper gets the GPU → transcribes → releases VRAM
+2. PaddleOCR gets the GPU → extracts screen text → releases VRAM
+
+For GPU acceleration:
+```bash
+# CUDA 11.8
+pip install paddlepaddle-gpu
+
+# CUDA 12.x
+pip install paddlepaddle-gpu -f https://www.paddlepaddle.org.cn/whl/linux/mkl/avx/stable.html
+```
+
+> **Note:** PaddlePaddle GPU installation is platform-specific. See the [PaddlePaddle install guide](https://www.paddlepaddle.org.cn/install/quick) for your CUDA version.
+
+---
+
+## CLI Reference
+
+### Commands
+
+| Command | Description |
+|---------|-------------|
+| `vidtrace run <video>` | Full extraction pipeline (default) |
+| `vidtrace transcribe <video>` | Speech transcription only |
+| `vidtrace ocr <video>` | Screen OCR only (needs transcript) |
+| `vidtrace export <video>` | Re-render outputs from existing data |
+| `vidtrace status <video>` | Show checkpoint / pipeline progress |
+| `vidtrace search <dir> <query>` | Search across extracted timeline |
+
+### Presets
+
+| Preset | Optimized for |
+|--------|-------------|
+| `lecture` | Slide-heavy presentations (2s sampling, high dedup) |
+| `coding` | Code editors (1.5s sampling, dense on changes) |
+| `meeting` | Shared screens (5s sampling, SRT output) |
+| `tutorial` | Mixed content (2s sampling, all output formats) |
 
 ```bash
-# Single video
-vidtrace lecture.mp4
-
-# Folder of videos
-vidtrace ./recordings/
-
-# With a preset
-vidtrace lecture.mp4 --preset coding
-
-# With specific output formats
-vidtrace video.mp4 --output-format md,json,html,srt
+vidtrace run video.mp4 --preset coding --output-format md,json,html,srt
 ```
 
-### Example Output
+### Checkpoint & Resume
 
-**Unified Timeline Event:**
-```json
-{
-  "timestamp": 82.43,
-  "type": "speech",
-  "source": "whisper",
-  "text": "Now we create the state graph",
-  "metadata": {
-    "start": 82.43,
-    "end": 84.10,
-    "index": 42,
-    "word_count": 6
-  }
-}
-```
-
-```json
-{
-  "timestamp": 84.12,
-  "type": "code",
-  "source": "paddleocr",
-  "text": "graph = StateGraph(AgentState)\ngraph.add_node(...)",
-  "metadata": {
-    "event_id": 15,
-    "mean_confidence": 0.934,
-    "evidence_frame": "evidence_frames/000015_000084.120s.jpg"
-  }
-}
-```
-
-## Presets
-
-VidTrace includes presets tuned for common video types:
-
-| Preset | OCR Density | Best For |
-|--------|------------|----------|
-| `lecture` | Normal (2.0s) | University lectures, slide-heavy |
-| `coding` | Dense (1.5s) | Programming tutorials, live coding |
-| `meeting` | Light (5.0s) | Recorded meetings, mostly speech |
-| `tutorial` | Normal (2.0s) | Software demos, walkthroughs |
+VidTrace automatically checkpoints after each stage. If interrupted:
 
 ```bash
-vidtrace video.mp4 --preset coding
+# Check what's done
+vidtrace status video.mp4
+
+# Resume — completed stages are skipped
+vidtrace run video.mp4
+
+# Force re-run everything
+vidtrace run video.mp4 --force
 ```
+
+If the source video file changes, cached results are automatically invalidated.
+
+---
 
 ## Architecture
 
 ```
-┌──────────────────────────────────────────────────────┐
-│                    CLI / Config                       │
-├──────────────────────────────────────────────────────┤
-│                Pipeline Orchestrator                  │
-│                                                      │
-│  ┌────────────┐  ┌─────────────┐  ┌──────────────┐  │
-│  │   Audio     │  │   Vision    │  │   Fusion     │  │
-│  │            │  │             │  │              │  │
-│  │ Whisper    │  │ Sampler     │  │ Timeline     │  │
-│  │ Transcribe │  │ OCR Engine  │  │ Alignment    │  │
-│  │            │  │ Preprocess  │  │              │  │
-│  └────────────┘  └─────────────┘  └──────────────┘  │
-│                                                      │
-│  ┌──────────────────────────────────────────────────┐│
-│  │              Output Renderers                    ││
-│  │  Markdown │ JSON/JSONL │ HTML │ SRT/VTT         ││
-│  └──────────────────────────────────────────────────┘│
-├──────────────────────────────────────────────────────┤
-│          Models (Events, Config) + Utils             │
-└──────────────────────────────────────────────────────┘
+CLI
+ ↓
+Config / Presets
+ ↓
+Pipeline Orchestrator ──→ Checkpoint System
+ ├── Stage 1: Whisper transcription     (GPU → release)
+ ├── Stage 2: PaddleOCR + Adaptive Sampling  (GPU → release)
+ ├── Stage 3: Temporal Fusion
+ └── Stage 4: Output Rendering
+      ↓
+ Markdown / JSON / HTML / SRT / VTT
 ```
 
-## GPU Strategy
+### Key Design Decisions
 
-VidTrace is designed for **low-VRAM GPUs** (tested on RTX 3050 4 GB):
+- **Unified `TimelineEvent` schema** — All extractors produce the same event type, enabling consistent search and export
+- **Adaptive sampling** — Dense OCR when the screen changes, sparse when it's static
+- **Sequential GPU** — Whisper first, then PaddleOCR, to fit in 4GB VRAM
+- **Checkpoint/resume** — Partial OCR progress is saved every 20 events
+- **Plugin-ready** — `Extractor` protocol allows third-party integrations
 
-1. **Whisper** gets the GPU first → transcription completes
-2. GPU memory is fully released
-3. **PaddleOCR** then gets the GPU → OCR processing
-4. CPU fallback available for every stage
+### Event Types
 
-```bash
-# Force CPU-only OCR
-vidtrace video.mp4 --cpu-ocr
+| Type | Source | Description |
+|------|--------|-------------|
+| `speech` | Whisper | Transcribed spoken words |
+| `ocr` | PaddleOCR | Screen text (non-code) |
+| `code` | PaddleOCR | Code-like screen text |
+| `scene` | OpenCV | Visual scene change |
+| `terminal` | Plugin | Terminal/CLI output |
+| `slide` | Plugin | Presentation slide |
+| `url` | Plugin | Detected URL |
+| `equation` | Plugin | Mathematical formula |
 
-# Use a smaller Whisper model
-vidtrace video.mp4 --whisper-model tiny
-```
+---
 
 ## Configuration
-
-### CLI Options
-
-```bash
-vidtrace video.mp4 \
-  --whisper-model small \
-  --language en \
-  --sample-interval 2.0 \
-  --active-interval 0.5 \
-  --scene-threshold 0.065 \
-  --output-format md,json,html,srt \
-  --output-folder my_output \
-  --force
-```
 
 ### YAML Config File
 
 ```yaml
-# config.yaml
+# vidtrace.yaml
 whisper_model: small
 language: en
-sample_interval: 2.0
-active_interval: 0.50
+sample_interval: 1.5
+active_interval: 0.4
+active_window: 10.0
+scene_threshold: 0.065
+ocr_change_similarity: 0.95
 output_formats:
   - md
   - json
   - html
+  - srt
 ```
 
 ```bash
-vidtrace video.mp4 --config config.yaml
+vidtrace run video.mp4 --config vidtrace.yaml
 ```
 
-## Supported Video Types
-
-| Use Case | What VidTrace Extracts |
-|----------|----------------------|
-| **Programming lectures** | Transcript + source code OCR + terminal output + timestamps |
-| **YouTube tutorials** | Speech + screen text + chapters + Markdown |
-| **Software demos** | UI text + click sequences + timestamps |
-| **University lectures** | Speech + slides + equations + diagrams |
-| **Conference talks** | Speaker transcript + presentation slides + key moments |
-| **Corporate training** | Transcript + screen text + key moments + notes |
+---
 
 ## Project Structure
 
 ```
-VidTrace/
-├── src/vidtrace/
-│   ├── audio/           # Speech transcription (Whisper)
-│   ├── vision/          # Frame sampling, OCR, preprocessing
-│   ├── fusion/          # Timeline fusion and alignment
-│   ├── pipeline/        # Orchestration, GPU management
-│   ├── output/          # Markdown, JSON, HTML, SRT renderers
-│   ├── models/          # Data models, config, presets
-│   ├── utils.py         # Shared utilities
-│   └── cli.py           # Command-line interface
-├── tests/               # Unit tests
-├── configs/presets/     # YAML preset configurations
-├── docs/                # Documentation
-├── pyproject.toml       # Package configuration
-├── README.md
-├── CONTRIBUTING.md
-└── LICENSE              # Apache-2.0
+src/vidtrace/
+├── audio/
+│   └── transcription.py       # Whisper engine
+├── vision/
+│   ├── sampler.py              # Adaptive frame sampling
+│   ├── preprocessing.py        # Image enhancement
+│   ├── ocr.py                  # PaddleOCR engine
+│   ├── code_detector.py        # Code region detection
+│   └── code_reconstructor.py   # Temporal code evolution
+├── fusion/
+│   └── timeline.py             # Multimodal temporal fusion
+├── pipeline/
+│   ├── orchestrator.py         # Pipeline coordinator
+│   ├── checkpoint.py           # Checkpoint & resume
+│   ├── gpu.py                  # GPU memory management
+│   ├── search.py               # Multimodal search
+│   └── extractors.py           # Plugin architecture
+├── output/
+│   ├── html.py                 # Interactive timeline viewer
+│   ├── json_output.py          # JSON/JSONL export
+│   ├── markdown.py             # Markdown reports
+│   └── srt.py                  # SRT/VTT subtitles
+├── models/
+│   ├── events.py               # EventType + TimelineEvent
+│   └── config.py               # Config + presets
+├── utils.py                    # Shared utilities
+└── cli.py                      # CLI with subcommands
 ```
-
-## Roadmap
-
-### v0.1 ✅ (Current)
-- Video ingestion (mp4, mkv, mov, avi, webm, m4v)
-- Speech transcription (faster-whisper, GPU + CPU)
-- Screen OCR (PaddleOCR with enhancement retries)
-- Adaptive visual sampling with scene detection
-- Temporal multimodal alignment
-- Unified event schema
-- Output: Markdown, JSON, JSONL, HTML viewer, SRT/VTT
-- Presets (lecture, coding, meeting, tutorial)
-- Resume/checkpoint support
-
-### v0.2
-- [ ] Plugin architecture for custom extractors
-- [ ] Speaker diarization
-- [ ] Slide detection
-- [ ] URL/command/equation extraction
-- [ ] Better code block detection
-
-### v0.3
-- [ ] Local multimodal models (Qwen-VL, etc.)
-- [ ] Semantic search over timeline
-- [ ] Embeddings and RAG interface
-
-### v0.4
-- [ ] Web UI with interactive timeline
-- [ ] MCP server for agent access
-- [ ] Model registry
-
-### v1.0
-- [ ] Stable Python API
-- [ ] Comprehensive documentation
-- [ ] Benchmarks
-- [ ] Contributor ecosystem
-
-## Contributing
-
-See [CONTRIBUTING.md](CONTRIBUTING.md) for development setup and guidelines.
-
-## License
-
-[Apache License 2.0](LICENSE)
 
 ---
 
-<div align="center">
-<sub>Built with 🎬 by <a href="https://github.com/Arhanpg">Arhan</a></sub>
-</div>
+## Roadmap
+
+```
+v0.1 — Extraction Core ✅
+  ✓ Whisper transcription
+  ✓ PaddleOCR with adaptive sampling
+  ✓ Unified event schema
+  ✓ Markdown / JSON / JSONL output
+  ✓ GPU memory management
+
+v0.2 — Evidence Layer ✅
+  ✓ Checkpoint / resume system
+  ✓ Code detection + language identification
+  ✓ Temporal code reconstruction
+  ✓ Interactive HTML timeline viewer
+  ✓ Multimodal search
+  ✓ CLI subcommands
+  ✓ Plugin architecture
+
+v0.3 — Intelligence
+  □ Semantic search with embeddings
+  □ Multimodal RAG layer
+  □ Speaker diarization
+  □ Slide/scene segmentation
+
+v0.4 — Extensibility
+  □ Plugin marketplace
+  □ Qwen-VL / local VLM adapters
+  □ MCP server
+  □ Web UI
+
+v1.0 — Production
+  □ Stable API
+  □ Benchmarks + golden dataset
+  □ PyPI release
+  □ Documentation site
+```
+
+---
+
+## Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for development setup, architecture guide, and contribution guidelines.
+
+### Good First Issues
+
+Look for issues labeled `good first issue`:
+- Add new output format
+- Add URL detector extractor
+- Improve language detection
+- Add progress bar to CLI
+
+---
+
+## License
+
+Apache 2.0 — See [LICENSE](LICENSE) for details.
