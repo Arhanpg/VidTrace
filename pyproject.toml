@@ -55,12 +55,12 @@ ocr = [
     "paddlepaddle>=2.5",
 ]
 youtube = [
-    "yt-dlp>=2024.8.6",
+    "yt-dlp[default]>=2025.1.15",
 ]
 youtube-transcribe = [
     "faster-whisper>=1.0",
     "ctranslate2>=4.0",
-    "yt-dlp>=2024.8.6",
+    "yt-dlp[default]>=2025.1.15",
 ]
 all = [
     "vidtrace[whisper,ocr,youtube]",
