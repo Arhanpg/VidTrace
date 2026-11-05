@@ -64,3 +64,7 @@ evidence_frames/
 .DS_Store
 Thumbs.db
 Desktop.ini
+
+# YouTube transcripts and temporary audio cache (generated locally)
+youtube_transcripts/
+.audio_cache/
