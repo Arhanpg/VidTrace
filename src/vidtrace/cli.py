@@ -261,6 +261,24 @@ def _cmd_status(args: argparse.Namespace) -> int:
     return 0
 
 
+def _cmd_youtube_transcribe(args: argparse.Namespace) -> int:
+    """Download and transcribe a YouTube video or playlist."""
+    from vidtrace.youtube.transcriber import run_youtube_transcription
+
+    return run_youtube_transcription(
+        url=args.url,
+        output_dir=Path(args.output_dir),
+        model_name=args.whisper_model,
+        language=args.language,
+        keep_audio=args.keep_audio,
+        force=args.force,
+        playlist_start=args.playlist_start,
+        playlist_end=args.playlist_end,
+        max_videos=args.max_videos,
+        initial_prompt=args.initial_prompt,
+    )
+
+
 def _cmd_search(args: argparse.Namespace) -> int:
     """Search across extracted timeline data."""
     from vidtrace.pipeline.search import (
@@ -393,6 +411,75 @@ def build_parser() -> argparse.ArgumentParser:
     _add_common_args(status_parser)
     _add_output_args(status_parser)
 
+    # ── youtube-transcribe ──────────────────────────────────────
+    youtube_parser = subparsers.add_parser(
+        "youtube-transcribe",
+        help="Download and transcribe a YouTube video or playlist.",
+        description=(
+            "Download audio locally with yt-dlp, transcribe with faster-whisper, "
+            "and save timestamped Markdown/SRT/VTT transcripts."
+        ),
+    )
+    youtube_parser.add_argument("url", help="YouTube video or playlist URL.")
+    youtube_parser.add_argument(
+        "--language",
+        default="auto",
+        help=(
+            "Language: auto, hi, gu, mr, kn, sa, en, etc. "
+            "Use 'prakrit' only as an experimental auto-detect mode."
+        ),
+    )
+    youtube_parser.add_argument(
+        "--whisper-model",
+        default="small",
+        choices=["tiny", "base", "small", "medium", "large-v3"],
+        help="faster-whisper model size (default: small).",
+    )
+    youtube_parser.add_argument(
+        "--output-dir",
+        type=Path,
+        default=Path("youtube_transcripts"),
+        help="Local transcript output directory (default: ./youtube_transcripts).",
+    )
+    youtube_parser.add_argument(
+        "--playlist-start",
+        type=int,
+        default=1,
+        help="First playlist position to process (1-based).",
+    )
+    youtube_parser.add_argument(
+        "--playlist-end",
+        type=int,
+        default=None,
+        help="Last playlist position to process (inclusive).",
+    )
+    youtube_parser.add_argument(
+        "--max-videos",
+        type=int,
+        default=None,
+        help="Process at most this many videos from the selected range.",
+    )
+    youtube_parser.add_argument(
+        "--keep-audio",
+        action="store_true",
+        help="Keep downloaded audio next to each transcript (uses extra disk space).",
+    )
+    youtube_parser.add_argument(
+        "--force",
+        action="store_true",
+        help="Reprocess videos even when matching transcript files already exist.",
+    )
+    youtube_parser.add_argument(
+        "--initial-prompt",
+        default=None,
+        help="Override the built-in Jain terminology prompt.",
+    )
+    youtube_parser.add_argument(
+        "--verbose", "-v",
+        action="store_true",
+        help="Enable debug logging.",
+    )
+
     # ── search ─────────────────────────────────────────────────
     search_parser = subparsers.add_parser(
         "search",
@@ -460,6 +547,7 @@ def main() -> int:
         "export": _cmd_export,
         "status": _cmd_status,
         "search": _cmd_search,
+        "youtube-transcribe": _cmd_youtube_transcribe,
     }
 
     handler = handlers.get(args.command)
