@@ -1,0 +1,20 @@
+{
+  "playlist_title": "समवसरण के विविध रहस्य",
+  "playlist_id": "gKDuNYi5j3c",
+  "source_url": "https://youtu.be/gKDuNYi5j3c",
+  "requested_language": "auto",
+  "whisper_model": "small",
+  "completed": 1,
+  "skipped": 0,
+  "failed": 0,
+  "records": [
+    {
+      "playlist_index": 1,
+      "title": "समवसरण के विविध रहस्य",
+      "status": "completed",
+      "language_name": "Hindi",
+      "transcript_link": "videos/001_video_gkdunyi5j3c/transcript.hi.md"
+    }
+  ],
+  "updated_at_utc": "2026-11-05T12:49:28.255497+00:00"
+}

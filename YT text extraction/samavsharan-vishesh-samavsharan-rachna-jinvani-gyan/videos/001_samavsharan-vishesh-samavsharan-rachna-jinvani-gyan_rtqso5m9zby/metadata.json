@@ -1,0 +1,20 @@
+{
+  "url": "https://www.youtube.com/watch?v=rTqsO5M9zbY",
+  "video_id": "rTqsO5M9zbY",
+  "title": "समवशरण विशेष | Samavsharan Vishesh | Samavsharan Rachna | समवसरण रचना | जिनवाणी ज्ञान |Jinvani Gyan",
+  "playlist_title": "समवशरण विशेष | Samavsharan Vishesh | Samavsharan Rachna | समवसरण रचना | जिनवाणी ज्ञान |Jinvani Gyan",
+  "playlist_id": "rTqsO5M9zbY",
+  "playlist_index": 1,
+  "generated_at_utc": "2026-11-05T12:51:37.637534+00:00",
+  "requested_language": "auto",
+  "detected_language": "hi",
+  "detected_language_name": "Hindi",
+  "language_probability": 0.99658203125,
+  "model": "small",
+  "transcript_file": "transcript.hi.md",
+  "audio_duration": 538.8306875,
+  "elapsed_seconds": 13.374517999996897,
+  "device": "cuda",
+  "compute_type": "int8_float16",
+  "language_warning": null
+}

@@ -1,0 +1,20 @@
+{
+  "url": "https://www.youtube.com/watch?v=1cq_Iwbvpvg",
+  "video_id": "1cq_Iwbvpvg",
+  "title": "समवसरण के बारे में जानकारी | जैन प्रश्नोत्तरी | Jain Prashnottari |Jain Que Ans| Jain GK| Samosharan",
+  "playlist_title": "समवसरण के बारे में जानकारी | जैन प्रश्नोत्तरी | Jain Prashnottari |Jain Que Ans| Jain GK| Samosharan",
+  "playlist_id": "1cq_Iwbvpvg",
+  "playlist_index": 1,
+  "generated_at_utc": "2026-11-05T12:27:34.048204+00:00",
+  "requested_language": "auto",
+  "detected_language": "hi",
+  "detected_language_name": "Hindi",
+  "language_probability": 0.98193359375,
+  "model": "small",
+  "transcript_file": "transcript.hi.md",
+  "audio_duration": 236.8551875,
+  "elapsed_seconds": 30.629410599998664,
+  "device": "cuda",
+  "compute_type": "int8_float16",
+  "language_warning": null
+}

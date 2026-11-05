@@ -1,0 +1,20 @@
+{
+  "playlist_title": "Jain Videos : समवशरण देशना (Samosharan Deshna)  : Complete (जिन समवशरण ) Samavsharan Description",
+  "playlist_id": "ucxVsyh1T8o",
+  "source_url": "https://youtu.be/ucxVsyh1T8o",
+  "requested_language": "auto",
+  "whisper_model": "small",
+  "completed": 1,
+  "skipped": 0,
+  "failed": 0,
+  "records": [
+    {
+      "playlist_index": 1,
+      "title": "Jain Videos : समवशरण देशना (Samosharan Deshna)  : Complete (जिन समवशरण ) Samavsharan Description",
+      "status": "completed",
+      "language_name": "Hindi",
+      "transcript_link": "videos/001_jain-videos-samosharan-deshna-complete-samavsharan-desc_ucxvsyh1t8o/transcript.hi.md"
+    }
+  ],
+  "updated_at_utc": "2026-11-05T12:46:10.261575+00:00"
+}

@@ -1,0 +1,20 @@
+{
+  "playlist_title": "what is samavasaran ? समवसरण क्या है ?उसकी रचना कौन करते हैं ?",
+  "playlist_id": "i59O_ajrVig",
+  "source_url": "https://youtu.be/i59O_ajrVig",
+  "requested_language": "auto",
+  "whisper_model": "small",
+  "completed": 1,
+  "skipped": 0,
+  "failed": 0,
+  "records": [
+    {
+      "playlist_index": 1,
+      "title": "what is samavasaran ? समवसरण क्या है ?उसकी रचना कौन करते हैं ?",
+      "status": "completed",
+      "language_name": "Hindi",
+      "transcript_link": "videos/001_what-is-samavasaran_i59o-ajrvig/transcript.hi.md"
+    }
+  ],
+  "updated_at_utc": "2026-11-05T12:31:26.537835+00:00"
+}

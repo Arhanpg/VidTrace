@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import json
 import logging
+import os
 import re
 import shutil
 from datetime import datetime, timezone
@@ -122,6 +123,28 @@ def _youtube_watch_url(entry: dict[str, Any]) -> str:
     return f"https://www.youtube.com/watch?v={video_id}"
 
 
+def _ensure_js_runtime_in_path() -> None:
+    """Ensure a JavaScript runtime (like Deno) is accessible to yt-dlp."""
+    if shutil.which("deno"):
+        return
+    candidates: list[Path] = []
+    local_app_data = os.environ.get("LOCALAPPDATA")
+    user_profile = os.environ.get("USERPROFILE")
+    if local_app_data:
+        winget_pkgs = Path(local_app_data) / "Microsoft" / "WinGet" / "Packages"
+        if winget_pkgs.is_dir():
+            candidates.extend(winget_pkgs.glob("DenoLand.Deno*"))
+    if user_profile:
+        candidates.append(Path(user_profile) / ".deno" / "bin")
+
+    for candidate in candidates:
+        deno_exe = candidate / "deno.exe" if os.name == "nt" else candidate / "deno"
+        if deno_exe.is_file():
+            os.environ["PATH"] = str(candidate) + os.pathsep + os.environ.get("PATH", "")
+            logger.debug("Added Deno to PATH from %s", candidate)
+            break
+
+
 def collect_video_entries(
     url: str,
     playlist_start: int = 1,
@@ -137,6 +160,7 @@ def collect_video_entries(
     if max_videos is not None and max_videos < 1:
         raise ValueError("--max-videos must be at least 1.")
 
+    _ensure_js_runtime_in_path()
     try:
         import yt_dlp
     except ImportError as exc:
@@ -208,6 +232,7 @@ def download_audio(video_url: str, work_dir: Path) -> tuple[Path, dict[str, Any]
         logger.info("Using cached audio: %s", cached.name)
         return cached, None
 
+    _ensure_js_runtime_in_path()
     try:
         import yt_dlp
     except ImportError as exc:

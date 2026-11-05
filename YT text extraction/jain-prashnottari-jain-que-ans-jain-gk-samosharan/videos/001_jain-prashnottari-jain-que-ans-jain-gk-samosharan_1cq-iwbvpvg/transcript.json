@@ -1,0 +1,3624 @@
+{
+  "source": {
+    "url": "https://www.youtube.com/watch?v=1cq_Iwbvpvg",
+    "video_id": "1cq_Iwbvpvg",
+    "title": "समवसरण के बारे में जानकारी | जैन प्रश्नोत्तरी | Jain Prashnottari |Jain Que Ans| Jain GK| Samosharan",
+    "playlist_title": "समवसरण के बारे में जानकारी | जैन प्रश्नोत्तरी | Jain Prashnottari |Jain Que Ans| Jain GK| Samosharan",
+    "playlist_id": "1cq_Iwbvpvg",
+    "playlist_index": 1
+  },
+  "requested_language": "auto",
+  "detected_language": "hi",
+  "language_probability": 0.98193359375,
+  "model": "small",
+  "whisper_metadata": {
+    "language": "hi",
+    "language_probability": 0.98193359375,
+    "audio_duration": 236.8551875,
+    "duration_after_vad": 234.5831875,
+    "elapsed_seconds": 30.629410599998664,
+    "device": "cuda",
+    "compute_type": "int8_float16",
+    "model": "small"
+  },
+  "segments": [
+    {
+      "index": 0,
+      "start": 5.76,
+      "end": 29.98,
+      "text": "ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ",
+      "words": [
+        {
+          "start": 5.76,
+          "end": 6.88,
+          "word": " ौ",
+          "probability": 0.20420328776041666
+        },
+        {
+          "start": 6.88,
+          "end": 7.52,
+          "word": " ौ",
+          "probability": 0.46523284912109375
+        },
+        {
+          "start": 7.52,
+          "end": 11.18,
+          "word": " ौ",
+          "probability": 0.8766276041666666
+        },
+        {
+          "start": 11.18,
+          "end": 12.46,
+          "word": " ौ",
+          "probability": 0.94287109375
+        },
+        {
+          "start": 12.46,
+          "end": 13.28,
+          "word": " ौ",
+          "probability": 0.9752604166666666
+        },
+        {
+          "start": 13.28,
+          "end": 15.76,
+          "word": " ौ",
+          "probability": 0.98388671875
+        },
+        {
+          "start": 15.76,
+          "end": 22.58,
+          "word": " ौ",
+          "probability": 0.9856770833333334
+        },
+        {
+          "start": 22.58,
+          "end": 22.68,
+          "word": " ौ",
+          "probability": 0.98974609375
+        },
+        {
+          "start": 22.68,
+          "end": 22.78,
+          "word": " ौ",
+          "probability": 0.99169921875
+        },
+        {
+          "start": 22.78,
+          "end": 23.06,
+          "word": " ौ",
+          "probability": 0.9912109375
+        },
+        {
+          "start": 23.06,
+          "end": 23.68,
+          "word": " ौ",
+          "probability": 0.9925130208333334
+        },
+        {
+          "start": 23.68,
+          "end": 23.68,
+          "word": " ौ",
+          "probability": 0.9915364583333334
+        },
+        {
+          "start": 23.68,
+          "end": 23.68,
+          "word": " ौ",
+          "probability": 0.9925130208333334
+        },
+        {
+          "start": 23.68,
+          "end": 23.68,
+          "word": " ौ",
+          "probability": 0.99267578125
+        },
+        {
+          "start": 23.68,
+          "end": 23.68,
+          "word": " ौ",
+          "probability": 0.994140625
+        },
+        {
+          "start": 23.68,
+          "end": 24.1,
+          "word": " ौ",
+          "probability": 0.9938151041666666
+        },
+        {
+          "start": 24.1,
+          "end": 24.1,
+          "word": " ौ",
+          "probability": 0.99365234375
+        },
+        {
+          "start": 24.1,
+          "end": 24.1,
+          "word": " ौ",
+          "probability": 0.9947916666666666
+        },
+        {
+          "start": 24.1,
+          "end": 24.1,
+          "word": " ौ",
+          "probability": 0.9933268229166666
+        },
+        {
+          "start": 24.1,
+          "end": 24.1,
+          "word": " ौ",
+          "probability": 0.9949544270833334
+        },
+        {
+          "start": 24.1,
+          "end": 24.12,
+          "word": " ौ",
+          "probability": 0.9938151041666666
+        },
+        {
+          "start": 24.12,
+          "end": 24.12,
+          "word": " ौ",
+          "probability": 0.994140625
+        },
+        {
+          "start": 24.12,
+          "end": 24.12,
+          "word": " ौ",
+          "probability": 0.9934895833333334
+        },
+        {
+          "start": 24.12,
+          "end": 24.14,
+          "word": " ौ",
+          "probability": 0.9939778645833334
+        },
+        {
+          "start": 24.14,
+          "end": 24.14,
+          "word": " ौ",
+          "probability": 0.9939778645833334
+        },
+        {
+          "start": 24.14,
+          "end": 24.14,
+          "word": " ौ",
+          "probability": 0.994140625
+        },
+        {
+          "start": 24.14,
+          "end": 24.2,
+          "word": " ौ",
+          "probability": 0.9938151041666666
+        },
+        {
+          "start": 24.2,
+          "end": 24.2,
+          "word": " ौ",
+          "probability": 0.9947916666666666
+        },
+        {
+          "start": 24.2,
+          "end": 24.22,
+          "word": " ौ",
+          "probability": 0.9938151041666666
+        },
+        {
+          "start": 24.22,
+          "end": 24.22,
+          "word": " ौ",
+          "probability": 0.9934895833333334
+        },
+        {
+          "start": 24.22,
+          "end": 24.22,
+          "word": " ौ",
+          "probability": 0.9939778645833334
+        },
+        {
+          "start": 24.22,
+          "end": 24.22,
+          "word": " ौ",
+          "probability": 0.9939778645833334
+        },
+        {
+          "start": 24.22,
+          "end": 24.22,
+          "word": " ौ",
+          "probability": 0.9930013020833334
+        },
+        {
+          "start": 24.22,
+          "end": 24.22,
+          "word": " ौ",
+          "probability": 0.9938151041666666
+        },
+        {
+          "start": 24.22,
+          "end": 24.22,
+          "word": " ौ",
+          "probability": 0.9938151041666666
+        },
+        {
+          "start": 24.22,
+          "end": 24.22,
+          "word": " ौ",
+          "probability": 0.9938151041666666
+        },
+        {
+          "start": 24.22,
+          "end": 24.22,
+          "word": " ौ",
+          "probability": 0.9939778645833334
+        },
+        {
+          "start": 24.22,
+          "end": 24.22,
+          "word": " ौ",
+          "probability": 0.9923502604166666
+        },
+        {
+          "start": 24.22,
+          "end": 24.22,
+          "word": " ौ",
+          "probability": 0.9944661458333334
+        },
+        {
+          "start": 24.22,
+          "end": 24.22,
+          "word": " ौ",
+          "probability": 0.9931640625
+        },
+        {
+          "start": 24.22,
+          "end": 24.22,
+          "word": " ौ",
+          "probability": 0.9931640625
+        },
+        {
+          "start": 24.22,
+          "end": 24.22,
+          "word": " ौ",
+          "probability": 0.9931640625
+        },
+        {
+          "start": 24.22,
+          "end": 24.22,
+          "word": " ौ",
+          "probability": 0.9930013020833334
+        },
+        {
+          "start": 24.22,
+          "end": 24.22,
+          "word": " ौ",
+          "probability": 0.9933268229166666
+        },
+        {
+          "start": 24.22,
+          "end": 24.22,
+          "word": " ौ",
+          "probability": 0.9921875
+        },
+        {
+          "start": 24.22,
+          "end": 24.24,
+          "word": " ौ",
+          "probability": 0.99267578125
+        },
+        {
+          "start": 24.24,
+          "end": 24.24,
+          "word": " ौ",
+          "probability": 0.9934895833333334
+        },
+        {
+          "start": 24.24,
+          "end": 24.24,
+          "word": " ौ",
+          "probability": 0.9933268229166666
+        },
+        {
+          "start": 24.24,
+          "end": 24.3,
+          "word": " ौ",
+          "probability": 0.9925130208333334
+        },
+        {
+          "start": 24.3,
+          "end": 24.84,
+          "word": " ौ",
+          "probability": 0.9928385416666666
+        },
+        {
+          "start": 24.84,
+          "end": 25.62,
+          "word": " ौ",
+          "probability": 0.9928385416666666
+        },
+        {
+          "start": 25.62,
+          "end": 25.62,
+          "word": " ौ",
+          "probability": 0.9920247395833334
+        },
+        {
+          "start": 25.62,
+          "end": 25.62,
+          "word": " ौ",
+          "probability": 0.9920247395833334
+        },
+        {
+          "start": 25.62,
+          "end": 25.62,
+          "word": " ौ",
+          "probability": 0.99267578125
+        },
+        {
+          "start": 25.62,
+          "end": 25.62,
+          "word": " ौ",
+          "probability": 0.9921875
+        },
+        {
+          "start": 25.62,
+          "end": 25.62,
+          "word": " ौ",
+          "probability": 0.9923502604166666
+        },
+        {
+          "start": 25.62,
+          "end": 25.62,
+          "word": " ौ",
+          "probability": 0.9930013020833334
+        },
+        {
+          "start": 25.62,
+          "end": 25.62,
+          "word": " ौ",
+          "probability": 0.99169921875
+        },
+        {
+          "start": 25.62,
+          "end": 25.62,
+          "word": " ौ",
+          "probability": 0.9930013020833334
+        },
+        {
+          "start": 25.62,
+          "end": 25.62,
+          "word": " ौ",
+          "probability": 0.9925130208333334
+        },
+        {
+          "start": 25.62,
+          "end": 26.68,
+          "word": " ौ",
+          "probability": 0.9931640625
+        },
+        {
+          "start": 26.68,
+          "end": 26.68,
+          "word": " ौ",
+          "probability": 0.9925130208333334
+        },
+        {
+          "start": 26.68,
+          "end": 26.68,
+          "word": " ौ",
+          "probability": 0.99169921875
+        },
+        {
+          "start": 26.68,
+          "end": 26.68,
+          "word": " ौ",
+          "probability": 0.9931640625
+        },
+        {
+          "start": 26.68,
+          "end": 26.68,
+          "word": " ौ",
+          "probability": 0.9921875
+        },
+        {
+          "start": 26.68,
+          "end": 26.68,
+          "word": " ौ",
+          "probability": 0.9928385416666666
+        },
+        {
+          "start": 26.68,
+          "end": 26.94,
+          "word": " ौ",
+          "probability": 0.9930013020833334
+        },
+        {
+          "start": 26.94,
+          "end": 26.94,
+          "word": " ौ",
+          "probability": 0.9923502604166666
+        },
+        {
+          "start": 26.94,
+          "end": 27.52,
+          "word": " ौ",
+          "probability": 0.9923502604166666
+        },
+        {
+          "start": 27.52,
+          "end": 27.52,
+          "word": " ौ",
+          "probability": 0.9920247395833334
+        },
+        {
+          "start": 27.52,
+          "end": 27.52,
+          "word": " ौ",
+          "probability": 0.9930013020833334
+        },
+        {
+          "start": 27.52,
+          "end": 27.52,
+          "word": " ौ",
+          "probability": 0.9928385416666666
+        },
+        {
+          "start": 27.52,
+          "end": 27.52,
+          "word": " ौ",
+          "probability": 0.9913736979166666
+        },
+        {
+          "start": 27.52,
+          "end": 27.52,
+          "word": " ौ",
+          "probability": 0.990234375
+        },
+        {
+          "start": 27.52,
+          "end": 29.98,
+          "word": " ",
+          "probability": 0.98779296875
+        }
+      ]
+    },
+    {
+      "index": 1,
+      "start": 33.66,
+      "end": 61.37,
+      "text": "ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ",
+      "words": [
+        {
+          "start": 33.66,
+          "end": 35.06,
+          "word": " ौ",
+          "probability": 0.16359456380208334
+        },
+        {
+          "start": 35.06,
+          "end": 35.54,
+          "word": " ौ",
+          "probability": 0.3255685170491536
+        },
+        {
+          "start": 35.54,
+          "end": 36.12,
+          "word": " ौ",
+          "probability": 0.85107421875
+        },
+        {
+          "start": 36.12,
+          "end": 44.74,
+          "word": " ौ",
+          "probability": 0.9298502604166666
+        },
+        {
+          "start": 45.44,
+          "end": 48.02,
+          "word": " ौ",
+          "probability": 0.9716796875
+        },
+        {
+          "start": 48.02,
+          "end": 53.22,
+          "word": " ौ",
+          "probability": 0.9775390625
+        },
+        {
+          "start": 53.93,
+          "end": 57.95,
+          "word": " ौ",
+          "probability": 0.9840494791666666
+        },
+        {
+          "start": 57.95,
+          "end": 60.63,
+          "word": " ौ",
+          "probability": 0.9895833333333334
+        },
+        {
+          "start": 60.63,
+          "end": 60.63,
+          "word": " ौ",
+          "probability": 0.99072265625
+        },
+        {
+          "start": 60.63,
+          "end": 60.63,
+          "word": " ौ",
+          "probability": 0.9912109375
+        },
+        {
+          "start": 60.63,
+          "end": 60.93,
+          "word": " ौ",
+          "probability": 0.9912109375
+        },
+        {
+          "start": 60.93,
+          "end": 60.93,
+          "word": " ौ",
+          "probability": 0.9915364583333334
+        },
+        {
+          "start": 60.93,
+          "end": 61.33,
+          "word": " ौ",
+          "probability": 0.9921875
+        },
+        {
+          "start": 61.33,
+          "end": 61.33,
+          "word": " ौ",
+          "probability": 0.99267578125
+        },
+        {
+          "start": 61.33,
+          "end": 61.33,
+          "word": " ौ",
+          "probability": 0.99365234375
+        },
+        {
+          "start": 61.33,
+          "end": 61.33,
+          "word": " ौ",
+          "probability": 0.9931640625
+        },
+        {
+          "start": 61.33,
+          "end": 61.33,
+          "word": " ौ",
+          "probability": 0.99267578125
+        },
+        {
+          "start": 61.33,
+          "end": 61.33,
+          "word": " ौ",
+          "probability": 0.99365234375
+        },
+        {
+          "start": 61.33,
+          "end": 61.33,
+          "word": " ौ",
+          "probability": 0.9947916666666666
+        },
+        {
+          "start": 61.33,
+          "end": 61.33,
+          "word": " ौ",
+          "probability": 0.99365234375
+        },
+        {
+          "start": 61.33,
+          "end": 61.33,
+          "word": " ौ",
+          "probability": 0.9939778645833334
+        },
+        {
+          "start": 61.33,
+          "end": 61.33,
+          "word": " ौ",
+          "probability": 0.9943033854166666
+        },
+        {
+          "start": 61.33,
+          "end": 61.33,
+          "word": " ौ",
+          "probability": 0.9944661458333334
+        },
+        {
+          "start": 61.33,
+          "end": 61.33,
+          "word": " ौ",
+          "probability": 0.9943033854166666
+        },
+        {
+          "start": 61.33,
+          "end": 61.33,
+          "word": " ौ",
+          "probability": 0.9944661458333334
+        },
+        {
+          "start": 61.33,
+          "end": 61.33,
+          "word": " ौ",
+          "probability": 0.9952799479166666
+        },
+        {
+          "start": 61.33,
+          "end": 61.33,
+          "word": " ौ",
+          "probability": 0.9947916666666666
+        },
+        {
+          "start": 61.33,
+          "end": 61.33,
+          "word": " ौ",
+          "probability": 0.9952799479166666
+        },
+        {
+          "start": 61.33,
+          "end": 61.33,
+          "word": " ौ",
+          "probability": 0.9949544270833334
+        },
+        {
+          "start": 61.33,
+          "end": 61.33,
+          "word": " ौ",
+          "probability": 0.9949544270833334
+        },
+        {
+          "start": 61.33,
+          "end": 61.33,
+          "word": " ौ",
+          "probability": 0.9952799479166666
+        },
+        {
+          "start": 61.33,
+          "end": 61.33,
+          "word": " ौ",
+          "probability": 0.994140625
+        },
+        {
+          "start": 61.33,
+          "end": 61.33,
+          "word": " ौ",
+          "probability": 0.9949544270833334
+        },
+        {
+          "start": 61.33,
+          "end": 61.33,
+          "word": " ौ",
+          "probability": 0.9949544270833334
+        },
+        {
+          "start": 61.33,
+          "end": 61.33,
+          "word": " ौ",
+          "probability": 0.99462890625
+        },
+        {
+          "start": 61.33,
+          "end": 61.33,
+          "word": " ौ",
+          "probability": 0.99462890625
+        },
+        {
+          "start": 61.33,
+          "end": 61.33,
+          "word": " ौ",
+          "probability": 0.99462890625
+        },
+        {
+          "start": 61.33,
+          "end": 61.33,
+          "word": " ौ",
+          "probability": 0.9938151041666666
+        },
+        {
+          "start": 61.33,
+          "end": 61.33,
+          "word": " ौ",
+          "probability": 0.9933268229166666
+        },
+        {
+          "start": 61.33,
+          "end": 61.33,
+          "word": " ौ",
+          "probability": 0.9939778645833334
+        },
+        {
+          "start": 61.33,
+          "end": 61.33,
+          "word": " ौ",
+          "probability": 0.994140625
+        },
+        {
+          "start": 61.33,
+          "end": 61.33,
+          "word": " ौ",
+          "probability": 0.994140625
+        },
+        {
+          "start": 61.33,
+          "end": 61.33,
+          "word": " ौ",
+          "probability": 0.99365234375
+        },
+        {
+          "start": 61.33,
+          "end": 61.33,
+          "word": " ौ",
+          "probability": 0.9938151041666666
+        },
+        {
+          "start": 61.33,
+          "end": 61.33,
+          "word": " ौ",
+          "probability": 0.9933268229166666
+        },
+        {
+          "start": 61.33,
+          "end": 61.33,
+          "word": " ौ",
+          "probability": 0.9939778645833334
+        },
+        {
+          "start": 61.33,
+          "end": 61.33,
+          "word": " ौ",
+          "probability": 0.9939778645833334
+        },
+        {
+          "start": 61.33,
+          "end": 61.33,
+          "word": " ौ",
+          "probability": 0.99365234375
+        },
+        {
+          "start": 61.33,
+          "end": 61.33,
+          "word": " ौ",
+          "probability": 0.9938151041666666
+        },
+        {
+          "start": 61.33,
+          "end": 61.33,
+          "word": " ौ",
+          "probability": 0.99365234375
+        },
+        {
+          "start": 61.33,
+          "end": 61.33,
+          "word": " ौ",
+          "probability": 0.9938151041666666
+        },
+        {
+          "start": 61.33,
+          "end": 61.37,
+          "word": " ौ",
+          "probability": 0.9938151041666666
+        },
+        {
+          "start": 61.37,
+          "end": 61.37,
+          "word": " ौ",
+          "probability": 0.9939778645833334
+        },
+        {
+          "start": 61.37,
+          "end": 61.37,
+          "word": " ौ",
+          "probability": 0.9938151041666666
+        },
+        {
+          "start": 61.37,
+          "end": 61.37,
+          "word": " ौ",
+          "probability": 0.9933268229166666
+        },
+        {
+          "start": 61.37,
+          "end": 61.37,
+          "word": " ौ",
+          "probability": 0.9931640625
+        },
+        {
+          "start": 61.37,
+          "end": 61.37,
+          "word": " ौ",
+          "probability": 0.9934895833333334
+        },
+        {
+          "start": 61.37,
+          "end": 61.37,
+          "word": " ौ",
+          "probability": 0.9934895833333334
+        },
+        {
+          "start": 61.37,
+          "end": 61.37,
+          "word": " ौ",
+          "probability": 0.9934895833333334
+        },
+        {
+          "start": 61.37,
+          "end": 61.37,
+          "word": " ौ",
+          "probability": 0.9938151041666666
+        },
+        {
+          "start": 61.37,
+          "end": 61.37,
+          "word": " ौ",
+          "probability": 0.99365234375
+        },
+        {
+          "start": 61.37,
+          "end": 61.37,
+          "word": " ौ",
+          "probability": 0.99365234375
+        },
+        {
+          "start": 61.37,
+          "end": 61.37,
+          "word": " ौ",
+          "probability": 0.9934895833333334
+        },
+        {
+          "start": 61.37,
+          "end": 61.37,
+          "word": " ौ",
+          "probability": 0.99365234375
+        },
+        {
+          "start": 61.37,
+          "end": 61.37,
+          "word": " ौ",
+          "probability": 0.994140625
+        },
+        {
+          "start": 61.37,
+          "end": 61.37,
+          "word": " ौ",
+          "probability": 0.9925130208333334
+        },
+        {
+          "start": 61.37,
+          "end": 61.37,
+          "word": " ौ",
+          "probability": 0.9928385416666666
+        },
+        {
+          "start": 61.37,
+          "end": 61.37,
+          "word": " ौ",
+          "probability": 0.9934895833333334
+        },
+        {
+          "start": 61.37,
+          "end": 61.37,
+          "word": " ौ",
+          "probability": 0.9923502604166666
+        },
+        {
+          "start": 61.37,
+          "end": 61.37,
+          "word": " ौ",
+          "probability": 0.9930013020833334
+        }
+      ]
+    },
+    {
+      "index": 2,
+      "start": 61.37,
+      "end": 91.35,
+      "text": "ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ �",
+      "words": [
+        {
+          "start": 61.37,
+          "end": 61.79,
+          "word": " ौ",
+          "probability": 0.27423095703125
+        },
+        {
+          "start": 61.79,
+          "end": 62.01,
+          "word": " ौ",
+          "probability": 0.3021494547526042
+        },
+        {
+          "start": 62.01,
+          "end": 62.69,
+          "word": " ौ",
+          "probability": 0.7594401041666666
+        },
+        {
+          "start": 62.69,
+          "end": 63.29,
+          "word": " ौ",
+          "probability": 0.9099934895833334
+        },
+        {
+          "start": 63.29,
+          "end": 63.57,
+          "word": " ौ",
+          "probability": 0.9690755208333334
+        },
+        {
+          "start": 63.57,
+          "end": 63.61,
+          "word": " ौ",
+          "probability": 0.9757486979166666
+        },
+        {
+          "start": 63.61,
+          "end": 63.61,
+          "word": " ौ",
+          "probability": 0.9890950520833334
+        },
+        {
+          "start": 63.61,
+          "end": 63.67,
+          "word": " ौ",
+          "probability": 0.98828125
+        },
+        {
+          "start": 63.67,
+          "end": 64.35,
+          "word": " ौ",
+          "probability": 0.9923502604166666
+        },
+        {
+          "start": 64.35,
+          "end": 64.91,
+          "word": " ौ",
+          "probability": 0.9923502604166666
+        },
+        {
+          "start": 64.91,
+          "end": 64.91,
+          "word": " ौ",
+          "probability": 0.9931640625
+        },
+        {
+          "start": 64.91,
+          "end": 65.09,
+          "word": " ौ",
+          "probability": 0.9934895833333334
+        },
+        {
+          "start": 65.09,
+          "end": 65.09,
+          "word": " ौ",
+          "probability": 0.99462890625
+        },
+        {
+          "start": 65.09,
+          "end": 65.09,
+          "word": " ौ",
+          "probability": 0.99365234375
+        },
+        {
+          "start": 65.09,
+          "end": 65.09,
+          "word": " ौ",
+          "probability": 0.9944661458333334
+        },
+        {
+          "start": 65.09,
+          "end": 65.09,
+          "word": " ौ",
+          "probability": 0.99462890625
+        },
+        {
+          "start": 65.09,
+          "end": 65.09,
+          "word": " ौ",
+          "probability": 0.994140625
+        },
+        {
+          "start": 65.09,
+          "end": 65.39,
+          "word": " ौ",
+          "probability": 0.9949544270833334
+        },
+        {
+          "start": 65.39,
+          "end": 65.39,
+          "word": " ौ",
+          "probability": 0.9951171875
+        },
+        {
+          "start": 65.39,
+          "end": 65.39,
+          "word": " ौ",
+          "probability": 0.9949544270833334
+        },
+        {
+          "start": 65.39,
+          "end": 65.39,
+          "word": " ौ",
+          "probability": 0.9949544270833334
+        },
+        {
+          "start": 65.39,
+          "end": 65.39,
+          "word": " ौ",
+          "probability": 0.9952799479166666
+        },
+        {
+          "start": 65.39,
+          "end": 65.39,
+          "word": " ौ",
+          "probability": 0.9954427083333334
+        },
+        {
+          "start": 65.39,
+          "end": 65.39,
+          "word": " ौ",
+          "probability": 0.9951171875
+        },
+        {
+          "start": 65.39,
+          "end": 65.39,
+          "word": " ौ",
+          "probability": 0.9957682291666666
+        },
+        {
+          "start": 65.39,
+          "end": 67.91,
+          "word": " ौ",
+          "probability": 0.9949544270833334
+        },
+        {
+          "start": 67.91,
+          "end": 67.97,
+          "word": " ौ",
+          "probability": 0.9951171875
+        },
+        {
+          "start": 67.97,
+          "end": 68.17,
+          "word": " ौ",
+          "probability": 0.9954427083333334
+        },
+        {
+          "start": 68.17,
+          "end": 68.19,
+          "word": " ौ",
+          "probability": 0.9951171875
+        },
+        {
+          "start": 68.19,
+          "end": 68.19,
+          "word": " ौ",
+          "probability": 0.9944661458333334
+        },
+        {
+          "start": 68.19,
+          "end": 68.19,
+          "word": " ौ",
+          "probability": 0.9949544270833334
+        },
+        {
+          "start": 68.19,
+          "end": 68.19,
+          "word": " ौ",
+          "probability": 0.9947916666666666
+        },
+        {
+          "start": 68.19,
+          "end": 68.43,
+          "word": " ौ",
+          "probability": 0.9947916666666666
+        },
+        {
+          "start": 68.43,
+          "end": 68.43,
+          "word": " ौ",
+          "probability": 0.99462890625
+        },
+        {
+          "start": 68.43,
+          "end": 68.43,
+          "word": " ौ",
+          "probability": 0.9949544270833334
+        },
+        {
+          "start": 68.43,
+          "end": 68.87,
+          "word": " ौ",
+          "probability": 0.994140625
+        },
+        {
+          "start": 68.87,
+          "end": 68.87,
+          "word": " ौ",
+          "probability": 0.9949544270833334
+        },
+        {
+          "start": 68.87,
+          "end": 68.87,
+          "word": " ौ",
+          "probability": 0.9939778645833334
+        },
+        {
+          "start": 68.87,
+          "end": 68.87,
+          "word": " ौ",
+          "probability": 0.9943033854166666
+        },
+        {
+          "start": 68.87,
+          "end": 69.01,
+          "word": " ौ",
+          "probability": 0.9938151041666666
+        },
+        {
+          "start": 69.01,
+          "end": 69.01,
+          "word": " ौ",
+          "probability": 0.9938151041666666
+        },
+        {
+          "start": 69.01,
+          "end": 69.01,
+          "word": " ौ",
+          "probability": 0.99365234375
+        },
+        {
+          "start": 69.01,
+          "end": 69.01,
+          "word": " ौ",
+          "probability": 0.9933268229166666
+        },
+        {
+          "start": 69.01,
+          "end": 69.01,
+          "word": " ौ",
+          "probability": 0.9933268229166666
+        },
+        {
+          "start": 69.01,
+          "end": 69.01,
+          "word": " ौ",
+          "probability": 0.9931640625
+        },
+        {
+          "start": 69.01,
+          "end": 69.01,
+          "word": " ौ",
+          "probability": 0.9933268229166666
+        },
+        {
+          "start": 69.01,
+          "end": 69.01,
+          "word": " ौ",
+          "probability": 0.9934895833333334
+        },
+        {
+          "start": 69.01,
+          "end": 69.01,
+          "word": " ौ",
+          "probability": 0.9931640625
+        },
+        {
+          "start": 69.01,
+          "end": 69.01,
+          "word": " ौ",
+          "probability": 0.9923502604166666
+        },
+        {
+          "start": 69.01,
+          "end": 69.01,
+          "word": " ौ",
+          "probability": 0.9915364583333334
+        },
+        {
+          "start": 69.01,
+          "end": 69.01,
+          "word": " ौ",
+          "probability": 0.9921875
+        },
+        {
+          "start": 69.01,
+          "end": 69.87,
+          "word": " ौ",
+          "probability": 0.9921875
+        },
+        {
+          "start": 69.87,
+          "end": 69.87,
+          "word": " ौ",
+          "probability": 0.9920247395833334
+        },
+        {
+          "start": 69.87,
+          "end": 70.29,
+          "word": " ौ",
+          "probability": 0.9915364583333334
+        },
+        {
+          "start": 70.29,
+          "end": 70.97,
+          "word": " ौ",
+          "probability": 0.9930013020833334
+        },
+        {
+          "start": 70.97,
+          "end": 71.51,
+          "word": " ौ",
+          "probability": 0.9923502604166666
+        },
+        {
+          "start": 71.51,
+          "end": 71.93,
+          "word": " ौ",
+          "probability": 0.9921875
+        },
+        {
+          "start": 71.93,
+          "end": 71.95,
+          "word": " ौ",
+          "probability": 0.9930013020833334
+        },
+        {
+          "start": 71.95,
+          "end": 72.07,
+          "word": " ौ",
+          "probability": 0.9918619791666666
+        },
+        {
+          "start": 72.07,
+          "end": 72.07,
+          "word": " ौ",
+          "probability": 0.9923502604166666
+        },
+        {
+          "start": 72.07,
+          "end": 72.07,
+          "word": " ौ",
+          "probability": 0.9930013020833334
+        },
+        {
+          "start": 72.07,
+          "end": 72.07,
+          "word": " ौ",
+          "probability": 0.9933268229166666
+        },
+        {
+          "start": 72.07,
+          "end": 72.07,
+          "word": " ौ",
+          "probability": 0.99365234375
+        },
+        {
+          "start": 72.07,
+          "end": 72.15,
+          "word": " ौ",
+          "probability": 0.9921875
+        },
+        {
+          "start": 72.15,
+          "end": 72.15,
+          "word": " ौ",
+          "probability": 0.9931640625
+        },
+        {
+          "start": 72.15,
+          "end": 72.15,
+          "word": " ौ",
+          "probability": 0.9931640625
+        },
+        {
+          "start": 72.15,
+          "end": 72.15,
+          "word": " ौ",
+          "probability": 0.9930013020833334
+        },
+        {
+          "start": 72.15,
+          "end": 72.27,
+          "word": " ौ",
+          "probability": 0.9930013020833334
+        },
+        {
+          "start": 72.27,
+          "end": 77.93,
+          "word": " ौ",
+          "probability": 0.99267578125
+        },
+        {
+          "start": 77.93,
+          "end": 80.45,
+          "word": " ौ",
+          "probability": 0.9934895833333334
+        },
+        {
+          "start": 80.45,
+          "end": 80.45,
+          "word": " ौ",
+          "probability": 0.9931640625
+        },
+        {
+          "start": 80.45,
+          "end": 80.45,
+          "word": " ौ",
+          "probability": 0.9933268229166666
+        },
+        {
+          "start": 80.45,
+          "end": 81.09,
+          "word": " ौ",
+          "probability": 0.9912109375
+        },
+        {
+          "start": 81.09,
+          "end": 91.35,
+          "word": " �",
+          "probability": 0.988525390625
+        }
+      ]
+    },
+    {
+      "index": 3,
+      "start": 92.8,
+      "end": 121.68,
+      "text": "ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ �",
+      "words": [
+        {
+          "start": 92.8,
+          "end": 93.48,
+          "word": " ौ",
+          "probability": 0.193603515625
+        },
+        {
+          "start": 93.48,
+          "end": 94.06,
+          "word": " ौ",
+          "probability": 0.36095937093098956
+        },
+        {
+          "start": 94.06,
+          "end": 94.28,
+          "word": " ौ",
+          "probability": 0.85400390625
+        },
+        {
+          "start": 94.28,
+          "end": 94.88,
+          "word": " ौ",
+          "probability": 0.9334309895833334
+        },
+        {
+          "start": 94.88,
+          "end": 95.1,
+          "word": " ौ",
+          "probability": 0.96875
+        },
+        {
+          "start": 95.1,
+          "end": 95.1,
+          "word": " ौ",
+          "probability": 0.9705403645833334
+        },
+        {
+          "start": 95.1,
+          "end": 95.1,
+          "word": " ौ",
+          "probability": 0.9873046875
+        },
+        {
+          "start": 95.1,
+          "end": 95.1,
+          "word": " ौ",
+          "probability": 0.98974609375
+        },
+        {
+          "start": 95.1,
+          "end": 95.1,
+          "word": " ौ",
+          "probability": 0.9933268229166666
+        },
+        {
+          "start": 95.1,
+          "end": 95.1,
+          "word": " ौ",
+          "probability": 0.9938151041666666
+        },
+        {
+          "start": 95.1,
+          "end": 95.1,
+          "word": " ौ",
+          "probability": 0.9933268229166666
+        },
+        {
+          "start": 95.1,
+          "end": 95.1,
+          "word": " ौ",
+          "probability": 0.99365234375
+        },
+        {
+          "start": 95.1,
+          "end": 95.1,
+          "word": " ौ",
+          "probability": 0.9939778645833334
+        },
+        {
+          "start": 95.1,
+          "end": 95.1,
+          "word": " ौ",
+          "probability": 0.9943033854166666
+        },
+        {
+          "start": 95.1,
+          "end": 95.26,
+          "word": " ौ",
+          "probability": 0.9947916666666666
+        },
+        {
+          "start": 95.26,
+          "end": 95.26,
+          "word": " ौ",
+          "probability": 0.9939778645833334
+        },
+        {
+          "start": 95.26,
+          "end": 95.26,
+          "word": " ौ",
+          "probability": 0.9947916666666666
+        },
+        {
+          "start": 95.26,
+          "end": 95.26,
+          "word": " ौ",
+          "probability": 0.9947916666666666
+        },
+        {
+          "start": 95.26,
+          "end": 95.26,
+          "word": " ौ",
+          "probability": 0.9952799479166666
+        },
+        {
+          "start": 95.26,
+          "end": 95.32,
+          "word": " ौ",
+          "probability": 0.9952799479166666
+        },
+        {
+          "start": 95.32,
+          "end": 95.32,
+          "word": " ौ",
+          "probability": 0.9949544270833334
+        },
+        {
+          "start": 95.32,
+          "end": 95.32,
+          "word": " ौ",
+          "probability": 0.9951171875
+        },
+        {
+          "start": 95.32,
+          "end": 95.32,
+          "word": " ौ",
+          "probability": 0.9947916666666666
+        },
+        {
+          "start": 95.32,
+          "end": 95.44,
+          "word": " ौ",
+          "probability": 0.9949544270833334
+        },
+        {
+          "start": 95.44,
+          "end": 95.44,
+          "word": " ौ",
+          "probability": 0.9949544270833334
+        },
+        {
+          "start": 95.44,
+          "end": 95.76,
+          "word": " ौ",
+          "probability": 0.99462890625
+        },
+        {
+          "start": 95.76,
+          "end": 95.78,
+          "word": " ौ",
+          "probability": 0.99462890625
+        },
+        {
+          "start": 95.78,
+          "end": 95.78,
+          "word": " ौ",
+          "probability": 0.99462890625
+        },
+        {
+          "start": 95.78,
+          "end": 95.78,
+          "word": " ौ",
+          "probability": 0.9952799479166666
+        },
+        {
+          "start": 95.78,
+          "end": 95.78,
+          "word": " ौ",
+          "probability": 0.9947916666666666
+        },
+        {
+          "start": 95.78,
+          "end": 95.78,
+          "word": " ौ",
+          "probability": 0.9943033854166666
+        },
+        {
+          "start": 95.78,
+          "end": 95.78,
+          "word": " ौ",
+          "probability": 0.9939778645833334
+        },
+        {
+          "start": 95.78,
+          "end": 96.62,
+          "word": " ौ",
+          "probability": 0.994140625
+        },
+        {
+          "start": 96.62,
+          "end": 97.4,
+          "word": " ौ",
+          "probability": 0.9944661458333334
+        },
+        {
+          "start": 97.4,
+          "end": 97.4,
+          "word": " ौ",
+          "probability": 0.9943033854166666
+        },
+        {
+          "start": 97.4,
+          "end": 97.4,
+          "word": " ौ",
+          "probability": 0.9947916666666666
+        },
+        {
+          "start": 97.4,
+          "end": 98.1,
+          "word": " ौ",
+          "probability": 0.9944661458333334
+        },
+        {
+          "start": 98.1,
+          "end": 98.1,
+          "word": " ौ",
+          "probability": 0.9930013020833334
+        },
+        {
+          "start": 98.1,
+          "end": 98.1,
+          "word": " ौ",
+          "probability": 0.9938151041666666
+        },
+        {
+          "start": 98.1,
+          "end": 98.1,
+          "word": " ौ",
+          "probability": 0.9930013020833334
+        },
+        {
+          "start": 98.1,
+          "end": 98.1,
+          "word": " ौ",
+          "probability": 0.9933268229166666
+        },
+        {
+          "start": 98.1,
+          "end": 98.74,
+          "word": " ौ",
+          "probability": 0.9930013020833334
+        },
+        {
+          "start": 98.74,
+          "end": 98.9,
+          "word": " ौ",
+          "probability": 0.9925130208333334
+        },
+        {
+          "start": 98.9,
+          "end": 98.96,
+          "word": " ौ",
+          "probability": 0.99267578125
+        },
+        {
+          "start": 98.96,
+          "end": 98.96,
+          "word": " ौ",
+          "probability": 0.9925130208333334
+        },
+        {
+          "start": 98.96,
+          "end": 98.96,
+          "word": " ौ",
+          "probability": 0.9925130208333334
+        },
+        {
+          "start": 98.96,
+          "end": 98.96,
+          "word": " ौ",
+          "probability": 0.99267578125
+        },
+        {
+          "start": 98.96,
+          "end": 98.96,
+          "word": " ौ",
+          "probability": 0.99267578125
+        },
+        {
+          "start": 98.96,
+          "end": 98.96,
+          "word": " ौ",
+          "probability": 0.9931640625
+        },
+        {
+          "start": 98.96,
+          "end": 98.96,
+          "word": " ौ",
+          "probability": 0.9934895833333334
+        },
+        {
+          "start": 98.96,
+          "end": 98.96,
+          "word": " ौ",
+          "probability": 0.9931640625
+        },
+        {
+          "start": 98.96,
+          "end": 98.96,
+          "word": " ौ",
+          "probability": 0.99267578125
+        },
+        {
+          "start": 98.96,
+          "end": 99.02,
+          "word": " ौ",
+          "probability": 0.99267578125
+        },
+        {
+          "start": 99.02,
+          "end": 99.3,
+          "word": " ौ",
+          "probability": 0.9925130208333334
+        },
+        {
+          "start": 99.3,
+          "end": 99.3,
+          "word": " ौ",
+          "probability": 0.9928385416666666
+        },
+        {
+          "start": 99.3,
+          "end": 99.3,
+          "word": " ौ",
+          "probability": 0.9928385416666666
+        },
+        {
+          "start": 99.3,
+          "end": 99.3,
+          "word": " ौ",
+          "probability": 0.9931640625
+        },
+        {
+          "start": 99.3,
+          "end": 99.3,
+          "word": " ौ",
+          "probability": 0.99267578125
+        },
+        {
+          "start": 99.3,
+          "end": 100.8,
+          "word": " ौ",
+          "probability": 0.9925130208333334
+        },
+        {
+          "start": 100.8,
+          "end": 100.8,
+          "word": " ौ",
+          "probability": 0.9921875
+        },
+        {
+          "start": 100.8,
+          "end": 100.8,
+          "word": " ौ",
+          "probability": 0.9923502604166666
+        },
+        {
+          "start": 100.8,
+          "end": 100.8,
+          "word": " ौ",
+          "probability": 0.9931640625
+        },
+        {
+          "start": 100.8,
+          "end": 103.26,
+          "word": " ौ",
+          "probability": 0.9930013020833334
+        },
+        {
+          "start": 103.26,
+          "end": 103.26,
+          "word": " ौ",
+          "probability": 0.9928385416666666
+        },
+        {
+          "start": 103.26,
+          "end": 103.48,
+          "word": " ौ",
+          "probability": 0.9933268229166666
+        },
+        {
+          "start": 103.48,
+          "end": 103.48,
+          "word": " ौ",
+          "probability": 0.99267578125
+        },
+        {
+          "start": 103.48,
+          "end": 103.48,
+          "word": " ौ",
+          "probability": 0.9943033854166666
+        },
+        {
+          "start": 103.48,
+          "end": 103.48,
+          "word": " ौ",
+          "probability": 0.9930013020833334
+        },
+        {
+          "start": 103.48,
+          "end": 103.82,
+          "word": " ौ",
+          "probability": 0.9933268229166666
+        },
+        {
+          "start": 103.82,
+          "end": 104.0,
+          "word": " ौ",
+          "probability": 0.9931640625
+        },
+        {
+          "start": 104.0,
+          "end": 104.54,
+          "word": " ौ",
+          "probability": 0.9939778645833334
+        },
+        {
+          "start": 104.54,
+          "end": 105.06,
+          "word": " ौ",
+          "probability": 0.9931640625
+        },
+        {
+          "start": 105.06,
+          "end": 106.12,
+          "word": " ौ",
+          "probability": 0.9928385416666666
+        },
+        {
+          "start": 106.12,
+          "end": 121.68,
+          "word": " �",
+          "probability": 0.987548828125
+        }
+      ]
+    },
+    {
+      "index": 4,
+      "start": 131.34,
+      "end": 152.17,
+      "text": "ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ �",
+      "words": [
+        {
+          "start": 131.34,
+          "end": 131.54,
+          "word": " ौ",
+          "probability": 0.198974609375
+        },
+        {
+          "start": 131.54,
+          "end": 131.74,
+          "word": " ौ",
+          "probability": 0.5021565755208334
+        },
+        {
+          "start": 131.74,
+          "end": 131.84,
+          "word": " ौ",
+          "probability": 0.9085286458333334
+        },
+        {
+          "start": 131.84,
+          "end": 132.22,
+          "word": " ौ",
+          "probability": 0.951171875
+        },
+        {
+          "start": 132.22,
+          "end": 132.62,
+          "word": " ौ",
+          "probability": 0.9695638020833334
+        },
+        {
+          "start": 132.62,
+          "end": 132.72,
+          "word": " ौ",
+          "probability": 0.9778645833333334
+        },
+        {
+          "start": 132.72,
+          "end": 132.72,
+          "word": " ौ",
+          "probability": 0.9842122395833334
+        },
+        {
+          "start": 132.72,
+          "end": 132.72,
+          "word": " ौ",
+          "probability": 0.9866536458333334
+        },
+        {
+          "start": 132.72,
+          "end": 133.24,
+          "word": " ौ",
+          "probability": 0.9881184895833334
+        },
+        {
+          "start": 133.24,
+          "end": 133.34,
+          "word": " ौ",
+          "probability": 0.98974609375
+        },
+        {
+          "start": 133.34,
+          "end": 133.34,
+          "word": " ौ",
+          "probability": 0.99072265625
+        },
+        {
+          "start": 133.34,
+          "end": 133.36,
+          "word": " ौ",
+          "probability": 0.9912109375
+        },
+        {
+          "start": 133.36,
+          "end": 133.36,
+          "word": " ौ",
+          "probability": 0.9934895833333334
+        },
+        {
+          "start": 133.36,
+          "end": 133.38,
+          "word": " ौ",
+          "probability": 0.9939778645833334
+        },
+        {
+          "start": 133.38,
+          "end": 133.44,
+          "word": " ौ",
+          "probability": 0.9939778645833334
+        },
+        {
+          "start": 133.44,
+          "end": 133.5,
+          "word": " ौ",
+          "probability": 0.9943033854166666
+        },
+        {
+          "start": 133.5,
+          "end": 133.52,
+          "word": " ौ",
+          "probability": 0.994140625
+        },
+        {
+          "start": 133.52,
+          "end": 133.52,
+          "word": " ौ",
+          "probability": 0.9943033854166666
+        },
+        {
+          "start": 133.52,
+          "end": 133.52,
+          "word": " ौ",
+          "probability": 0.9951171875
+        },
+        {
+          "start": 133.52,
+          "end": 133.52,
+          "word": " ौ",
+          "probability": 0.9951171875
+        },
+        {
+          "start": 133.52,
+          "end": 133.52,
+          "word": " ौ",
+          "probability": 0.9944661458333334
+        },
+        {
+          "start": 133.52,
+          "end": 133.52,
+          "word": " ौ",
+          "probability": 0.9951171875
+        },
+        {
+          "start": 133.52,
+          "end": 133.52,
+          "word": " ौ",
+          "probability": 0.9952799479166666
+        },
+        {
+          "start": 133.52,
+          "end": 133.52,
+          "word": " ौ",
+          "probability": 0.9947916666666666
+        },
+        {
+          "start": 133.52,
+          "end": 133.52,
+          "word": " ौ",
+          "probability": 0.9949544270833334
+        },
+        {
+          "start": 133.52,
+          "end": 133.52,
+          "word": " ौ",
+          "probability": 0.9947916666666666
+        },
+        {
+          "start": 133.52,
+          "end": 133.54,
+          "word": " ौ",
+          "probability": 0.9947916666666666
+        },
+        {
+          "start": 133.54,
+          "end": 133.54,
+          "word": " ौ",
+          "probability": 0.9949544270833334
+        },
+        {
+          "start": 133.54,
+          "end": 133.54,
+          "word": " ौ",
+          "probability": 0.9949544270833334
+        },
+        {
+          "start": 133.54,
+          "end": 133.54,
+          "word": " ौ",
+          "probability": 0.9947916666666666
+        },
+        {
+          "start": 133.54,
+          "end": 133.54,
+          "word": " ौ",
+          "probability": 0.9949544270833334
+        },
+        {
+          "start": 133.54,
+          "end": 133.54,
+          "word": " ौ",
+          "probability": 0.9944661458333334
+        },
+        {
+          "start": 133.54,
+          "end": 133.54,
+          "word": " ौ",
+          "probability": 0.994140625
+        },
+        {
+          "start": 133.54,
+          "end": 133.54,
+          "word": " ौ",
+          "probability": 0.99462890625
+        },
+        {
+          "start": 133.54,
+          "end": 133.54,
+          "word": " ौ",
+          "probability": 0.9943033854166666
+        },
+        {
+          "start": 133.54,
+          "end": 133.54,
+          "word": " ौ",
+          "probability": 0.9944661458333334
+        },
+        {
+          "start": 133.54,
+          "end": 133.54,
+          "word": " ौ",
+          "probability": 0.9944661458333334
+        },
+        {
+          "start": 133.54,
+          "end": 133.54,
+          "word": " ौ",
+          "probability": 0.99365234375
+        },
+        {
+          "start": 133.54,
+          "end": 133.54,
+          "word": " ौ",
+          "probability": 0.9943033854166666
+        },
+        {
+          "start": 133.54,
+          "end": 133.54,
+          "word": " ौ",
+          "probability": 0.99365234375
+        },
+        {
+          "start": 133.54,
+          "end": 133.54,
+          "word": " ौ",
+          "probability": 0.9939778645833334
+        },
+        {
+          "start": 133.54,
+          "end": 133.54,
+          "word": " ौ",
+          "probability": 0.99462890625
+        },
+        {
+          "start": 133.54,
+          "end": 133.54,
+          "word": " ौ",
+          "probability": 0.99462890625
+        },
+        {
+          "start": 133.54,
+          "end": 133.54,
+          "word": " ौ",
+          "probability": 0.9938151041666666
+        },
+        {
+          "start": 133.54,
+          "end": 133.54,
+          "word": " ौ",
+          "probability": 0.9943033854166666
+        },
+        {
+          "start": 133.54,
+          "end": 133.54,
+          "word": " ौ",
+          "probability": 0.9939778645833334
+        },
+        {
+          "start": 133.54,
+          "end": 133.54,
+          "word": " ौ",
+          "probability": 0.99462890625
+        },
+        {
+          "start": 133.54,
+          "end": 133.54,
+          "word": " ौ",
+          "probability": 0.994140625
+        },
+        {
+          "start": 133.54,
+          "end": 133.54,
+          "word": " ौ",
+          "probability": 0.994140625
+        },
+        {
+          "start": 133.54,
+          "end": 133.54,
+          "word": " ौ",
+          "probability": 0.994140625
+        },
+        {
+          "start": 133.54,
+          "end": 133.54,
+          "word": " ौ",
+          "probability": 0.9943033854166666
+        },
+        {
+          "start": 133.54,
+          "end": 133.54,
+          "word": " ौ",
+          "probability": 0.99365234375
+        },
+        {
+          "start": 133.54,
+          "end": 133.54,
+          "word": " ौ",
+          "probability": 0.994140625
+        },
+        {
+          "start": 133.54,
+          "end": 133.54,
+          "word": " ौ",
+          "probability": 0.99365234375
+        },
+        {
+          "start": 133.54,
+          "end": 133.54,
+          "word": " ौ",
+          "probability": 0.9934895833333334
+        },
+        {
+          "start": 133.54,
+          "end": 133.54,
+          "word": " ौ",
+          "probability": 0.994140625
+        },
+        {
+          "start": 133.54,
+          "end": 133.54,
+          "word": " ौ",
+          "probability": 0.9939778645833334
+        },
+        {
+          "start": 133.54,
+          "end": 133.54,
+          "word": " ौ",
+          "probability": 0.9938151041666666
+        },
+        {
+          "start": 133.54,
+          "end": 133.54,
+          "word": " ौ",
+          "probability": 0.9939778645833334
+        },
+        {
+          "start": 133.54,
+          "end": 133.56,
+          "word": " ौ",
+          "probability": 0.9934895833333334
+        },
+        {
+          "start": 133.56,
+          "end": 133.58,
+          "word": " ौ",
+          "probability": 0.9931640625
+        },
+        {
+          "start": 133.58,
+          "end": 133.62,
+          "word": " ौ",
+          "probability": 0.994140625
+        },
+        {
+          "start": 133.62,
+          "end": 134.26,
+          "word": " ौ",
+          "probability": 0.9934895833333334
+        },
+        {
+          "start": 134.26,
+          "end": 134.38,
+          "word": " ौ",
+          "probability": 0.9931640625
+        },
+        {
+          "start": 134.38,
+          "end": 134.76,
+          "word": " ौ",
+          "probability": 0.9938151041666666
+        },
+        {
+          "start": 134.76,
+          "end": 135.04,
+          "word": " ौ",
+          "probability": 0.99365234375
+        },
+        {
+          "start": 135.04,
+          "end": 135.04,
+          "word": " ौ",
+          "probability": 0.9939778645833334
+        },
+        {
+          "start": 135.04,
+          "end": 135.04,
+          "word": " ौ",
+          "probability": 0.9943033854166666
+        },
+        {
+          "start": 135.04,
+          "end": 135.04,
+          "word": " ौ",
+          "probability": 0.9943033854166666
+        },
+        {
+          "start": 135.04,
+          "end": 135.04,
+          "word": " ौ",
+          "probability": 0.9938151041666666
+        },
+        {
+          "start": 135.04,
+          "end": 149.82,
+          "word": " ौ",
+          "probability": 0.9934895833333334
+        },
+        {
+          "start": 150.33,
+          "end": 152.15,
+          "word": " ौ",
+          "probability": 0.99365234375
+        },
+        {
+          "start": 152.15,
+          "end": 152.15,
+          "word": " ौ",
+          "probability": 0.9938151041666666
+        },
+        {
+          "start": 152.15,
+          "end": 152.17,
+          "word": " �",
+          "probability": 0.98974609375
+        }
+      ]
+    },
+    {
+      "index": 5,
+      "start": 152.17,
+      "end": 182.15,
+      "text": "ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ �",
+      "words": [
+        {
+          "start": 152.17,
+          "end": 152.65,
+          "word": " ौ",
+          "probability": 0.22652180989583334
+        },
+        {
+          "start": 152.65,
+          "end": 152.93,
+          "word": " ौ",
+          "probability": 0.52783203125
+        },
+        {
+          "start": 152.93,
+          "end": 156.63,
+          "word": " ौ",
+          "probability": 0.8693033854166666
+        },
+        {
+          "start": 156.63,
+          "end": 157.49,
+          "word": " ौ",
+          "probability": 0.8976236979166666
+        },
+        {
+          "start": 157.49,
+          "end": 157.71,
+          "word": " ौ",
+          "probability": 0.9332682291666666
+        },
+        {
+          "start": 157.71,
+          "end": 158.11,
+          "word": " ौ",
+          "probability": 0.9378255208333334
+        },
+        {
+          "start": 158.11,
+          "end": 158.27,
+          "word": " ौ",
+          "probability": 0.9632161458333334
+        },
+        {
+          "start": 158.27,
+          "end": 158.41,
+          "word": " ौ",
+          "probability": 0.97119140625
+        },
+        {
+          "start": 158.41,
+          "end": 158.43,
+          "word": " ौ",
+          "probability": 0.9783528645833334
+        },
+        {
+          "start": 158.43,
+          "end": 158.89,
+          "word": " ौ",
+          "probability": 0.9847005208333334
+        },
+        {
+          "start": 158.89,
+          "end": 158.89,
+          "word": " ौ",
+          "probability": 0.9864908854166666
+        },
+        {
+          "start": 158.89,
+          "end": 158.91,
+          "word": " ौ",
+          "probability": 0.9881184895833334
+        },
+        {
+          "start": 158.91,
+          "end": 158.99,
+          "word": " ौ",
+          "probability": 0.9895833333333334
+        },
+        {
+          "start": 158.99,
+          "end": 158.99,
+          "word": " ौ",
+          "probability": 0.9915364583333334
+        },
+        {
+          "start": 158.99,
+          "end": 158.99,
+          "word": " ौ",
+          "probability": 0.99267578125
+        },
+        {
+          "start": 158.99,
+          "end": 158.99,
+          "word": " ौ",
+          "probability": 0.9928385416666666
+        },
+        {
+          "start": 158.99,
+          "end": 158.99,
+          "word": " ौ",
+          "probability": 0.9931640625
+        },
+        {
+          "start": 158.99,
+          "end": 158.99,
+          "word": " ौ",
+          "probability": 0.9939778645833334
+        },
+        {
+          "start": 158.99,
+          "end": 158.99,
+          "word": " ौ",
+          "probability": 0.9943033854166666
+        },
+        {
+          "start": 158.99,
+          "end": 158.99,
+          "word": " ौ",
+          "probability": 0.9931640625
+        },
+        {
+          "start": 158.99,
+          "end": 158.99,
+          "word": " ौ",
+          "probability": 0.99365234375
+        },
+        {
+          "start": 158.99,
+          "end": 159.03,
+          "word": " ौ",
+          "probability": 0.9943033854166666
+        },
+        {
+          "start": 159.03,
+          "end": 159.03,
+          "word": " ौ",
+          "probability": 0.9943033854166666
+        },
+        {
+          "start": 159.03,
+          "end": 159.03,
+          "word": " ौ",
+          "probability": 0.994140625
+        },
+        {
+          "start": 159.03,
+          "end": 159.03,
+          "word": " ौ",
+          "probability": 0.9944661458333334
+        },
+        {
+          "start": 159.03,
+          "end": 159.03,
+          "word": " ौ",
+          "probability": 0.9943033854166666
+        },
+        {
+          "start": 159.03,
+          "end": 159.03,
+          "word": " ौ",
+          "probability": 0.9939778645833334
+        },
+        {
+          "start": 159.03,
+          "end": 159.03,
+          "word": " ौ",
+          "probability": 0.9944661458333334
+        },
+        {
+          "start": 159.03,
+          "end": 159.03,
+          "word": " ौ",
+          "probability": 0.9944661458333334
+        },
+        {
+          "start": 159.03,
+          "end": 159.45,
+          "word": " ौ",
+          "probability": 0.994140625
+        },
+        {
+          "start": 159.45,
+          "end": 159.45,
+          "word": " ौ",
+          "probability": 0.9944661458333334
+        },
+        {
+          "start": 159.45,
+          "end": 159.45,
+          "word": " ौ",
+          "probability": 0.994140625
+        },
+        {
+          "start": 159.45,
+          "end": 159.45,
+          "word": " ौ",
+          "probability": 0.9938151041666666
+        },
+        {
+          "start": 159.45,
+          "end": 159.45,
+          "word": " ौ",
+          "probability": 0.9939778645833334
+        },
+        {
+          "start": 159.45,
+          "end": 159.45,
+          "word": " ौ",
+          "probability": 0.99365234375
+        },
+        {
+          "start": 159.45,
+          "end": 159.45,
+          "word": " ौ",
+          "probability": 0.99365234375
+        },
+        {
+          "start": 159.45,
+          "end": 159.45,
+          "word": " ौ",
+          "probability": 0.9931640625
+        },
+        {
+          "start": 159.45,
+          "end": 159.45,
+          "word": " ौ",
+          "probability": 0.9934895833333334
+        },
+        {
+          "start": 159.45,
+          "end": 159.45,
+          "word": " ौ",
+          "probability": 0.9930013020833334
+        },
+        {
+          "start": 159.45,
+          "end": 159.45,
+          "word": " ौ",
+          "probability": 0.99267578125
+        },
+        {
+          "start": 159.45,
+          "end": 159.45,
+          "word": " ौ",
+          "probability": 0.9931640625
+        },
+        {
+          "start": 159.45,
+          "end": 159.45,
+          "word": " ौ",
+          "probability": 0.9930013020833334
+        },
+        {
+          "start": 159.45,
+          "end": 159.45,
+          "word": " ौ",
+          "probability": 0.9933268229166666
+        },
+        {
+          "start": 159.45,
+          "end": 159.45,
+          "word": " ौ",
+          "probability": 0.9933268229166666
+        },
+        {
+          "start": 159.45,
+          "end": 159.45,
+          "word": " ौ",
+          "probability": 0.9925130208333334
+        },
+        {
+          "start": 159.45,
+          "end": 159.45,
+          "word": " ौ",
+          "probability": 0.9925130208333334
+        },
+        {
+          "start": 159.45,
+          "end": 159.45,
+          "word": " ौ",
+          "probability": 0.9931640625
+        },
+        {
+          "start": 159.45,
+          "end": 159.45,
+          "word": " ौ",
+          "probability": 0.9921875
+        },
+        {
+          "start": 159.45,
+          "end": 159.47,
+          "word": " ौ",
+          "probability": 0.9923502604166666
+        },
+        {
+          "start": 159.47,
+          "end": 159.49,
+          "word": " ौ",
+          "probability": 0.9921875
+        },
+        {
+          "start": 159.49,
+          "end": 167.21,
+          "word": " ौ",
+          "probability": 0.99267578125
+        },
+        {
+          "start": 167.21,
+          "end": 167.21,
+          "word": " ौ",
+          "probability": 0.9923502604166666
+        },
+        {
+          "start": 167.21,
+          "end": 167.21,
+          "word": " ौ",
+          "probability": 0.99267578125
+        },
+        {
+          "start": 167.21,
+          "end": 167.21,
+          "word": " ौ",
+          "probability": 0.99169921875
+        },
+        {
+          "start": 167.21,
+          "end": 167.21,
+          "word": " ौ",
+          "probability": 0.9921875
+        },
+        {
+          "start": 167.21,
+          "end": 167.21,
+          "word": " ौ",
+          "probability": 0.99267578125
+        },
+        {
+          "start": 167.21,
+          "end": 167.21,
+          "word": " ौ",
+          "probability": 0.9915364583333334
+        },
+        {
+          "start": 167.21,
+          "end": 167.29,
+          "word": " ौ",
+          "probability": 0.9921875
+        },
+        {
+          "start": 167.29,
+          "end": 167.49,
+          "word": " ौ",
+          "probability": 0.9923502604166666
+        },
+        {
+          "start": 167.49,
+          "end": 167.49,
+          "word": " ौ",
+          "probability": 0.9915364583333334
+        },
+        {
+          "start": 167.49,
+          "end": 167.49,
+          "word": " ौ",
+          "probability": 0.9918619791666666
+        },
+        {
+          "start": 167.49,
+          "end": 167.49,
+          "word": " ौ",
+          "probability": 0.9918619791666666
+        },
+        {
+          "start": 167.49,
+          "end": 167.49,
+          "word": " ौ",
+          "probability": 0.9930013020833334
+        },
+        {
+          "start": 167.49,
+          "end": 167.49,
+          "word": " ौ",
+          "probability": 0.9920247395833334
+        },
+        {
+          "start": 167.49,
+          "end": 167.49,
+          "word": " ौ",
+          "probability": 0.9920247395833334
+        },
+        {
+          "start": 167.49,
+          "end": 167.49,
+          "word": " ौ",
+          "probability": 0.9921875
+        },
+        {
+          "start": 167.49,
+          "end": 169.41,
+          "word": " ौ",
+          "probability": 0.99267578125
+        },
+        {
+          "start": 169.41,
+          "end": 169.41,
+          "word": " ौ",
+          "probability": 0.9923502604166666
+        },
+        {
+          "start": 169.41,
+          "end": 169.41,
+          "word": " ौ",
+          "probability": 0.9928385416666666
+        },
+        {
+          "start": 169.41,
+          "end": 169.41,
+          "word": " ौ",
+          "probability": 0.9920247395833334
+        },
+        {
+          "start": 169.41,
+          "end": 169.43,
+          "word": " ौ",
+          "probability": 0.9925130208333334
+        },
+        {
+          "start": 169.43,
+          "end": 172.05,
+          "word": " ौ",
+          "probability": 0.99169921875
+        },
+        {
+          "start": 172.05,
+          "end": 172.33,
+          "word": " ौ",
+          "probability": 0.99169921875
+        },
+        {
+          "start": 172.33,
+          "end": 182.15,
+          "word": " �",
+          "probability": 0.98583984375
+        }
+      ]
+    },
+    {
+      "index": 6,
+      "start": 186.13,
+      "end": 212.13,
+      "text": "ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ �",
+      "words": [
+        {
+          "start": 186.13,
+          "end": 187.01,
+          "word": " ौ",
+          "probability": 0.2257080078125
+        },
+        {
+          "start": 187.01,
+          "end": 187.11,
+          "word": " ौ",
+          "probability": 0.480224609375
+        },
+        {
+          "start": 187.11,
+          "end": 190.11,
+          "word": " ौ",
+          "probability": 0.9025065104166666
+        },
+        {
+          "start": 190.11,
+          "end": 190.91,
+          "word": " ौ",
+          "probability": 0.9482421875
+        },
+        {
+          "start": 190.91,
+          "end": 191.41,
+          "word": " ौ",
+          "probability": 0.9737955729166666
+        },
+        {
+          "start": 191.41,
+          "end": 191.85,
+          "word": " ौ",
+          "probability": 0.9749348958333334
+        },
+        {
+          "start": 191.85,
+          "end": 192.01,
+          "word": " ौ",
+          "probability": 0.9837239583333334
+        },
+        {
+          "start": 192.01,
+          "end": 192.01,
+          "word": " ौ",
+          "probability": 0.9864908854166666
+        },
+        {
+          "start": 192.01,
+          "end": 202.99,
+          "word": " ौ",
+          "probability": 0.9912109375
+        },
+        {
+          "start": 202.99,
+          "end": 206.65,
+          "word": " ौ",
+          "probability": 0.990234375
+        },
+        {
+          "start": 206.65,
+          "end": 207.01,
+          "word": " ौ",
+          "probability": 0.9913736979166666
+        },
+        {
+          "start": 207.01,
+          "end": 207.01,
+          "word": " ौ",
+          "probability": 0.9925130208333334
+        },
+        {
+          "start": 207.01,
+          "end": 207.01,
+          "word": " ौ",
+          "probability": 0.9930013020833334
+        },
+        {
+          "start": 207.01,
+          "end": 207.01,
+          "word": " ौ",
+          "probability": 0.9933268229166666
+        },
+        {
+          "start": 207.01,
+          "end": 207.01,
+          "word": " ौ",
+          "probability": 0.9931640625
+        },
+        {
+          "start": 207.01,
+          "end": 207.01,
+          "word": " ौ",
+          "probability": 0.9933268229166666
+        },
+        {
+          "start": 207.01,
+          "end": 207.01,
+          "word": " ौ",
+          "probability": 0.99365234375
+        },
+        {
+          "start": 207.01,
+          "end": 207.35,
+          "word": " ौ",
+          "probability": 0.9939778645833334
+        },
+        {
+          "start": 207.35,
+          "end": 207.35,
+          "word": " ौ",
+          "probability": 0.9943033854166666
+        },
+        {
+          "start": 207.35,
+          "end": 207.35,
+          "word": " ौ",
+          "probability": 0.994140625
+        },
+        {
+          "start": 207.35,
+          "end": 207.35,
+          "word": " ौ",
+          "probability": 0.9944661458333334
+        },
+        {
+          "start": 207.35,
+          "end": 207.35,
+          "word": " ौ",
+          "probability": 0.994140625
+        },
+        {
+          "start": 207.35,
+          "end": 207.35,
+          "word": " ौ",
+          "probability": 0.99365234375
+        },
+        {
+          "start": 207.35,
+          "end": 207.35,
+          "word": " ौ",
+          "probability": 0.9944661458333334
+        },
+        {
+          "start": 207.35,
+          "end": 207.69,
+          "word": " ौ",
+          "probability": 0.99462890625
+        },
+        {
+          "start": 207.69,
+          "end": 207.75,
+          "word": " ौ",
+          "probability": 0.9931640625
+        },
+        {
+          "start": 207.75,
+          "end": 207.75,
+          "word": " ौ",
+          "probability": 0.9934895833333334
+        },
+        {
+          "start": 207.75,
+          "end": 207.75,
+          "word": " ौ",
+          "probability": 0.9943033854166666
+        },
+        {
+          "start": 207.75,
+          "end": 207.75,
+          "word": " ौ",
+          "probability": 0.9944661458333334
+        },
+        {
+          "start": 207.75,
+          "end": 207.75,
+          "word": " ौ",
+          "probability": 0.994140625
+        },
+        {
+          "start": 207.75,
+          "end": 208.31,
+          "word": " ौ",
+          "probability": 0.9939778645833334
+        },
+        {
+          "start": 208.31,
+          "end": 208.31,
+          "word": " ौ",
+          "probability": 0.9938151041666666
+        },
+        {
+          "start": 208.31,
+          "end": 208.31,
+          "word": " ौ",
+          "probability": 0.9939778645833334
+        },
+        {
+          "start": 208.31,
+          "end": 208.31,
+          "word": " ौ",
+          "probability": 0.9944661458333334
+        },
+        {
+          "start": 208.31,
+          "end": 208.31,
+          "word": " ौ",
+          "probability": 0.994140625
+        },
+        {
+          "start": 208.31,
+          "end": 208.31,
+          "word": " ौ",
+          "probability": 0.9939778645833334
+        },
+        {
+          "start": 208.31,
+          "end": 208.31,
+          "word": " ौ",
+          "probability": 0.9939778645833334
+        },
+        {
+          "start": 208.31,
+          "end": 208.31,
+          "word": " ौ",
+          "probability": 0.9938151041666666
+        },
+        {
+          "start": 208.31,
+          "end": 208.31,
+          "word": " ौ",
+          "probability": 0.9944661458333334
+        },
+        {
+          "start": 208.31,
+          "end": 208.31,
+          "word": " ौ",
+          "probability": 0.9933268229166666
+        },
+        {
+          "start": 208.31,
+          "end": 208.31,
+          "word": " ौ",
+          "probability": 0.9939778645833334
+        },
+        {
+          "start": 208.31,
+          "end": 208.31,
+          "word": " ौ",
+          "probability": 0.9939778645833334
+        },
+        {
+          "start": 208.31,
+          "end": 208.31,
+          "word": " ौ",
+          "probability": 0.9931640625
+        },
+        {
+          "start": 208.31,
+          "end": 208.31,
+          "word": " ौ",
+          "probability": 0.9930013020833334
+        },
+        {
+          "start": 208.31,
+          "end": 208.31,
+          "word": " ौ",
+          "probability": 0.9928385416666666
+        },
+        {
+          "start": 208.31,
+          "end": 208.31,
+          "word": " ौ",
+          "probability": 0.9933268229166666
+        },
+        {
+          "start": 208.31,
+          "end": 208.31,
+          "word": " ौ",
+          "probability": 0.9931640625
+        },
+        {
+          "start": 208.31,
+          "end": 208.31,
+          "word": " ौ",
+          "probability": 0.99267578125
+        },
+        {
+          "start": 208.31,
+          "end": 208.31,
+          "word": " ौ",
+          "probability": 0.99365234375
+        },
+        {
+          "start": 208.31,
+          "end": 208.31,
+          "word": " ौ",
+          "probability": 0.9933268229166666
+        },
+        {
+          "start": 208.31,
+          "end": 208.31,
+          "word": " ौ",
+          "probability": 0.99267578125
+        },
+        {
+          "start": 208.31,
+          "end": 208.31,
+          "word": " ौ",
+          "probability": 0.99267578125
+        },
+        {
+          "start": 208.31,
+          "end": 208.33,
+          "word": " ौ",
+          "probability": 0.9925130208333334
+        },
+        {
+          "start": 208.33,
+          "end": 208.33,
+          "word": " ौ",
+          "probability": 0.9918619791666666
+        },
+        {
+          "start": 208.33,
+          "end": 208.33,
+          "word": " ौ",
+          "probability": 0.99169921875
+        },
+        {
+          "start": 208.33,
+          "end": 208.33,
+          "word": " ौ",
+          "probability": 0.99267578125
+        },
+        {
+          "start": 208.33,
+          "end": 208.33,
+          "word": " ौ",
+          "probability": 0.99267578125
+        },
+        {
+          "start": 208.33,
+          "end": 208.33,
+          "word": " ौ",
+          "probability": 0.9923502604166666
+        },
+        {
+          "start": 208.33,
+          "end": 208.33,
+          "word": " ौ",
+          "probability": 0.9923502604166666
+        },
+        {
+          "start": 208.33,
+          "end": 208.33,
+          "word": " ौ",
+          "probability": 0.9920247395833334
+        },
+        {
+          "start": 208.33,
+          "end": 208.33,
+          "word": " ौ",
+          "probability": 0.9913736979166666
+        },
+        {
+          "start": 208.33,
+          "end": 208.37,
+          "word": " ौ",
+          "probability": 0.9923502604166666
+        },
+        {
+          "start": 208.37,
+          "end": 208.37,
+          "word": " ौ",
+          "probability": 0.9925130208333334
+        },
+        {
+          "start": 208.37,
+          "end": 209.05,
+          "word": " ौ",
+          "probability": 0.9918619791666666
+        },
+        {
+          "start": 209.05,
+          "end": 209.19,
+          "word": " ौ",
+          "probability": 0.9928385416666666
+        },
+        {
+          "start": 209.19,
+          "end": 209.19,
+          "word": " ौ",
+          "probability": 0.99267578125
+        },
+        {
+          "start": 209.19,
+          "end": 209.25,
+          "word": " ौ",
+          "probability": 0.9933268229166666
+        },
+        {
+          "start": 209.25,
+          "end": 210.61,
+          "word": " ौ",
+          "probability": 0.9920247395833334
+        },
+        {
+          "start": 210.61,
+          "end": 211.09,
+          "word": " ौ",
+          "probability": 0.9933268229166666
+        },
+        {
+          "start": 211.09,
+          "end": 211.39,
+          "word": " ौ",
+          "probability": 0.9931640625
+        },
+        {
+          "start": 211.39,
+          "end": 211.39,
+          "word": " ौ",
+          "probability": 0.9920247395833334
+        },
+        {
+          "start": 211.39,
+          "end": 211.39,
+          "word": " ौ",
+          "probability": 0.9931640625
+        },
+        {
+          "start": 211.39,
+          "end": 211.39,
+          "word": " ौ",
+          "probability": 0.9920247395833334
+        },
+        {
+          "start": 211.39,
+          "end": 212.13,
+          "word": " �",
+          "probability": 0.986083984375
+        }
+      ]
+    },
+    {
+      "index": 7,
+      "start": 218.83,
+      "end": 236.83,
+      "text": "ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ ौ �",
+      "words": [
+        {
+          "start": 218.83,
+          "end": 219.91,
+          "word": " ौ",
+          "probability": 0.2100830078125
+        },
+        {
+          "start": 219.91,
+          "end": 220.55,
+          "word": " ौ",
+          "probability": 0.6146647135416666
+        },
+        {
+          "start": 220.55,
+          "end": 222.03,
+          "word": " ौ",
+          "probability": 0.9305013020833334
+        },
+        {
+          "start": 222.03,
+          "end": 226.27,
+          "word": " ौ",
+          "probability": 0.9615885416666666
+        },
+        {
+          "start": 226.27,
+          "end": 229.49,
+          "word": " ौ",
+          "probability": 0.97998046875
+        },
+        {
+          "start": 229.49,
+          "end": 231.27,
+          "word": " ौ",
+          "probability": 0.98046875
+        },
+        {
+          "start": 231.27,
+          "end": 231.81,
+          "word": " ौ",
+          "probability": 0.9851888020833334
+        },
+        {
+          "start": 231.81,
+          "end": 232.53,
+          "word": " ौ",
+          "probability": 0.98828125
+        },
+        {
+          "start": 232.53,
+          "end": 232.69,
+          "word": " ौ",
+          "probability": 0.9918619791666666
+        },
+        {
+          "start": 232.69,
+          "end": 235.05,
+          "word": " ौ",
+          "probability": 0.9920247395833334
+        },
+        {
+          "start": 235.05,
+          "end": 235.21,
+          "word": " ौ",
+          "probability": 0.9925130208333334
+        },
+        {
+          "start": 235.21,
+          "end": 235.87,
+          "word": " ौ",
+          "probability": 0.9915364583333334
+        },
+        {
+          "start": 235.87,
+          "end": 236.29,
+          "word": " ौ",
+          "probability": 0.9934895833333334
+        },
+        {
+          "start": 236.29,
+          "end": 236.29,
+          "word": " ौ",
+          "probability": 0.9939778645833334
+        },
+        {
+          "start": 236.29,
+          "end": 236.29,
+          "word": " ौ",
+          "probability": 0.994140625
+        },
+        {
+          "start": 236.29,
+          "end": 236.29,
+          "word": " ौ",
+          "probability": 0.994140625
+        },
+        {
+          "start": 236.29,
+          "end": 236.29,
+          "word": " ौ",
+          "probability": 0.9938151041666666
+        },
+        {
+          "start": 236.29,
+          "end": 236.29,
+          "word": " ौ",
+          "probability": 0.9939778645833334
+        },
+        {
+          "start": 236.29,
+          "end": 236.29,
+          "word": " ौ",
+          "probability": 0.9947916666666666
+        },
+        {
+          "start": 236.29,
+          "end": 236.29,
+          "word": " ौ",
+          "probability": 0.994140625
+        },
+        {
+          "start": 236.29,
+          "end": 236.29,
+          "word": " ौ",
+          "probability": 0.9944661458333334
+        },
+        {
+          "start": 236.29,
+          "end": 236.31,
+          "word": " ौ",
+          "probability": 0.9943033854166666
+        },
+        {
+          "start": 236.31,
+          "end": 236.57,
+          "word": " ौ",
+          "probability": 0.99462890625
+        },
+        {
+          "start": 236.57,
+          "end": 236.57,
+          "word": " ौ",
+          "probability": 0.99365234375
+        },
+        {
+          "start": 236.57,
+          "end": 236.59,
+          "word": " ौ",
+          "probability": 0.9939778645833334
+        },
+        {
+          "start": 236.59,
+          "end": 236.59,
+          "word": " ौ",
+          "probability": 0.9938151041666666
+        },
+        {
+          "start": 236.59,
+          "end": 236.59,
+          "word": " ौ",
+          "probability": 0.9944661458333334
+        },
+        {
+          "start": 236.59,
+          "end": 236.59,
+          "word": " ौ",
+          "probability": 0.9938151041666666
+        },
+        {
+          "start": 236.59,
+          "end": 236.59,
+          "word": " ौ",
+          "probability": 0.9939778645833334
+        },
+        {
+          "start": 236.59,
+          "end": 236.59,
+          "word": " ौ",
+          "probability": 0.994140625
+        },
+        {
+          "start": 236.59,
+          "end": 236.59,
+          "word": " ौ",
+          "probability": 0.99462890625
+        },
+        {
+          "start": 236.59,
+          "end": 236.69,
+          "word": " ौ",
+          "probability": 0.9943033854166666
+        },
+        {
+          "start": 236.69,
+          "end": 236.69,
+          "word": " ौ",
+          "probability": 0.994140625
+        },
+        {
+          "start": 236.69,
+          "end": 236.69,
+          "word": " ौ",
+          "probability": 0.9938151041666666
+        },
+        {
+          "start": 236.69,
+          "end": 236.69,
+          "word": " ौ",
+          "probability": 0.9939778645833334
+        },
+        {
+          "start": 236.69,
+          "end": 236.69,
+          "word": " ौ",
+          "probability": 0.99365234375
+        },
+        {
+          "start": 236.69,
+          "end": 236.69,
+          "word": " ौ",
+          "probability": 0.9943033854166666
+        },
+        {
+          "start": 236.69,
+          "end": 236.69,
+          "word": " ौ",
+          "probability": 0.99365234375
+        },
+        {
+          "start": 236.69,
+          "end": 236.69,
+          "word": " ौ",
+          "probability": 0.9934895833333334
+        },
+        {
+          "start": 236.69,
+          "end": 236.69,
+          "word": " ौ",
+          "probability": 0.9938151041666666
+        },
+        {
+          "start": 236.69,
+          "end": 236.69,
+          "word": " ौ",
+          "probability": 0.9934895833333334
+        },
+        {
+          "start": 236.69,
+          "end": 236.69,
+          "word": " ौ",
+          "probability": 0.9933268229166666
+        },
+        {
+          "start": 236.69,
+          "end": 236.69,
+          "word": " ौ",
+          "probability": 0.9938151041666666
+        },
+        {
+          "start": 236.69,
+          "end": 236.69,
+          "word": " ौ",
+          "probability": 0.9934895833333334
+        },
+        {
+          "start": 236.69,
+          "end": 236.69,
+          "word": " ौ",
+          "probability": 0.9928385416666666
+        },
+        {
+          "start": 236.69,
+          "end": 236.69,
+          "word": " ौ",
+          "probability": 0.9938151041666666
+        },
+        {
+          "start": 236.69,
+          "end": 236.69,
+          "word": " ौ",
+          "probability": 0.9934895833333334
+        },
+        {
+          "start": 236.69,
+          "end": 236.69,
+          "word": " ौ",
+          "probability": 0.99365234375
+        },
+        {
+          "start": 236.69,
+          "end": 236.69,
+          "word": " ौ",
+          "probability": 0.9934895833333334
+        },
+        {
+          "start": 236.69,
+          "end": 236.69,
+          "word": " ौ",
+          "probability": 0.9928385416666666
+        },
+        {
+          "start": 236.69,
+          "end": 236.69,
+          "word": " ौ",
+          "probability": 0.9930013020833334
+        },
+        {
+          "start": 236.69,
+          "end": 236.69,
+          "word": " ौ",
+          "probability": 0.9918619791666666
+        },
+        {
+          "start": 236.69,
+          "end": 236.69,
+          "word": " ौ",
+          "probability": 0.9931640625
+        },
+        {
+          "start": 236.69,
+          "end": 236.69,
+          "word": " ौ",
+          "probability": 0.9923502604166666
+        },
+        {
+          "start": 236.69,
+          "end": 236.69,
+          "word": " ौ",
+          "probability": 0.9928385416666666
+        },
+        {
+          "start": 236.69,
+          "end": 236.69,
+          "word": " ौ",
+          "probability": 0.9931640625
+        },
+        {
+          "start": 236.69,
+          "end": 236.69,
+          "word": " ौ",
+          "probability": 0.9934895833333334
+        },
+        {
+          "start": 236.69,
+          "end": 236.69,
+          "word": " ौ",
+          "probability": 0.9923502604166666
+        },
+        {
+          "start": 236.69,
+          "end": 236.69,
+          "word": " ौ",
+          "probability": 0.9934895833333334
+        },
+        {
+          "start": 236.69,
+          "end": 236.69,
+          "word": " ौ",
+          "probability": 0.9938151041666666
+        },
+        {
+          "start": 236.69,
+          "end": 236.69,
+          "word": " ौ",
+          "probability": 0.9938151041666666
+        },
+        {
+          "start": 236.69,
+          "end": 236.69,
+          "word": " ौ",
+          "probability": 0.9928385416666666
+        },
+        {
+          "start": 236.69,
+          "end": 236.69,
+          "word": " ौ",
+          "probability": 0.994140625
+        },
+        {
+          "start": 236.69,
+          "end": 236.69,
+          "word": " ौ",
+          "probability": 0.9934895833333334
+        },
+        {
+          "start": 236.69,
+          "end": 236.69,
+          "word": " ौ",
+          "probability": 0.9931640625
+        },
+        {
+          "start": 236.69,
+          "end": 236.69,
+          "word": " ौ",
+          "probability": 0.9930013020833334
+        },
+        {
+          "start": 236.69,
+          "end": 236.69,
+          "word": " ौ",
+          "probability": 0.99267578125
+        },
+        {
+          "start": 236.69,
+          "end": 236.69,
+          "word": " ौ",
+          "probability": 0.9930013020833334
+        },
+        {
+          "start": 236.69,
+          "end": 236.69,
+          "word": " ौ",
+          "probability": 0.9921875
+        },
+        {
+          "start": 236.69,
+          "end": 236.69,
+          "word": " ौ",
+          "probability": 0.9931640625
+        },
+        {
+          "start": 236.69,
+          "end": 236.69,
+          "word": " ौ",
+          "probability": 0.9928385416666666
+        },
+        {
+          "start": 236.69,
+          "end": 236.81,
+          "word": " ौ",
+          "probability": 0.99365234375
+        },
+        {
+          "start": 236.81,
+          "end": 236.81,
+          "word": " ौ",
+          "probability": 0.99267578125
+        },
+        {
+          "start": 236.81,
+          "end": 236.83,
+          "word": " �",
+          "probability": 0.987060546875
+        }
+      ]
+    }
+  ]
+}

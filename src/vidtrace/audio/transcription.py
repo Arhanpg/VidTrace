@@ -22,6 +22,28 @@ from vidtrace.utils import clean_text
 logger = logging.getLogger(__name__)
 
 
+def _setup_cuda_dll_paths() -> None:
+    """Add nvidia pip package bin directories to Windows DLL search path and PATH."""
+    if os.name != "nt":
+        return
+    import sys
+    candidate_bases = [
+        Path(sys.prefix) / "Lib" / "site-packages" / "nvidia",
+        Path(sys.prefix) / "nvidia",
+    ]
+    for base in candidate_bases:
+        if base.is_dir():
+            for bin_dir in base.glob("*/bin"):
+                if bin_dir.is_dir():
+                    try:
+                        if hasattr(os, "add_dll_directory"):
+                            os.add_dll_directory(str(bin_dir))
+                    except (OSError, ValueError):
+                        pass
+                    if str(bin_dir) not in os.environ.get("PATH", ""):
+                        os.environ["PATH"] = str(bin_dir) + os.pathsep + os.environ.get("PATH", "")
+
+
 class WhisperTranscriber:
     """
     faster-whisper transcription engine.
@@ -48,31 +70,50 @@ class WhisperTranscriber:
         """Load the Whisper model with appropriate device settings."""
         from faster_whisper import WhisperModel
 
+        _setup_cuda_dll_paths()
         gpu_available = False
 
         try:
             import ctranslate2
             supported = ctranslate2.get_supported_compute_types("cuda")
-            if supported:
+            if supported and ctranslate2.get_cuda_device_count() > 0:
                 gpu_available = True
         except Exception:
             pass
 
         if gpu_available:
-            self.device = "cuda"
-            # Good compromise for a 4 GB RTX GPU.
-            self.compute_type = "int8_float16"
-        else:
-            self.device = "cpu"
-            self.compute_type = "int8"
+            try:
+                self.device = "cuda"
+                # Good compromise for a 4 GB RTX GPU.
+                self.compute_type = "int8_float16"
+                logger.info(
+                    "Whisper | model=%s | device=%s | compute=%s",
+                    self.model_name,
+                    self.device,
+                    self.compute_type,
+                )
+                self.model = WhisperModel(
+                    self.model_name,
+                    device=self.device,
+                    compute_type=self.compute_type,
+                    cpu_threads=max(4, os.cpu_count() or 8),
+                    num_workers=1,
+                )
+                return
+            except Exception as exc:
+                logger.warning(
+                    "Failed to initialize Whisper on CUDA (%s). Falling back to CPU.",
+                    exc,
+                )
 
+        self.device = "cpu"
+        self.compute_type = "int8"
         logger.info(
             "Whisper | model=%s | device=%s | compute=%s",
             self.model_name,
             self.device,
             self.compute_type,
         )
-
         self.model = WhisperModel(
             self.model_name,
             device=self.device,
@@ -97,37 +138,66 @@ class WhisperTranscriber:
 
         started = time.perf_counter()
 
-        segments, info = self.model.transcribe(
-            str(video_path),
-            language=self.language,
-            task="transcribe",
-            # Better recognition of technical speech.
-            beam_size=5,
-            best_of=5,
-            temperature=0.0,
-            # Keep context across segments.
-            condition_on_previous_text=True,
-            # Remove long silent sections.
-            vad_filter=True,
-            vad_parameters={"min_silence_duration_ms": 350},
-            # Extremely useful for aligning speech with OCR.
-            word_timestamps=True,
-            initial_prompt=(
-                self.initial_prompt
-                if self.initial_prompt is not None
-                else (
-                    "This is a technical programming lecture. "
-                    "The lecturer discusses Python, Java, "
-                    "Kotlin, JavaScript, APIs, databases, "
-                    "AI, machine learning, LLMs, agents, "
-                    "LangChain, LangGraph and software engineering."
+        def _run_transcribe():
+            assert self.model is not None
+            return self.model.transcribe(
+                str(video_path),
+                language=self.language,
+                task="transcribe",
+                # Better recognition of technical speech.
+                beam_size=5,
+                best_of=5,
+                temperature=0.0,
+                # Keep context across segments.
+                condition_on_previous_text=True,
+                # Remove long silent sections.
+                vad_filter=True,
+                vad_parameters={"min_silence_duration_ms": 350},
+                # Extremely useful for aligning speech with OCR.
+                word_timestamps=True,
+                initial_prompt=(
+                    self.initial_prompt
+                    if self.initial_prompt is not None
+                    else (
+                        "This is a technical programming lecture. "
+                        "The lecturer discusses Python, Java, "
+                        "Kotlin, JavaScript, APIs, databases, "
+                        "AI, machine learning, LLMs, agents, "
+                        "LangChain, LangGraph and software engineering."
+                    )
+                ),
+            )
+
+        try:
+            segments, info = _run_transcribe()
+            segments_iter = iter(segments)
+            first_seg = next(segments_iter, None)
+        except Exception as exc:
+            if self.device == "cuda":
+                logger.warning("CUDA transcription failed (%s). Retrying on CPU.", exc)
+                from faster_whisper import WhisperModel
+                self.device = "cpu"
+                self.compute_type = "int8"
+                self.model = WhisperModel(
+                    self.model_name,
+                    device="cpu",
+                    compute_type="int8",
+                    cpu_threads=max(4, os.cpu_count() or 8),
+                    num_workers=1,
                 )
-            ),
-        )
+                segments, info = _run_transcribe()
+                segments_iter = iter(segments)
+                first_seg = next(segments_iter, None)
+            else:
+                raise
 
         output: list[TranscriptSegment] = []
 
-        for index, segment in enumerate(segments):
+        all_segments = [first_seg] if first_seg is not None else []
+        for seg in segments_iter:
+            all_segments.append(seg)
+
+        for index, segment in enumerate(all_segments):
             words = []
             raw_words = getattr(segment, "words", None)
 

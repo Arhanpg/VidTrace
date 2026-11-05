@@ -1,0 +1,20 @@
+{
+  "url": "https://www.youtube.com/watch?v=i59O_ajrVig",
+  "video_id": "i59O_ajrVig",
+  "title": "what is samavasaran ? समवसरण क्या है ?उसकी रचना कौन करते हैं ?",
+  "playlist_title": "what is samavasaran ? समवसरण क्या है ?उसकी रचना कौन करते हैं ?",
+  "playlist_id": "i59O_ajrVig",
+  "playlist_index": 1,
+  "generated_at_utc": "2026-11-05T12:31:26.534075+00:00",
+  "requested_language": "auto",
+  "detected_language": "hi",
+  "detected_language_name": "Hindi",
+  "language_probability": 0.994140625,
+  "model": "small",
+  "transcript_file": "transcript.hi.md",
+  "audio_duration": 505.719,
+  "elapsed_seconds": 78.99009560000559,
+  "device": "cuda",
+  "compute_type": "int8_float16",
+  "language_warning": null
+}

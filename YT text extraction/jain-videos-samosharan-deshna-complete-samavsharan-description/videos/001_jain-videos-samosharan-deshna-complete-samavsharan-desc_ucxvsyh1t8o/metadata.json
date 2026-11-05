@@ -1,0 +1,20 @@
+{
+  "url": "https://www.youtube.com/watch?v=ucxVsyh1T8o",
+  "video_id": "ucxVsyh1T8o",
+  "title": "Jain Videos : समवशरण देशना (Samosharan Deshna)  : Complete (जिन समवशरण ) Samavsharan Description",
+  "playlist_title": "Jain Videos : समवशरण देशना (Samosharan Deshna)  : Complete (जिन समवशरण ) Samavsharan Description",
+  "playlist_id": "ucxVsyh1T8o",
+  "playlist_index": 1,
+  "generated_at_utc": "2026-11-05T12:46:10.249279+00:00",
+  "requested_language": "auto",
+  "detected_language": "hi",
+  "detected_language_name": "Hindi",
+  "language_probability": 0.9443359375,
+  "model": "small",
+  "transcript_file": "transcript.hi.md",
+  "audio_duration": 2974.5806875,
+  "elapsed_seconds": 839.3447371000075,
+  "device": "cuda",
+  "compute_type": "int8_float16",
+  "language_warning": null
+}

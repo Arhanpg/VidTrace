@@ -1,0 +1,20 @@
+{
+  "url": "https://www.youtube.com/watch?v=Y5S-1N5Yzkk",
+  "video_id": "Y5S-1N5Yzkk",
+  "title": "समवशरण का सम्पूर्ण वर्णन सचित्र परिचय (जैनधर्म) #jaineducation #jainism",
+  "playlist_title": "समवशरण का सम्पूर्ण वर्णन सचित्र परिचय (जैनधर्म) #jaineducation #jainism",
+  "playlist_id": "Y5S-1N5Yzkk",
+  "playlist_index": 1,
+  "generated_at_utc": "2026-11-05T12:50:59.124009+00:00",
+  "requested_language": "auto",
+  "detected_language": "hi",
+  "detected_language_name": "Hindi",
+  "language_probability": 0.9228515625,
+  "model": "small",
+  "transcript_file": "transcript.hi.md",
+  "audio_duration": 1674.8901875,
+  "elapsed_seconds": 38.48286800000642,
+  "device": "cuda",
+  "compute_type": "int8_float16",
+  "language_warning": null
+}

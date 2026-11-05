@@ -1,0 +1,1196 @@
+{
+  "source": {
+    "url": "https://www.youtube.com/watch?v=rTqsO5M9zbY",
+    "video_id": "rTqsO5M9zbY",
+    "title": "समवशरण विशेष | Samavsharan Vishesh | Samavsharan Rachna | समवसरण रचना | जिनवाणी ज्ञान |Jinvani Gyan",
+    "playlist_title": "समवशरण विशेष | Samavsharan Vishesh | Samavsharan Rachna | समवसरण रचना | जिनवाणी ज्ञान |Jinvani Gyan",
+    "playlist_id": "rTqsO5M9zbY",
+    "playlist_index": 1
+  },
+  "requested_language": "auto",
+  "detected_language": "hi",
+  "language_probability": 0.99658203125,
+  "model": "small",
+  "whisper_metadata": {
+    "language": "hi",
+    "language_probability": 0.99658203125,
+    "audio_duration": 538.8306875,
+    "duration_after_vad": 524.1746875,
+    "elapsed_seconds": 13.374517999996897,
+    "device": "cuda",
+    "compute_type": "int8_float16",
+    "model": "small"
+  },
+  "segments": [
+    {
+      "index": 0,
+      "start": 0.0,
+      "end": 30.17,
+      "text": "ॐ ॐ ॐ ॐ ॐ ॐ ॐ ॐ ॐ ॐ ॐ ॐ ॐ ॐ ॐ ॐ ॐ ॐ ॐ ॐ ॐ ॐ ॐ ॐ ॐ ॐ ॐ ॐ ॐ ॐ ॐ ॐ ॐ ॐ ॐ ॐ ॐ ॐ ॐ ॐ ॐ ॐ ॐ ॐ ॐ ॐ ॐ ॐ ॐ ॐ ॐ ॐ ॐ ॐ ॐ ॐ ॐ ॐ ॐ ॐ ॐ ॐ ॐ ॐ ॐ ॐ ॐ ॐ ॐ ॐ ॐ ॐ ॐ ॐ",
+      "words": [
+        {
+          "start": 0.0,
+          "end": 0.38,
+          "word": " ॐ",
+          "probability": 0.384033203125
+        },
+        {
+          "start": 0.38,
+          "end": 0.48,
+          "word": " ॐ",
+          "probability": 0.6261393229166666
+        },
+        {
+          "start": 0.48,
+          "end": 2.66,
+          "word": " ॐ",
+          "probability": 0.8330078125
+        },
+        {
+          "start": 2.66,
+          "end": 2.78,
+          "word": " ॐ",
+          "probability": 0.9140625
+        },
+        {
+          "start": 2.78,
+          "end": 9.02,
+          "word": " ॐ",
+          "probability": 0.9485677083333334
+        },
+        {
+          "start": 9.02,
+          "end": 9.18,
+          "word": " ॐ",
+          "probability": 0.94873046875
+        },
+        {
+          "start": 9.18,
+          "end": 12.0,
+          "word": " ॐ",
+          "probability": 0.9593098958333334
+        },
+        {
+          "start": 12.06,
+          "end": 14.82,
+          "word": " ॐ",
+          "probability": 0.9480794270833334
+        },
+        {
+          "start": 14.89,
+          "end": 19.29,
+          "word": " ॐ",
+          "probability": 0.9573567708333334
+        },
+        {
+          "start": 19.29,
+          "end": 19.29,
+          "word": " ॐ",
+          "probability": 0.9630533854166666
+        },
+        {
+          "start": 19.29,
+          "end": 20.09,
+          "word": " ॐ",
+          "probability": 0.9607747395833334
+        },
+        {
+          "start": 20.09,
+          "end": 20.49,
+          "word": " ॐ",
+          "probability": 0.9627278645833334
+        },
+        {
+          "start": 20.49,
+          "end": 21.55,
+          "word": " ॐ",
+          "probability": 0.96337890625
+        },
+        {
+          "start": 21.55,
+          "end": 21.55,
+          "word": " ॐ",
+          "probability": 0.9620768229166666
+        },
+        {
+          "start": 21.55,
+          "end": 21.55,
+          "word": " ॐ",
+          "probability": 0.9651692708333334
+        },
+        {
+          "start": 21.55,
+          "end": 22.31,
+          "word": " ॐ",
+          "probability": 0.9627278645833334
+        },
+        {
+          "start": 22.37,
+          "end": 23.19,
+          "word": " ॐ",
+          "probability": 0.96435546875
+        },
+        {
+          "start": 23.19,
+          "end": 23.23,
+          "word": " ॐ",
+          "probability": 0.9674479166666666
+        },
+        {
+          "start": 23.23,
+          "end": 23.23,
+          "word": " ॐ",
+          "probability": 0.9705403645833334
+        },
+        {
+          "start": 23.23,
+          "end": 23.23,
+          "word": " ॐ",
+          "probability": 0.9716796875
+        },
+        {
+          "start": 23.23,
+          "end": 23.23,
+          "word": " ॐ",
+          "probability": 0.9654947916666666
+        },
+        {
+          "start": 23.23,
+          "end": 23.25,
+          "word": " ॐ",
+          "probability": 0.9659830729166666
+        },
+        {
+          "start": 23.25,
+          "end": 23.25,
+          "word": " ॐ",
+          "probability": 0.9656575520833334
+        },
+        {
+          "start": 23.25,
+          "end": 23.67,
+          "word": " ॐ",
+          "probability": 0.970703125
+        },
+        {
+          "start": 23.67,
+          "end": 23.79,
+          "word": " ॐ",
+          "probability": 0.96923828125
+        },
+        {
+          "start": 23.79,
+          "end": 23.79,
+          "word": " ॐ",
+          "probability": 0.9661458333333334
+        },
+        {
+          "start": 23.79,
+          "end": 24.03,
+          "word": " ॐ",
+          "probability": 0.96337890625
+        },
+        {
+          "start": 24.03,
+          "end": 24.03,
+          "word": " ॐ",
+          "probability": 0.9698893229166666
+        },
+        {
+          "start": 24.03,
+          "end": 24.03,
+          "word": " ॐ",
+          "probability": 0.9716796875
+        },
+        {
+          "start": 24.03,
+          "end": 24.03,
+          "word": " ॐ",
+          "probability": 0.9651692708333334
+        },
+        {
+          "start": 24.03,
+          "end": 24.03,
+          "word": " ॐ",
+          "probability": 0.9650065104166666
+        },
+        {
+          "start": 24.03,
+          "end": 24.03,
+          "word": " ॐ",
+          "probability": 0.9676106770833334
+        },
+        {
+          "start": 24.03,
+          "end": 24.03,
+          "word": " ॐ",
+          "probability": 0.9651692708333334
+        },
+        {
+          "start": 24.03,
+          "end": 26.47,
+          "word": " ॐ",
+          "probability": 0.9733072916666666
+        },
+        {
+          "start": 26.47,
+          "end": 26.47,
+          "word": " ॐ",
+          "probability": 0.9752604166666666
+        },
+        {
+          "start": 26.47,
+          "end": 27.99,
+          "word": " ॐ",
+          "probability": 0.9724934895833334
+        },
+        {
+          "start": 27.99,
+          "end": 28.77,
+          "word": " ॐ",
+          "probability": 0.9733072916666666
+        },
+        {
+          "start": 28.77,
+          "end": 29.53,
+          "word": " ॐ",
+          "probability": 0.97119140625
+        },
+        {
+          "start": 29.53,
+          "end": 29.53,
+          "word": " ॐ",
+          "probability": 0.97265625
+        },
+        {
+          "start": 29.53,
+          "end": 29.53,
+          "word": " ॐ",
+          "probability": 0.97509765625
+        },
+        {
+          "start": 29.53,
+          "end": 30.15,
+          "word": " ॐ",
+          "probability": 0.97412109375
+        },
+        {
+          "start": 30.15,
+          "end": 30.15,
+          "word": " ॐ",
+          "probability": 0.9728190104166666
+        },
+        {
+          "start": 30.15,
+          "end": 30.15,
+          "word": " ॐ",
+          "probability": 0.97509765625
+        },
+        {
+          "start": 30.15,
+          "end": 30.15,
+          "word": " ॐ",
+          "probability": 0.97900390625
+        },
+        {
+          "start": 30.15,
+          "end": 30.15,
+          "word": " ॐ",
+          "probability": 0.9716796875
+        },
+        {
+          "start": 30.15,
+          "end": 30.15,
+          "word": " ॐ",
+          "probability": 0.9762369791666666
+        },
+        {
+          "start": 30.15,
+          "end": 30.15,
+          "word": " ॐ",
+          "probability": 0.9720052083333334
+        },
+        {
+          "start": 30.15,
+          "end": 30.15,
+          "word": " ॐ",
+          "probability": 0.9814453125
+        },
+        {
+          "start": 30.15,
+          "end": 30.15,
+          "word": " ॐ",
+          "probability": 0.974609375
+        },
+        {
+          "start": 30.15,
+          "end": 30.15,
+          "word": " ॐ",
+          "probability": 0.97314453125
+        },
+        {
+          "start": 30.15,
+          "end": 30.15,
+          "word": " ॐ",
+          "probability": 0.9747721354166666
+        },
+        {
+          "start": 30.15,
+          "end": 30.15,
+          "word": " ॐ",
+          "probability": 0.9757486979166666
+        },
+        {
+          "start": 30.15,
+          "end": 30.15,
+          "word": " ॐ",
+          "probability": 0.9768880208333334
+        },
+        {
+          "start": 30.15,
+          "end": 30.15,
+          "word": " ॐ",
+          "probability": 0.97412109375
+        },
+        {
+          "start": 30.15,
+          "end": 30.15,
+          "word": " ॐ",
+          "probability": 0.97998046875
+        },
+        {
+          "start": 30.15,
+          "end": 30.15,
+          "word": " ॐ",
+          "probability": 0.9736328125
+        },
+        {
+          "start": 30.15,
+          "end": 30.15,
+          "word": " ॐ",
+          "probability": 0.97900390625
+        },
+        {
+          "start": 30.15,
+          "end": 30.15,
+          "word": " ॐ",
+          "probability": 0.9807942708333334
+        },
+        {
+          "start": 30.15,
+          "end": 30.15,
+          "word": " ॐ",
+          "probability": 0.9820963541666666
+        },
+        {
+          "start": 30.15,
+          "end": 30.15,
+          "word": " ॐ",
+          "probability": 0.9816080729166666
+        },
+        {
+          "start": 30.15,
+          "end": 30.15,
+          "word": " ॐ",
+          "probability": 0.98095703125
+        },
+        {
+          "start": 30.15,
+          "end": 30.15,
+          "word": " ॐ",
+          "probability": 0.982421875
+        },
+        {
+          "start": 30.15,
+          "end": 30.15,
+          "word": " ॐ",
+          "probability": 0.9807942708333334
+        },
+        {
+          "start": 30.15,
+          "end": 30.15,
+          "word": " ॐ",
+          "probability": 0.982421875
+        },
+        {
+          "start": 30.15,
+          "end": 30.15,
+          "word": " ॐ",
+          "probability": 0.9817708333333334
+        },
+        {
+          "start": 30.15,
+          "end": 30.15,
+          "word": " ॐ",
+          "probability": 0.9827473958333334
+        },
+        {
+          "start": 30.15,
+          "end": 30.15,
+          "word": " ॐ",
+          "probability": 0.9842122395833334
+        },
+        {
+          "start": 30.15,
+          "end": 30.15,
+          "word": " ॐ",
+          "probability": 0.9820963541666666
+        },
+        {
+          "start": 30.15,
+          "end": 30.15,
+          "word": " ॐ",
+          "probability": 0.9820963541666666
+        },
+        {
+          "start": 30.15,
+          "end": 30.15,
+          "word": " ॐ",
+          "probability": 0.98291015625
+        },
+        {
+          "start": 30.15,
+          "end": 30.15,
+          "word": " ॐ",
+          "probability": 0.98291015625
+        },
+        {
+          "start": 30.15,
+          "end": 30.17,
+          "word": " ॐ",
+          "probability": 0.9817708333333334
+        },
+        {
+          "start": 30.17,
+          "end": 30.17,
+          "word": " ॐ",
+          "probability": 0.98291015625
+        },
+        {
+          "start": 30.17,
+          "end": 30.17,
+          "word": " ॐ",
+          "probability": 0.9796549479166666
+        },
+        {
+          "start": 30.17,
+          "end": 30.17,
+          "word": " ",
+          "probability": 0.98046875
+        }
+      ]
+    },
+    {
+      "index": 1,
+      "start": 31.67,
+      "end": 61.59,
+      "text": "ॐ ॐ ॐ ॐ ॐ ॐ ॐ ॐ ॐ ॐ ॐ ॐ ॐ",
+      "words": [
+        {
+          "start": 31.67,
+          "end": 33.07,
+          "word": " ॐ",
+          "probability": 0.3603719075520833
+        },
+        {
+          "start": 33.07,
+          "end": 33.45,
+          "word": " ॐ",
+          "probability": 0.590087890625
+        },
+        {
+          "start": 33.45,
+          "end": 35.89,
+          "word": " ॐ",
+          "probability": 0.8173828125
+        },
+        {
+          "start": 36.6,
+          "end": 38.02,
+          "word": " ॐ",
+          "probability": 0.9031575520833334
+        },
+        {
+          "start": 38.02,
+          "end": 38.64,
+          "word": " ॐ",
+          "probability": 0.9293619791666666
+        },
+        {
+          "start": 38.64,
+          "end": 38.64,
+          "word": " ॐ",
+          "probability": 0.9503580729166666
+        },
+        {
+          "start": 38.64,
+          "end": 38.68,
+          "word": " ॐ",
+          "probability": 0.9568684895833334
+        },
+        {
+          "start": 38.68,
+          "end": 39.08,
+          "word": " ॐ",
+          "probability": 0.9646809895833334
+        },
+        {
+          "start": 39.08,
+          "end": 44.92,
+          "word": " ॐ",
+          "probability": 0.9690755208333334
+        },
+        {
+          "start": 45.04,
+          "end": 50.7,
+          "word": " ॐ",
+          "probability": 0.97021484375
+        },
+        {
+          "start": 50.7,
+          "end": 52.78,
+          "word": " ॐ",
+          "probability": 0.9679361979166666
+        },
+        {
+          "start": 52.78,
+          "end": 54.04,
+          "word": " ॐ",
+          "probability": 0.9710286458333334
+        },
+        {
+          "start": 54.65,
+          "end": 61.59,
+          "word": " ॐ",
+          "probability": 0.9697265625
+        }
+      ]
+    },
+    {
+      "index": 2,
+      "start": 62.54,
+      "end": 92.62,
+      "text": "ॐ ॐ ॐ ॐ ॐ ॐ ॐ ॐ",
+      "words": [
+        {
+          "start": 62.54,
+          "end": 63.68,
+          "word": " ॐ",
+          "probability": 0.3547871907552083
+        },
+        {
+          "start": 63.68,
+          "end": 63.68,
+          "word": " ॐ",
+          "probability": 0.610107421875
+        },
+        {
+          "start": 63.68,
+          "end": 66.64,
+          "word": " ॐ",
+          "probability": 0.8058268229166666
+        },
+        {
+          "start": 66.64,
+          "end": 69.22,
+          "word": " ॐ",
+          "probability": 0.87109375
+        },
+        {
+          "start": 69.22,
+          "end": 70.44,
+          "word": " ॐ",
+          "probability": 0.9305013020833334
+        },
+        {
+          "start": 70.44,
+          "end": 70.68,
+          "word": " ॐ",
+          "probability": 0.9373372395833334
+        },
+        {
+          "start": 70.68,
+          "end": 73.28,
+          "word": " ॐ",
+          "probability": 0.9514973958333334
+        },
+        {
+          "start": 73.38,
+          "end": 92.62,
+          "word": " ॐ",
+          "probability": 0.9510091145833334
+        }
+      ]
+    },
+    {
+      "index": 3,
+      "start": 93.76,
+      "end": 123.9,
+      "text": "ॐ ॐ ॐ ॐ ॐ",
+      "words": [
+        {
+          "start": 93.76,
+          "end": 95.92,
+          "word": " ॐ",
+          "probability": 0.3728434244791667
+        },
+        {
+          "start": 95.92,
+          "end": 95.92,
+          "word": " ॐ",
+          "probability": 0.6326497395833334
+        },
+        {
+          "start": 95.92,
+          "end": 104.6,
+          "word": " ॐ",
+          "probability": 0.8515625
+        },
+        {
+          "start": 104.76,
+          "end": 106.38,
+          "word": " ॐ",
+          "probability": 0.9249674479166666
+        },
+        {
+          "start": 106.38,
+          "end": 123.9,
+          "word": " ॐ",
+          "probability": 0.9441731770833334
+        }
+      ]
+    },
+    {
+      "index": 4,
+      "start": 123.92,
+      "end": 127.93,
+      "text": "ॐ ॐ ॐ",
+      "words": [
+        {
+          "start": 123.92,
+          "end": 124.9,
+          "word": " ॐ",
+          "probability": 0.2514851888020833
+        },
+        {
+          "start": 124.9,
+          "end": 126.98,
+          "word": " ॐ",
+          "probability": 0.5576171875
+        },
+        {
+          "start": 127.33,
+          "end": 127.93,
+          "word": " ॐ",
+          "probability": 0.79443359375
+        }
+      ]
+    },
+    {
+      "index": 5,
+      "start": 154.78,
+      "end": 159.4,
+      "text": "ॐ ॐ ॐ ॐ",
+      "words": [
+        {
+          "start": 154.78,
+          "end": 155.54,
+          "word": " ॐ",
+          "probability": 0.3026326497395833
+        },
+        {
+          "start": 155.54,
+          "end": 155.76,
+          "word": " ॐ",
+          "probability": 0.6171061197916666
+        },
+        {
+          "start": 155.76,
+          "end": 156.32,
+          "word": " ॐ",
+          "probability": 0.8271484375
+        },
+        {
+          "start": 156.32,
+          "end": 159.4,
+          "word": " ॐ",
+          "probability": 0.90380859375
+        }
+      ]
+    },
+    {
+      "index": 6,
+      "start": 185.36,
+      "end": 191.82,
+      "text": "ॐ ॐ ॐ",
+      "words": [
+        {
+          "start": 185.36,
+          "end": 185.56,
+          "word": " ॐ",
+          "probability": 0.380859375
+        },
+        {
+          "start": 185.56,
+          "end": 185.74,
+          "word": " ॐ",
+          "probability": 0.6142578125
+        },
+        {
+          "start": 185.74,
+          "end": 191.82,
+          "word": " ॐ",
+          "probability": 0.81982421875
+        }
+      ]
+    },
+    {
+      "index": 7,
+      "start": 215.71,
+      "end": 221.71,
+      "text": "ॐ ॐ ॐ",
+      "words": [
+        {
+          "start": 215.71,
+          "end": 215.95,
+          "word": " ॐ",
+          "probability": 0.2739054361979167
+        },
+        {
+          "start": 215.95,
+          "end": 215.95,
+          "word": " ॐ",
+          "probability": 0.6055501302083334
+        },
+        {
+          "start": 215.95,
+          "end": 221.71,
+          "word": " ॐ",
+          "probability": 0.8487955729166666
+        }
+      ]
+    },
+    {
+      "index": 8,
+      "start": 246.67,
+      "end": 254.19,
+      "text": "ॐ ॐ ॐ ॐ",
+      "words": [
+        {
+          "start": 246.67,
+          "end": 247.05,
+          "word": " ॐ",
+          "probability": 0.4052937825520833
+        },
+        {
+          "start": 247.05,
+          "end": 247.51,
+          "word": " ॐ",
+          "probability": 0.6411946614583334
+        },
+        {
+          "start": 247.51,
+          "end": 253.37,
+          "word": " ॐ",
+          "probability": 0.8675130208333334
+        },
+        {
+          "start": 253.53,
+          "end": 254.19,
+          "word": " ॐ",
+          "probability": 0.9166666666666666
+        }
+      ]
+    },
+    {
+      "index": 9,
+      "start": 277.6,
+      "end": 308.44,
+      "text": "ॐ ॐ ॐ ॐ ॐ ॐ ॐ ॐ ॐ ॐ ॐ ॐ ॐ ॐ ॐ ॐ ॐ ॐ ॐ ॐ ॐ ॐ ॐ ॐ ॐ ॐ ॐ ॐ ॐ ॐ ॐ",
+      "words": [
+        {
+          "start": 277.6,
+          "end": 277.6,
+          "word": " ॐ",
+          "probability": 0.30224609375
+        },
+        {
+          "start": 277.6,
+          "end": 277.6,
+          "word": " ॐ",
+          "probability": 0.5757649739583334
+        },
+        {
+          "start": 277.6,
+          "end": 280.28,
+          "word": " ॐ",
+          "probability": 0.84912109375
+        },
+        {
+          "start": 280.28,
+          "end": 282.06,
+          "word": " ॐ",
+          "probability": 0.9169921875
+        },
+        {
+          "start": 282.06,
+          "end": 285.54,
+          "word": " ॐ",
+          "probability": 0.95458984375
+        },
+        {
+          "start": 285.54,
+          "end": 285.64,
+          "word": " ॐ",
+          "probability": 0.9498697916666666
+        },
+        {
+          "start": 285.64,
+          "end": 288.5,
+          "word": " ॐ",
+          "probability": 0.9524739583333334
+        },
+        {
+          "start": 288.5,
+          "end": 290.44,
+          "word": " ॐ",
+          "probability": 0.9500325520833334
+        },
+        {
+          "start": 290.85,
+          "end": 300.53,
+          "word": " ॐ",
+          "probability": 0.9513346354166666
+        },
+        {
+          "start": 300.53,
+          "end": 301.25,
+          "word": " ॐ",
+          "probability": 0.9524739583333334
+        },
+        {
+          "start": 301.25,
+          "end": 302.03,
+          "word": " ॐ",
+          "probability": 0.9446614583333334
+        },
+        {
+          "start": 302.03,
+          "end": 302.23,
+          "word": " ॐ",
+          "probability": 0.9490559895833334
+        },
+        {
+          "start": 302.23,
+          "end": 302.63,
+          "word": " ॐ",
+          "probability": 0.9547526041666666
+        },
+        {
+          "start": 302.63,
+          "end": 303.45,
+          "word": " ॐ",
+          "probability": 0.96630859375
+        },
+        {
+          "start": 303.45,
+          "end": 303.45,
+          "word": " ॐ",
+          "probability": 0.9617513020833334
+        },
+        {
+          "start": 303.45,
+          "end": 303.45,
+          "word": " ॐ",
+          "probability": 0.9651692708333334
+        },
+        {
+          "start": 303.45,
+          "end": 304.07,
+          "word": " ॐ",
+          "probability": 0.9656575520833334
+        },
+        {
+          "start": 304.07,
+          "end": 305.93,
+          "word": " ॐ",
+          "probability": 0.9534505208333334
+        },
+        {
+          "start": 305.93,
+          "end": 305.93,
+          "word": " ॐ",
+          "probability": 0.97216796875
+        },
+        {
+          "start": 305.93,
+          "end": 305.93,
+          "word": " ॐ",
+          "probability": 0.9544270833333334
+        },
+        {
+          "start": 305.93,
+          "end": 305.93,
+          "word": " ॐ",
+          "probability": 0.9485677083333334
+        },
+        {
+          "start": 305.93,
+          "end": 305.95,
+          "word": " ॐ",
+          "probability": 0.9549153645833334
+        },
+        {
+          "start": 305.95,
+          "end": 305.95,
+          "word": " ॐ",
+          "probability": 0.96826171875
+        },
+        {
+          "start": 305.95,
+          "end": 305.95,
+          "word": " ॐ",
+          "probability": 0.9676106770833334
+        },
+        {
+          "start": 305.95,
+          "end": 306.75,
+          "word": " ॐ",
+          "probability": 0.962890625
+        },
+        {
+          "start": 307.2,
+          "end": 307.2,
+          "word": " ॐ",
+          "probability": 0.95947265625
+        },
+        {
+          "start": 307.2,
+          "end": 307.24,
+          "word": " ॐ",
+          "probability": 0.9676106770833334
+        },
+        {
+          "start": 307.24,
+          "end": 307.52,
+          "word": " ॐ",
+          "probability": 0.9694010416666666
+        },
+        {
+          "start": 307.52,
+          "end": 308.26,
+          "word": " ॐ",
+          "probability": 0.9723307291666666
+        },
+        {
+          "start": 308.26,
+          "end": 308.26,
+          "word": " ॐ",
+          "probability": 0.9733072916666666
+        },
+        {
+          "start": 308.26,
+          "end": 308.44,
+          "word": " ॐ",
+          "probability": 0.9733072916666666
+        }
+      ]
+    },
+    {
+      "index": 10,
+      "start": 308.46,
+      "end": 308.98,
+      "text": "ॐ ॐ ॐ ॐ",
+      "words": [
+        {
+          "start": 308.46,
+          "end": 308.84,
+          "word": " ॐ",
+          "probability": 0.359130859375
+        },
+        {
+          "start": 308.84,
+          "end": 308.84,
+          "word": " ॐ",
+          "probability": 0.6017252604166666
+        },
+        {
+          "start": 308.84,
+          "end": 308.84,
+          "word": " ॐ",
+          "probability": 0.8142903645833334
+        },
+        {
+          "start": 308.84,
+          "end": 308.98,
+          "word": " ॐ",
+          "probability": 0.8619791666666666
+        }
+      ]
+    },
+    {
+      "index": 11,
+      "start": 339.31,
+      "end": 344.49,
+      "text": "ॐ ॐ ॐ",
+      "words": [
+        {
+          "start": 339.31,
+          "end": 340.71,
+          "word": " ॐ",
+          "probability": 0.30535888671875
+        },
+        {
+          "start": 340.71,
+          "end": 342.11,
+          "word": " ॐ",
+          "probability": 0.5684407552083334
+        },
+        {
+          "start": 342.11,
+          "end": 344.49,
+          "word": " ॐ",
+          "probability": 0.8004557291666666
+        }
+      ]
+    },
+    {
+      "index": 12,
+      "start": 369.48,
+      "end": 369.84,
+      "text": "ॐ ॐ ॐ",
+      "words": [
+        {
+          "start": 369.48,
+          "end": 369.62,
+          "word": " ॐ",
+          "probability": 0.3158162434895833
+        },
+        {
+          "start": 369.62,
+          "end": 369.7,
+          "word": " ॐ",
+          "probability": 0.6131184895833334
+        },
+        {
+          "start": 369.7,
+          "end": 369.84,
+          "word": " ॐ",
+          "probability": 0.764892578125
+        }
+      ]
+    },
+    {
+      "index": 13,
+      "start": 400.44,
+      "end": 403.08,
+      "text": "ॐ ॐ ॐ",
+      "words": [
+        {
+          "start": 400.44,
+          "end": 400.72,
+          "word": " ॐ",
+          "probability": 0.420166015625
+        },
+        {
+          "start": 400.72,
+          "end": 400.92,
+          "word": " ॐ",
+          "probability": 0.6573893229166666
+        },
+        {
+          "start": 400.92,
+          "end": 403.08,
+          "word": " ॐ",
+          "probability": 0.8362630208333334
+        }
+      ]
+    },
+    {
+      "index": 14,
+      "start": 432.65,
+      "end": 433.77,
+      "text": "ॐ ॐ",
+      "words": [
+        {
+          "start": 432.65,
+          "end": 433.59,
+          "word": " ॐ",
+          "probability": 0.3905029296875
+        },
+        {
+          "start": 433.59,
+          "end": 433.77,
+          "word": " ॐ",
+          "probability": 0.6407063802083334
+        }
+      ]
+    },
+    {
+      "index": 15,
+      "start": 471.96,
+      "end": 472.68,
+      "text": "ॐ ॐ ॐ",
+      "words": [
+        {
+          "start": 471.96,
+          "end": 472.32,
+          "word": " ॐ",
+          "probability": 0.3336995442708333
+        },
+        {
+          "start": 472.32,
+          "end": 472.5,
+          "word": " ॐ",
+          "probability": 0.5506998697916666
+        },
+        {
+          "start": 472.5,
+          "end": 472.68,
+          "word": " ॐ",
+          "probability": 0.7887369791666666
+        }
+      ]
+    },
+    {
+      "index": 16,
+      "start": 496.57,
+      "end": 498.39,
+      "text": "ॐ ॐ",
+      "words": [
+        {
+          "start": 496.57,
+          "end": 497.97,
+          "word": " ॐ",
+          "probability": 0.3346761067708333
+        },
+        {
+          "start": 497.97,
+          "end": 498.39,
+          "word": " ॐ",
+          "probability": 0.626220703125
+        }
+      ]
+    },
+    {
+      "index": 17,
+      "start": 531.58,
+      "end": 533.3,
+      "text": "ॐ ॐ",
+      "words": [
+        {
+          "start": 531.58,
+          "end": 532.98,
+          "word": " ॐ",
+          "probability": 0.2734578450520833
+        },
+        {
+          "start": 532.98,
+          "end": 533.3,
+          "word": " ॐ",
+          "probability": 0.6434733072916666
+        }
+      ]
+    }
+  ]
+}

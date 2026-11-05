@@ -1,0 +1,20 @@
+{
+  "url": "https://www.youtube.com/watch?v=k1dLDg6Hc40",
+  "video_id": "k1dLDg6Hc40",
+  "title": "समवशरण की रचना एंव उसका ध्यान",
+  "playlist_title": "समवशरण की रचना एंव उसका ध्यान",
+  "playlist_id": "k1dLDg6Hc40",
+  "playlist_index": 1,
+  "generated_at_utc": "2026-11-05T12:22:52.147120+00:00",
+  "requested_language": "auto",
+  "detected_language": "hi",
+  "detected_language_name": "Hindi",
+  "language_probability": 0.94873046875,
+  "model": "small",
+  "transcript_file": "transcript.hi.md",
+  "audio_duration": 2584.92,
+  "elapsed_seconds": 199.04369120000047,
+  "device": "cuda",
+  "compute_type": "int8_float16",
+  "language_warning": null
+}

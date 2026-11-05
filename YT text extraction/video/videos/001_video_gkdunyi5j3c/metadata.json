@@ -1,0 +1,20 @@
+{
+  "url": "https://www.youtube.com/watch?v=gKDuNYi5j3c",
+  "video_id": "gKDuNYi5j3c",
+  "title": "समवसरण के विविध रहस्य",
+  "playlist_title": "समवसरण के विविध रहस्य",
+  "playlist_id": "gKDuNYi5j3c",
+  "playlist_index": 1,
+  "generated_at_utc": "2026-11-05T12:49:28.248622+00:00",
+  "requested_language": "auto",
+  "detected_language": "hi",
+  "detected_language_name": "Hindi",
+  "language_probability": 0.98388671875,
+  "model": "small",
+  "transcript_file": "transcript.hi.md",
+  "audio_duration": 430.1264375,
+  "elapsed_seconds": 151.58580679999432,
+  "device": "cuda",
+  "compute_type": "int8_float16",
+  "language_warning": null
+}

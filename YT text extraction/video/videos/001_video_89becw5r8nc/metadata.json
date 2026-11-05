@@ -1,0 +1,20 @@
+{
+  "url": "https://www.youtube.com/watch?v=89beCW5R8nc",
+  "video_id": "89beCW5R8nc",
+  "title": "समवशरण रचना | श्रीवाणी स्वाध्याय चैनल",
+  "playlist_title": "समवशरण रचना | श्रीवाणी स्वाध्याय चैनल",
+  "playlist_id": "89beCW5R8nc",
+  "playlist_index": 1,
+  "generated_at_utc": "2026-11-05T11:59:52.390490+00:00",
+  "requested_language": "auto",
+  "detected_language": "hi",
+  "detected_language_name": "Hindi",
+  "language_probability": 0.91796875,
+  "model": "small",
+  "transcript_file": "transcript.hi.md",
+  "audio_duration": 2465.91275,
+  "elapsed_seconds": 219.81680870000855,
+  "device": "cuda",
+  "compute_type": "int8_float16",
+  "language_warning": null
+}
