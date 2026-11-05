@@ -32,3 +32,15 @@ def test_youtube_transcribe_parser_defaults_to_auto_detection() -> None:
     assert args.output_dir.name == "youtube_transcripts"
     assert args.keep_audio is False
     assert args.force is False
+
+
+
+def test_youtube_transcribe_parser_can_disable_captions() -> None:
+    args = build_parser().parse_args([
+        "youtube-transcribe",
+        "https://youtu.be/VIDEO_ID",
+        "--captions", "off",
+        "--whisper-model", "large-v3",
+    ])
+    assert args.captions == "off"
+    assert args.whisper_model == "large-v3"
