@@ -32,6 +32,7 @@ from vidtrace.models.config import (
 def _setup_logging(verbose: bool = False) -> None:
     """Configure logging with optional rich handler."""
     level = logging.DEBUG if verbose else logging.INFO
+    handler: logging.Handler
 
     try:
         from rich.logging import RichHandler
