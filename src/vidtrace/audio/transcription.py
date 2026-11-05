@@ -1,11 +1,10 @@
 """
-Speech transcription via faster-whisper.
+Robust faster-whisper transcription for VidTrace.
 
-GPU strategy: Whisper gets the NVIDIA GPU first, then releases it
-completely before PaddleOCR starts. This is intentional for
-low-VRAM setups like the RTX 3050 4 GB.
+Important: faster-whisper returns a lazy segment generator. The generator must
+be fully consumed inside the guarded inference call so CUDA failures are caught
+and can be retried on CPU.
 """
-
 from __future__ import annotations
 
 import logging
@@ -23,238 +22,252 @@ logger = logging.getLogger(__name__)
 
 
 def _setup_cuda_dll_paths() -> None:
-    """Add nvidia pip package bin directories to Windows DLL search path and PATH."""
+    """Add CUDA DLL directories installed by NVIDIA pip packages on Windows."""
     if os.name != "nt":
         return
+
     import sys
+
     candidate_bases = [
         Path(sys.prefix) / "Lib" / "site-packages" / "nvidia",
         Path(sys.prefix) / "nvidia",
     ]
     for base in candidate_bases:
-        if base.is_dir():
-            for bin_dir in base.glob("*/bin"):
-                if bin_dir.is_dir():
-                    try:
-                        if hasattr(os, "add_dll_directory"):
-                            os.add_dll_directory(str(bin_dir))
-                    except (OSError, ValueError):
-                        pass
-                    if str(bin_dir) not in os.environ.get("PATH", ""):
-                        os.environ["PATH"] = str(bin_dir) + os.pathsep + os.environ.get("PATH", "")
+        if not base.is_dir():
+            continue
+        for bin_dir in base.glob("*/bin"):
+            if not bin_dir.is_dir():
+                continue
+            try:
+                if hasattr(os, "add_dll_directory"):
+                    os.add_dll_directory(str(bin_dir))
+            except (OSError, ValueError):
+                logger.debug("Could not register CUDA DLL directory: %s", bin_dir)
+            path_entries = os.environ.get("PATH", "").split(os.pathsep)
+            if str(bin_dir) not in path_entries:
+                os.environ["PATH"] = str(bin_dir) + os.pathsep + os.environ.get("PATH", "")
 
 
 class WhisperTranscriber:
     """
-    faster-whisper transcription engine.
+    faster-whisper engine with conservative decoding and CUDA-to-CPU fallback.
 
-    Handles GPU/CPU detection, model loading, transcription with
-    word-level timestamps, and proper GPU memory release.
+    The caller can pass an initial prompt, but the engine never silently inserts
+    an English prompt into a Hindi, Gujarati, Kannada, Marathi or Sanskrit task.
     """
 
     def __init__(
         self,
         config: VidTraceConfig,
         initial_prompt: str | None = None,
-    ):
+        *,
+        prefer_gpu: bool = True,
+        compute_type: str | None = None,
+    ) -> None:
         self.model_name = config.whisper_model
         self.language = config.language
         self.initial_prompt = initial_prompt
-        self.model = None
+        self.prefer_gpu = prefer_gpu
+        self.requested_compute_type = compute_type
+        self.model: Any = None
         self.device = "cpu"
         self.compute_type = "int8"
-
         self._load()
 
     def _load(self) -> None:
-        """Load the Whisper model with appropriate device settings."""
+        """Load the model, verifying CUDA availability before allocating it."""
         from faster_whisper import WhisperModel
 
         _setup_cuda_dll_paths()
-        gpu_available = False
-
-        try:
-            import ctranslate2
-            supported = ctranslate2.get_supported_compute_types("cuda")
-            if supported and ctranslate2.get_cuda_device_count() > 0:
-                gpu_available = True
-        except Exception:
-            pass
-
-        if gpu_available:
+        if self.prefer_gpu:
             try:
-                self.device = "cuda"
-                # Good compromise for a 4 GB RTX GPU.
-                self.compute_type = "int8_float16"
-                logger.info(
-                    "Whisper | model=%s | device=%s | compute=%s",
-                    self.model_name,
-                    self.device,
-                    self.compute_type,
-                )
-                self.model = WhisperModel(
-                    self.model_name,
-                    device=self.device,
-                    compute_type=self.compute_type,
-                    cpu_threads=max(4, os.cpu_count() or 8),
-                    num_workers=1,
-                )
-                return
-            except Exception as exc:
-                logger.warning(
-                    "Failed to initialize Whisper on CUDA (%s). Falling back to CPU.",
-                    exc,
-                )
+                import ctranslate2
 
-        self.device = "cpu"
-        self.compute_type = "int8"
-        logger.info(
-            "Whisper | model=%s | device=%s | compute=%s",
-            self.model_name,
-            self.device,
-            self.compute_type,
-        )
+                supported = ctranslate2.get_supported_compute_types("cuda")
+                device_count = ctranslate2.get_cuda_device_count()
+                if supported and device_count > 0:
+                    requested = self.requested_compute_type or "int8_float16"
+                    if requested not in supported:
+                        requested = (
+                            "int8_float16" if "int8_float16" in supported
+                            else "int8" if "int8" in supported
+                            else sorted(supported)[0]
+                        )
+                    self.model = WhisperModel(
+                        self.model_name,
+                        device="cuda",
+                        compute_type=requested,
+                        cpu_threads=max(4, os.cpu_count() or 8),
+                        num_workers=1,
+                    )
+                    self.device = "cuda"
+                    self.compute_type = requested
+                    logger.info(
+                        "Whisper loaded | model=%s | device=cuda | compute=%s",
+                        self.model_name,
+                        self.compute_type,
+                    )
+                    return
+            except Exception as exc:
+                logger.warning("CUDA model initialization failed; using CPU: %s", exc)
+
+        self._load_cpu()
+
+    def _load_cpu(self) -> None:
+        from faster_whisper import WhisperModel
+
         self.model = WhisperModel(
             self.model_name,
-            device=self.device,
-            compute_type=self.compute_type,
+            device="cpu",
+            compute_type="int8",
             cpu_threads=max(4, os.cpu_count() or 8),
             num_workers=1,
         )
+        self.device = "cpu"
+        self.compute_type = "int8"
+        logger.info("Whisper loaded | model=%s | device=cpu | compute=int8", self.model_name)
+
+    def _decode(self, audio_path: Path) -> tuple[list[Any], Any]:
+        """
+        Run and fully consume the lazy segment generator before returning.
+
+        A CUDA failure anywhere during iteration is therefore caught by the
+        outer retry handler, not after it has already returned to the caller.
+        """
+        if self.model is None:
+            raise RuntimeError("Whisper model has not been initialized.")
+
+        segments_iter, info = self.model.transcribe(
+            str(audio_path),
+            language=self.language,
+            task="transcribe",
+            beam_size=5,
+            best_of=5,
+            temperature=[0.0, 0.2, 0.4, 0.6],
+            compression_ratio_threshold=2.4,
+            log_prob_threshold=-1.0,
+            no_speech_threshold=0.6,
+            condition_on_previous_text=False,
+            vad_filter=True,
+            vad_parameters={
+                "min_silence_duration_ms": 500,
+                "speech_pad_ms": 250,
+            },
+            word_timestamps=True,
+            initial_prompt=self.initial_prompt,
+        )
+        return list(segments_iter), info
+
+    @staticmethod
+    def _serialize_word(word: Any) -> dict[str, Any]:
+        return {
+            "start": float(word.start) if word.start is not None else None,
+            "end": float(word.end) if word.end is not None else None,
+            "word": str(word.word),
+            "probability": (
+                float(word.probability)
+                if word.probability is not None else None
+            ),
+        }
 
     def transcribe(
         self,
-        video_path: Path,
+        audio_path: Path,
     ) -> tuple[list[TranscriptSegment], dict[str, Any]]:
-        """
-        Transcribe a video file.
-
-        Returns:
-            Tuple of (segments, metadata_dict).
-        """
-        assert self.model is not None
-
-        logger.info("Transcribing: %s", video_path.name)
+        """Transcribe an audio/video path and return timestamped segments + metadata."""
+        audio_path = Path(audio_path)
+        if not audio_path.is_file():
+            raise FileNotFoundError(f"Audio input does not exist: {audio_path}")
+        if self.model is None:
+            raise RuntimeError("Whisper model has not been initialized.")
 
         started = time.perf_counter()
-
-        def _run_transcribe():
-            assert self.model is not None
-            return self.model.transcribe(
-                str(video_path),
-                language=self.language,
-                task="transcribe",
-                # Better recognition of technical speech.
-                beam_size=5,
-                best_of=5,
-                temperature=0.0,
-                # Keep context across segments.
-                condition_on_previous_text=True,
-                # Remove long silent sections.
-                vad_filter=True,
-                vad_parameters={"min_silence_duration_ms": 350},
-                # Extremely useful for aligning speech with OCR.
-                word_timestamps=True,
-                initial_prompt=(
-                    self.initial_prompt
-                    if self.initial_prompt is not None
-                    else (
-                        "This is a technical programming lecture. "
-                        "The lecturer discusses Python, Java, "
-                        "Kotlin, JavaScript, APIs, databases, "
-                        "AI, machine learning, LLMs, agents, "
-                        "LangChain, LangGraph and software engineering."
-                    )
-                ),
-            )
-
+        cuda_error: str | None = None
         try:
-            segments, info = _run_transcribe()
-            segments_iter = iter(segments)
-            first_seg = next(segments_iter, None)
+            raw_segments, info = self._decode(audio_path)
         except Exception as exc:
-            if self.device == "cuda":
-                logger.warning("CUDA transcription failed (%s). Retrying on CPU.", exc)
-                from faster_whisper import WhisperModel
-                self.device = "cpu"
-                self.compute_type = "int8"
-                self.model = WhisperModel(
-                    self.model_name,
-                    device="cpu",
-                    compute_type="int8",
-                    cpu_threads=max(4, os.cpu_count() or 8),
-                    num_workers=1,
-                )
-                segments, info = _run_transcribe()
-                segments_iter = iter(segments)
-                first_seg = next(segments_iter, None)
-            else:
+            if self.device != "cuda":
                 raise
+            cuda_error = f"{type(exc).__name__}: {exc}"
+            logger.warning(
+                "CUDA inference/iteration failed; rebuilding on CPU and retrying: %s",
+                cuda_error,
+            )
+            self.model = None
+            release_gpu_memory()
+            self._load_cpu()
+            raw_segments, info = self._decode(audio_path)
 
         output: list[TranscriptSegment] = []
-
-        all_segments = [first_seg] if first_seg is not None else []
-        for seg in segments_iter:
-            all_segments.append(seg)
-
-        for index, segment in enumerate(all_segments):
-            words = []
-            raw_words = getattr(segment, "words", None)
-
-            for word in raw_words or []:
-                words.append({
-                    "start": (
-                        float(word.start)
-                        if word.start is not None
-                        else None
-                    ),
-                    "end": (
-                        float(word.end)
-                        if word.end is not None
-                        else None
-                    ),
-                    "word": str(word.word),
-                    "probability": (
-                        float(word.probability)
-                        if word.probability is not None
-                        else None
-                    ),
-                })
-
+        for index, segment in enumerate(raw_segments):
             text = clean_text(str(segment.text))
             if not text:
                 continue
-
-            output.append(TranscriptSegment(
-                index=index,
-                start=float(segment.start),
-                end=float(segment.end),
-                text=text,
-                words=words,
-            ))
+            words = [
+                self._serialize_word(word)
+                for word in (getattr(segment, "words", None) or [])
+            ]
+            output.append(
+                TranscriptSegment(
+                    index=len(output),
+                    start=float(segment.start),
+                    end=float(segment.end),
+                    text=text,
+                    words=words,
+                    quality={
+                        "avg_logprob": _optional_float(getattr(segment, "avg_logprob", None)),
+                        "no_speech_prob": _optional_float(getattr(segment, "no_speech_prob", None)),
+                        "compression_ratio": _optional_float(getattr(segment, "compression_ratio", None)),
+                        "temperature": _optional_float(getattr(segment, "temperature", None)),
+                        "seek": getattr(segment, "seek", None),
+                    },
+                )
+            )
 
         elapsed = time.perf_counter() - started
-
         meta = {
             "language": getattr(info, "language", None),
-            "language_probability": getattr(info, "language_probability", None),
-            "audio_duration": getattr(info, "duration", None),
-            "duration_after_vad": getattr(info, "duration_after_vad", None),
+            "language_probability": _optional_float(
+                getattr(info, "language_probability", None)
+            ),
+            "audio_duration": _optional_float(getattr(info, "duration", None)),
+            "duration_after_vad": _optional_float(getattr(info, "duration_after_vad", None)),
             "elapsed_seconds": elapsed,
             "device": self.device,
             "compute_type": self.compute_type,
             "model": self.model_name,
+            "decoder": {
+                "beam_size": 5,
+                "temperature_fallback": [0.0, 0.2, 0.4, 0.6],
+                "compression_ratio_threshold": 2.4,
+                "log_prob_threshold": -1.0,
+                "no_speech_threshold": 0.6,
+                "condition_on_previous_text": False,
+                "vad_filter": True,
+            },
+            "cuda_retry_error": cuda_error,
+            "segment_count": len(output),
         }
-
         logger.info(
-            "Whisper | %d segments | %.2f min",
+            "Whisper completed | segments=%d | detected=%s (%.3f) | device=%s | %.1fs",
             len(output),
-            elapsed / 60,
+            meta["language"] or "unknown",
+            meta["language_probability"] or 0.0,
+            self.device,
+            elapsed,
         )
-
         return output, meta
 
     def close(self) -> None:
-        """Release the model and GPU memory."""
+        """Release the model and associated GPU memory."""
         self.model = None
         release_gpu_memory()
+
+
+def _optional_float(value: Any) -> float | None:
+    if value is None:
+        return None
+    try:
+        return float(value)
+    except (TypeError, ValueError):
+        return None
