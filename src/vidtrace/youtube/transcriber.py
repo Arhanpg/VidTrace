@@ -119,7 +119,7 @@ def collect_video_entries(
         import yt_dlp
     except ImportError as exc:
         raise RuntimeError(
-            'yt-dlp is missing. Install with: pip install -e ".[youtube]"'
+            'yt-dlp is missing. Install with: pip install -e ".[youtube-transcribe]"'
         ) from exc
 
     options = {
@@ -190,7 +190,7 @@ def download_audio(video_url: str, work_dir: Path) -> tuple[Path, dict[str, Any]
         import yt_dlp
     except ImportError as exc:
         raise RuntimeError(
-            'yt-dlp is missing. Install with: pip install -e ".[youtube]"'
+            'yt-dlp is missing. Install with: pip install -e ".[youtube-transcribe]"'
         ) from exc
 
     work_dir.mkdir(parents=True, exist_ok=True)
