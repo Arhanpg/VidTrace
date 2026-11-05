@@ -420,7 +420,7 @@ def run_youtube_transcription(
                             "title": title,
                             "status": "skipped (already complete)",
                             "language_name": old_meta.get("detected_language_name", "Unknown"),
-                            "transcript_link": str(transcript_path.relative_to(root)).replace("\\\\", "/"),
+                            "transcript_link": transcript_path.relative_to(root).as_posix(),
                         }
                         records.append(record)
                         skipped += 1
@@ -544,7 +544,7 @@ def run_youtube_transcription(
                     "title": title,
                     "status": "completed",
                     "language_name": language_name(detected_code),
-                    "transcript_link": str(transcript_path.relative_to(root)).replace("\\", "/"),
+                            "transcript_link": transcript_path.relative_to(root).as_posix(),
                 })
                 succeeded += 1
                 logger.info(
