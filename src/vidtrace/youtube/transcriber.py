@@ -519,7 +519,12 @@ def run_youtube_transcription(
                 _write_json(video_dir / "transcript.json", transcript_json)
 
                 metadata = {
-                    **transcript_json["source"],
+                    "url": video_url,
+                    "video_id": video_id,
+                    "title": title,
+                    "playlist_title": collection_title,
+                    "playlist_id": collection_id,
+                    "playlist_index": playlist_index,
                     "generated_at_utc": datetime.now(timezone.utc).isoformat(),
                     "requested_language": language,
                     "detected_language": detected_code,
