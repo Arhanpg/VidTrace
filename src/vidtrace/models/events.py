@@ -6,6 +6,8 @@ The unified TimelineEvent schema merges speech, OCR, and visual events
 into a single temporal stream.
 """
 
+# ruff: noqa: I001 -- preserve this module's established import layout
+
 from __future__ import annotations
 
 import uuid
