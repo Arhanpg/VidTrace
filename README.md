@@ -195,7 +195,9 @@ vidtrace youtube-transcribe "https://www.youtube.com/watch?v=VIDEO_ID" --languag
 vidtrace youtube-transcribe "https://www.youtube.com/watch?v=VIDEO_ID" --language gu
 ```
 
-See [YouTube transcription guide](docs/youtube-transcription.md) for Windows setup, Deno, output folders, language support, Prakrit limitations and troubleshooting.
+By default, the command prefers matching original-language YouTube captions and falls back to faster-whisper medium when captions are unavailable or clearly poor. Suspicious outputs are marked `review_required` rather than silently accepted. Use `--captions off` to force Whisper ASR.
+
+See [YouTube transcription guide](docs/youtube-transcription.md) for Windows setup, Deno, output folders, caption selection, language support, quality flags, Prakrit limitations and troubleshooting.
 
 ### OCR
 
