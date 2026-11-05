@@ -782,7 +782,10 @@ def run_youtube_transcription(
 
                 # First preference: YouTube manual captions, then automatic
                 # captions for a language we can resolve unambiguously.
-                if captions == "prefer":
+                if (
+                    captions == "prefer"
+                    and language.lower() not in {"prakrit", "prākrit", "pali-prakrit"}
+                ):
                     track = choose_caption_track(video_info, language_code)
                     if track is not None:
                         track_kind, track_language = track
@@ -826,7 +829,9 @@ def run_youtube_transcription(
                 if caption_candidate is not None:
                     cap_segments, cap_quality, cap_code = caption_candidate
                     track_kind = caption_meta.get("track_kind")
-                    if cap_quality["status"] == "passed" or track_kind == "manual":
+                    if cap_quality["status"] == "passed" or (
+                        track_kind == "manual" and cap_quality["status"] == "review_required"
+                    ):
                         selected_segments = cap_segments
                         selected_quality = cap_quality
                         detected_code = cap_code
@@ -1017,11 +1022,14 @@ def run_youtube_transcription(
                     "transcription_source": transcription_source,
                     "transcript_link": transcript_path.relative_to(root).as_posix(),
                 })
-                succeeded += 1
                 if quality_status == "passed":
+                    succeeded += 1
                     passed += 1
-                else:
+                elif quality_status == "review_required":
+                    succeeded += 1
                     review_required += 1
+                else:
+                    failed += 1
 
                 logger.info(
                     "[%d/%d] %s | source=%s | quality=%s/100 | %s",
