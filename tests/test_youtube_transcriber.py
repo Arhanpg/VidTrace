@@ -298,3 +298,28 @@ def test_parse_vtt_deduplicates_identical_rolling_cues(tmp_path: Path) -> None:
         encoding="utf-8",
     )
     assert len(parse_vtt(caption_path)) == 1
+
+
+
+def test_auto_caption_selection_prefers_original_language_track() -> None:
+    info = {
+        "language": "en",
+        "subtitles": {},
+        "automatic_captions": {
+            "en": [{"ext": "vtt", "url": "https://example.invalid/en.vtt"}],
+            "hi-orig": [{"ext": "vtt", "url": "https://example.invalid/hi.vtt"}],
+        },
+    }
+    assert choose_caption_track(info, None) == ("automatic", "hi-orig")
+
+
+def test_auto_caption_selection_uses_original_language_metadata() -> None:
+    info = {
+        "original_language": "hi-IN",
+        "subtitles": {},
+        "automatic_captions": {
+            "en": [{"ext": "vtt", "url": "https://example.invalid/en.vtt"}],
+            "hi": [{"ext": "vtt", "url": "https://example.invalid/hi.vtt"}],
+        },
+    }
+    assert choose_caption_track(info, None) == ("automatic", "hi")
