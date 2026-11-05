@@ -624,10 +624,13 @@ def _write_playlist_index(
     path.write_text("\n".join(lines) + "\n", encoding="utf-8")
 
 
+PIPELINE_VERSION = "2.0.0"
+
+
 def run_youtube_transcription(
     url: str,
     output_dir: Path,
-    model_name: str = "small",
+    model_name: str = "medium",
     language: str = "auto",
     keep_audio: bool = False,
     force: bool = False,
@@ -635,13 +638,23 @@ def run_youtube_transcription(
     playlist_end: int | None = None,
     max_videos: int | None = None,
     initial_prompt: str | None = None,
+    captions: str = "prefer",
 ) -> int:
     """
     Download and transcribe a YouTube video or playlist.
 
-    One faster-whisper instance is reused for the whole playlist to reduce
-    repeated model loading and GPU memory churn.
+    Quality strategy:
+      1. Prefer a matching manual YouTube caption track.
+      2. Use matching automatic captions when they pass quality checks.
+      3. Otherwise transcribe the audio using conservative faster-whisper decoding.
+      4. Retry with medium if a user-selected tiny/base/small model fails quality.
+      5. Store suspicious output as review_required instead of calling it complete.
+
+    A quality score is a warning system, not proof that a transcript is correct.
     """
+    if captions not in {"prefer", "off"}:
+        raise ValueError("captions must be 'prefer' or 'off'.")
+
     language_code, language_warning = resolve_language(language)
     collection_title, collection_id, entries = collect_video_entries(
         url=url,
@@ -663,24 +676,45 @@ def run_youtube_transcription(
     if language_warning:
         logger.warning(language_warning)
 
+    effective_model = model_name
     config = VidTraceConfig(
-        whisper_model=model_name,
+        whisper_model=effective_model,
         language=language_code,
         output_folder=str(root),
     )
-    # In auto-detect mode, do not bias the decoder with a prompt in the wrong
-    # language or script. A script-specific Jain glossary is used only when
-    # the caller explicitly forces a supported language.
     prompt = (
         initial_prompt
         if initial_prompt is not None
         else JAIN_LANGUAGE_PROMPTS.get(language_code or "", "")
     )
+
     transcriber: WhisperTranscriber | None = None
     records: list[dict[str, Any]] = []
     succeeded = 0
+    passed = 0
+    review_required = 0
     failed = 0
     skipped = 0
+    upgraded_to_medium = False
+
+    def save_summary() -> None:
+        _write_playlist_index(root / "playlist_index.md", collection_title, records)
+        _write_json(root / "run_summary.json", {
+            "pipeline_version": PIPELINE_VERSION,
+            "playlist_title": collection_title,
+            "playlist_id": collection_id,
+            "source_url": url,
+            "requested_language": language,
+            "requested_whisper_model": model_name,
+            "effective_whisper_model": effective_model,
+            "processed": succeeded,
+            "completed": passed,
+            "review_required": review_required,
+            "skipped": skipped,
+            "failed": failed,
+            "records": records,
+            "updated_at_utc": datetime.now(timezone.utc).isoformat(),
+        })
 
     try:
         for position, entry in enumerate(entries, start=1):
@@ -695,72 +729,197 @@ def run_youtube_transcription(
             video_dir.mkdir(parents=True, exist_ok=True)
 
             existing_metadata = video_dir / "metadata.json"
-            existing_transcripts = list(video_dir.glob("transcript.*.md"))
-            if not force and existing_metadata.exists() and existing_transcripts:
+            if not force and existing_metadata.exists():
                 try:
                     old_meta = json.loads(existing_metadata.read_text(encoding="utf-8"))
-                    transcript_filename = old_meta.get("transcript_file", "")
-                    transcript_path = video_dir / transcript_filename
+                    transcript_path = video_dir / str(old_meta.get("transcript_file", ""))
                     same_request = (
-                        old_meta.get("requested_language") == language
-                        and old_meta.get("model") == model_name
+                        old_meta.get("pipeline_version") == PIPELINE_VERSION
+                        and old_meta.get("requested_language") == language
+                        and old_meta.get("requested_whisper_model") == model_name
+                        and old_meta.get("captions") == captions
                     )
-                    if same_request and transcript_path.exists():
-                        record = {
+                    old_quality = old_meta.get("quality") or {}
+                    if (
+                        same_request
+                        and transcript_path.is_file()
+                        and old_quality.get("status") == "passed"
+                    ):
+                        records.append({
                             "playlist_index": playlist_index,
                             "title": title,
-                            "status": "skipped (already complete)",
+                            "status": "skipped (already passed quality checks)",
+                            "quality_score": old_quality.get("score"),
                             "language_name": old_meta.get("detected_language_name", "Unknown"),
                             "transcript_link": transcript_path.relative_to(root).as_posix(),
-                        }
-                        records.append(record)
-                        skipped += 1
-                        logger.info("[%d/%d] Already complete: %s", position, len(entries), title)
-                        _write_playlist_index(root / "playlist_index.md", collection_title, records)
-                        _write_json(root / "run_summary.json", {
-                            "playlist_title": collection_title,
-                            "playlist_id": collection_id,
-                            "source_url": url,
-                            "requested_language": language,
-                            "whisper_model": model_name,
-                            "completed": succeeded,
-                            "skipped": skipped,
-                            "failed": failed,
-                            "records": records,
-                            "updated_at_utc": datetime.now(timezone.utc).isoformat(),
                         })
+                        skipped += 1
+                        logger.info("[%d/%d] Skipping previously passed transcript: %s",
+                                    position, len(entries), title)
+                        save_summary()
                         continue
-                    logger.info(
-                        "Existing transcript differs from requested language/model or is missing; "
-                        "reprocessing '%s'.",
-                        title,
-                    )
-                except (OSError, ValueError, KeyError):
-                    logger.warning("Existing transcript metadata is unreadable; reprocessing.")
+                except (OSError, ValueError, TypeError):
+                    logger.warning("Existing metadata is unreadable; reprocessing %s.", title)
 
             work_dir = cache_root / slugify(video_id, 40)
+            asr_meta: dict[str, Any] = {}
+            caption_meta: dict[str, Any] = {}
+            selected_segments: list[TranscriptSegment] = []
+            selected_quality: dict[str, Any] = {}
+            transcription_source = "faster_whisper"
+            detected_code: str | None = None
+            model_used: str | None = None
+            audio_path: Path | None = None
+
             try:
-                logger.info("[%d/%d] Downloading audio: %s", position, len(entries), title)
-                audio_path, downloaded_info = download_audio(video_url, work_dir)
-                if downloaded_info:
-                    title = str(downloaded_info.get("title") or title)
-                    video_id = str(downloaded_info.get("id") or video_id)
+                logger.info("[%d/%d] Reading metadata: %s", position, len(entries), title)
+                video_info = _extract_video_info(video_url)
+                title = str(video_info.get("title") or title)
+                video_id = str(video_info.get("id") or video_id)
+                caption_candidate: tuple[
+                    list[TranscriptSegment], dict[str, Any], str
+                ] | None = None
 
-                if transcriber is None:
-                    logger.info(
-                        "Loading faster-whisper model '%s'. The first run may download "
-                        "the model weights.",
-                        model_name,
+                # First preference: YouTube manual captions, then automatic
+                # captions for a language we can resolve unambiguously.
+                if captions == "prefer":
+                    track = choose_caption_track(video_info, language_code)
+                    if track is not None:
+                        track_kind, track_language = track
+                        try:
+                            caption_path = download_caption_track(
+                                video_url, work_dir, track_kind, track_language
+                            )
+                            if caption_path is not None:
+                                caption_segments = parse_vtt(caption_path)
+                                caption_code = _caption_language_key(track_language)
+                                caption_source = (
+                                    "youtube_manual_caption"
+                                    if track_kind == "manual"
+                                    else "youtube_auto_caption"
+                                )
+                                caption_quality = assess_transcript(
+                                    caption_segments,
+                                    language_probability=None,
+                                    source=caption_source,
+                                )
+                                caption_meta = {
+                                    "track_language": track_language,
+                                    "track_kind": track_kind,
+                                    "caption_file": caption_path.name,
+                                }
+                                caption_candidate = (
+                                    caption_segments, caption_quality, caption_code
+                                )
+                                logger.info(
+                                    "Caption track found | kind=%s | language=%s | "
+                                    "segments=%d | quality=%s",
+                                    track_kind, track_language, len(caption_segments),
+                                    caption_quality["status"],
+                                )
+                        except Exception as exc:
+                            logger.warning("Could not use selected captions: %s", exc)
+
+                # Manual captions are the source's own reviewed subtitles in
+                # many cases; keep them, but still flag repetitive/empty text.
+                use_caption = False
+                if caption_candidate is not None:
+                    cap_segments, cap_quality, cap_code = caption_candidate
+                    track_kind = caption_meta.get("track_kind")
+                    if cap_quality["status"] == "passed" or track_kind == "manual":
+                        selected_segments = cap_segments
+                        selected_quality = cap_quality
+                        detected_code = cap_code
+                        transcription_source = (
+                            "youtube_manual_caption"
+                            if track_kind == "manual" else "youtube_auto_caption"
+                        )
+                        use_caption = True
+
+                if not use_caption:
+                    logger.info("[%d/%d] Downloading audio: %s", position, len(entries), title)
+                    audio_path, downloaded_info = download_audio(video_url, work_dir)
+                    if downloaded_info:
+                        title = str(downloaded_info.get("title") or title)
+                        video_id = str(downloaded_info.get("id") or video_id)
+
+                    if transcriber is None:
+                        logger.info(
+                            "Loading faster-whisper '%s'; first use downloads its model weights.",
+                            effective_model,
+                        )
+                        transcriber = WhisperTranscriber(
+                            config,
+                            initial_prompt=prompt or None,
+                        )
+
+                    logger.info("[%d/%d] Transcribing audio: %s", position, len(entries), title)
+                    asr_segments, asr_meta = transcriber.transcribe(audio_path)
+                    detected_code = (
+                        str(asr_meta.get("language"))
+                        if asr_meta.get("language") else language_code
                     )
-                    transcriber = WhisperTranscriber(config, initial_prompt=prompt)
+                    asr_quality = assess_transcript(
+                        asr_segments,
+                        language_probability=asr_meta.get("language_probability"),
+                        source="faster_whisper",
+                    )
 
-                logger.info("[%d/%d] Transcribing: %s", position, len(entries), title)
-                segments, whisper_meta = transcriber.transcribe(audio_path)
+                    # When the user chose a smaller model, make one quality-
+                    # triggered medium retry. Reuse it for the rest of the
+                    # playlist to avoid repeatedly loading model weights.
+                    if (
+                        asr_quality["status"] != "passed"
+                        and effective_model in {"tiny", "base", "small"}
+                        and not upgraded_to_medium
+                    ):
+                        logger.warning(
+                            "Transcript quality requires review; retrying once with medium."
+                        )
+                        transcriber.close()
+                        config.whisper_model = "medium"
+                        effective_model = "medium"
+                        transcriber = WhisperTranscriber(
+                            config,
+                            initial_prompt=prompt or None,
+                        )
+                        upgraded_to_medium = True
+                        retry_segments, retry_meta = transcriber.transcribe(audio_path)
+                        retry_quality = assess_transcript(
+                            retry_segments,
+                            language_probability=retry_meta.get("language_probability"),
+                            source="faster_whisper",
+                        )
+                        if retry_quality["score"] >= asr_quality["score"]:
+                            asr_segments = retry_segments
+                            asr_meta = retry_meta
+                            asr_quality = retry_quality
+                            detected_code = (
+                                str(retry_meta.get("language"))
+                                if retry_meta.get("language") else detected_code
+                            )
 
-                detected_code = (
-                    str(whisper_meta.get("language"))
-                    if whisper_meta.get("language") else language_code
-                )
+                    selected_segments = asr_segments
+                    selected_quality = asr_quality
+                    transcription_source = "faster_whisper"
+                    model_used = effective_model
+
+                    # A suspicious automatic caption is retained as an
+                    # alternative only when its objective quality score beats
+                    # the ASR result; a manual caption was already preferred.
+                    if caption_candidate is not None:
+                        cap_segments, cap_quality, cap_code = caption_candidate
+                        if cap_quality["score"] > selected_quality["score"]:
+                            selected_segments = cap_segments
+                            selected_quality = cap_quality
+                            detected_code = cap_code
+                            transcription_source = "youtube_auto_caption"
+                            model_used = None
+                            logger.info(
+                                "Selected automatic captions over ASR by quality score (%s > %s).",
+                                cap_quality["score"], asr_quality["score"],
+                            )
+
                 if language.lower() in {"prakrit", "prākrit", "pali-prakrit"}:
                     filename_language = "prakrit_experimental"
                 else:
@@ -768,6 +927,10 @@ def run_youtube_transcription(
 
                 transcript_filename = f"transcript.{filename_language}.md"
                 transcript_path = video_dir / transcript_filename
+                language_probability = asr_meta.get("language_probability")
+                if transcription_source.startswith("youtube_"):
+                    language_probability = None
+
                 markdown = render_markdown(
                     title=title,
                     video_url=video_url,
@@ -776,19 +939,21 @@ def run_youtube_transcription(
                     playlist_index=playlist_index,
                     requested_language=language,
                     detected_language=detected_code,
-                    language_probability=whisper_meta.get("language_probability"),
-                    model_name=model_name,
-                    audio_duration=whisper_meta.get("audio_duration"),
-                    segments=segments,
+                    language_probability=language_probability,
+                    model_name=model_used or "YouTube captions",
+                    audio_duration=asr_meta.get("audio_duration"),
+                    segments=selected_segments,
                     warning=language_warning,
+                    quality=selected_quality,
+                    transcription_source=transcription_source,
                 )
                 transcript_path.write_text(markdown, encoding="utf-8")
 
                 (video_dir / f"transcript.{filename_language}.srt").write_text(
-                    render_srt(segments), encoding="utf-8",
+                    render_srt(selected_segments), encoding="utf-8",
                 )
                 (video_dir / f"transcript.{filename_language}.vtt").write_text(
-                    render_vtt(segments), encoding="utf-8",
+                    render_vtt(selected_segments), encoding="utf-8",
                 )
 
                 transcript_json = {
@@ -800,56 +965,72 @@ def run_youtube_transcription(
                         "playlist_id": collection_id,
                         "playlist_index": playlist_index,
                     },
+                    "pipeline_version": PIPELINE_VERSION,
                     "requested_language": language,
                     "detected_language": detected_code,
-                    "language_probability": whisper_meta.get("language_probability"),
-                    "model": model_name,
-                    "whisper_metadata": whisper_meta,
-                    "segments": _segments_to_json(segments),
+                    "language_probability": language_probability,
+                    "model": model_used,
+                    "transcription_source": transcription_source,
+                    "quality": selected_quality,
+                    "caption_metadata": caption_meta,
+                    "whisper_metadata": asr_meta,
+                    "segments": _segments_to_json(selected_segments),
                 }
                 _write_json(video_dir / "transcript.json", transcript_json)
 
                 metadata = {
-                    "url": video_url,
-                    "video_id": video_id,
-                    "title": title,
-                    "playlist_title": collection_title,
-                    "playlist_id": collection_id,
-                    "playlist_index": playlist_index,
+                    **transcript_json["source"],
                     "generated_at_utc": datetime.now(timezone.utc).isoformat(),
+                    "pipeline_version": PIPELINE_VERSION,
                     "requested_language": language,
                     "detected_language": detected_code,
                     "detected_language_name": language_name(detected_code),
-                    "language_probability": whisper_meta.get("language_probability"),
-                    "model": model_name,
+                    "language_probability": language_probability,
+                    "requested_whisper_model": model_name,
+                    "model": model_used,
+                    "transcription_source": transcription_source,
+                    "quality": selected_quality,
+                    "caption_metadata": caption_meta,
                     "transcript_file": transcript_filename,
-                    "audio_duration": whisper_meta.get("audio_duration"),
-                    "elapsed_seconds": whisper_meta.get("elapsed_seconds"),
-                    "device": whisper_meta.get("device"),
-                    "compute_type": whisper_meta.get("compute_type"),
+                    "audio_duration": asr_meta.get("audio_duration"),
+                    "elapsed_seconds": asr_meta.get("elapsed_seconds"),
+                    "device": asr_meta.get("device"),
+                    "compute_type": asr_meta.get("compute_type"),
+                    "captions": captions,
                     "language_warning": language_warning,
                 }
                 _write_json(existing_metadata, metadata)
 
-                if keep_audio:
+                if keep_audio and audio_path is not None:
                     shutil.copy2(audio_path, video_dir / f"source_audio{audio_path.suffix}")
                 shutil.rmtree(work_dir, ignore_errors=True)
 
+                quality_status = str(selected_quality.get("status", "review_required"))
+                record_status = "completed" if quality_status == "passed" else quality_status
                 records.append({
                     "playlist_index": playlist_index,
                     "title": title,
-                    "status": "completed",
+                    "status": record_status,
+                    "quality_score": selected_quality.get("score"),
+                    "quality_flags": selected_quality.get("flags", []),
                     "language_name": language_name(detected_code),
+                    "transcription_source": transcription_source,
                     "transcript_link": transcript_path.relative_to(root).as_posix(),
                 })
                 succeeded += 1
+                if quality_status == "passed":
+                    passed += 1
+                else:
+                    review_required += 1
+
                 logger.info(
-                    "[%d/%d] Complete: %s (%s, %d segments)",
-                    position, len(entries), title, language_name(detected_code), len(segments),
+                    "[%d/%d] %s | source=%s | quality=%s/100 | %s",
+                    position, len(entries), record_status, transcription_source,
+                    selected_quality.get("score", 0), title,
                 )
 
             except KeyboardInterrupt:
-                logger.warning("Interrupted. Successful transcripts are preserved.")
+                logger.warning("Interrupted. Previously saved transcripts are preserved.")
                 raise
             except Exception as exc:
                 logger.exception("Failed to process '%s': %s", title, exc)
@@ -858,30 +1039,19 @@ def run_youtube_transcription(
                     "title": title,
                     "status": f"failed: {exc}",
                     "language_name": "Unknown",
+                    "transcription_source": None,
                     "transcript_link": None,
                 })
                 failed += 1
 
-            _write_playlist_index(root / "playlist_index.md", collection_title, records)
-            _write_json(root / "run_summary.json", {
-                "playlist_title": collection_title,
-                "playlist_id": collection_id,
-                "source_url": url,
-                "requested_language": language,
-                "whisper_model": model_name,
-                "completed": succeeded,
-                "skipped": skipped,
-                "failed": failed,
-                "records": records,
-                "updated_at_utc": datetime.now(timezone.utc).isoformat(),
-            })
+            save_summary()
 
     finally:
         if transcriber is not None:
             transcriber.close()
 
     logger.info(
-        "Finished. Completed=%d | Skipped=%d | Failed=%d | Output=%s",
-        succeeded, skipped, failed, root,
+        "Finished | passed=%d | review_required=%d | skipped=%d | failed=%d | output=%s",
+        passed, review_required, skipped, failed, root,
     )
     return 1 if failed else 0
