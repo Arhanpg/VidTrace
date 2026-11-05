@@ -48,12 +48,34 @@ PRAKRIT_WARNING = (
     "classified as Sanskrit, Hindi, or another language and must be manually "
     "checked by someone familiar with the Prakrit variety."
 )
-JAIN_INITIAL_PROMPT = (
-    "Jain Dharma, Digambara Jainism, Samavasaran, Samavasarana, "
-    "Adinath, Rishabhdev, Tirthankara, Kevaljnana, Divyadhvani, "
-    "Gandhakuti, Manastambha, pitha, vedi, bhumi, kot, "
-    "Tiloyapannatti, Adipurana, Jinasena, Yativrishabha."
-)
+JAIN_LANGUAGE_PROMPTS: dict[str, str] = {
+    "hi": (
+        "जैन धर्म, दिगम्बर जैन, समवसरण, आदिनाथ, ऋषभदेव, तीर्थंकर, "
+        "केवलज्ञान, दिव्यध्वनि, गंधकुटी, मानस्तंभ, पीठ, वेदी, भूमि, "
+        "कोट, तिलोयपण्णत्ति, आदिपुराण, जिनसेन, यतिवृषभ।"
+    ),
+    "mr": (
+        "जैन धर्म, दिगंबर जैन, समवसरण, आदिनाथ, ऋषभदेव, तीर्थंकर, "
+        "केवलज्ञान, दिव्यध्वनी, गंधकुटी, मानस्तंभ, पीठ, वेदी, भूमी, "
+        "कोट, तिलोयपण्णत्ति, आदिपुराण, जिनसेन, यतिवृषभ।"
+    ),
+    "gu": (
+        "જૈન ધર્મ, દિગંબર જૈન, સમવસરણ, આદિનાથ, ઋષભદેવ, તીર્થંકર, "
+        "કેવળજ્ઞાન, દિવ્યધ્વનિ, ગંધકુટી, માનસ્તંભ, પીઠ, વેદી, ભૂમિ, "
+        "કોટ, તિલોયપન્નત્તિ, આદિપુરાણ, જિનસેન, યતિવૃષભ."
+    ),
+    "kn": (
+        "ಜೈನ ಧರ್ಮ, ದಿಗಂಬರ ಜೈನ, ಸಮವಸರಣ, ಆದಿನಾಥ, ಋಷಭದೇವ, ತೀರ್ಥಂಕರ, "
+        "ಕೇವಲಜ್ಞಾನ, ದಿವ್ಯಧ್ವನಿ, ಗಂಧಕುಟಿ, ಮಾನಸ್ತಂಭ, ಪೀಠ, ವೇದಿ, ಭೂಮಿ, "
+        "ಕೋಟ, ತಿಲೋಯಪಣ್ಣತ್ತಿ, ಆದಿಪುರಾಣ, ಜಿನಸೇನ, ಯತಿವೃಷಭ."
+    ),
+    "sa": (
+        "जैनधर्मः, दिगम्बरजैनपरम्परा, समवसरणम्, आदिनाथः, ऋषभदेवः, "
+        "तीर्थङ्करः, केवलज्ञानम्, दिव्यध्वनिः, गन्धकुटी, मानस्तम्भः, "
+        "पीठम्, वेदी, भूमिः, कोटः, तिलोयपण्णत्ति, आदिपुराणम्, "
+        "जिनसेनः, यतिवृषभः।"
+    ),
+}
 
 
 def resolve_language(value: str) -> tuple[str | None, str | None]:
@@ -384,7 +406,14 @@ def run_youtube_transcription(
         language=language_code,
         output_folder=str(root),
     )
-    prompt = initial_prompt if initial_prompt is not None else JAIN_INITIAL_PROMPT
+    # In auto-detect mode, do not bias the decoder with a prompt in the wrong
+    # language or script. A script-specific Jain glossary is used only when
+    # the caller explicitly forces a supported language.
+    prompt = (
+        initial_prompt
+        if initial_prompt is not None
+        else JAIN_LANGUAGE_PROMPTS.get(language_code or "", "")
+    )
     transcriber: WhisperTranscriber | None = None
     records: list[dict[str, Any]] = []
     succeeded = 0
