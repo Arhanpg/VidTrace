@@ -6,12 +6,14 @@ This guide describes the YouTube video/playlist transcription command added to V
 
 1. Accepts a public YouTube video URL or playlist URL.
 2. Reads video/playlist metadata with yt-dlp.
-3. Downloads audio only (not the full video) to a temporary local cache.
-4. Uses the existing faster-whisper engine to produce timestamped speech segments.
-5. Detects the language independently for each video when --language auto is selected.
-6. Writes a Markdown transcript for each video, plus SRT, VTT, JSON and a playlist index.
-7. Deletes temporary audio after a successful transcript unless --keep-audio is selected.
-8. Reuses completed outputs on later runs; use --force to regenerate.
+3. Checks for a matching YouTube manual-caption track and then a matching automatic-caption track.
+4. Prefers usable captions; if captions are unavailable or clearly poor, downloads audio only (not the full video) and uses faster-whisper.
+5. Uses faster-whisper medium by default, conservative decoding thresholds, temperature fallback, and CUDA-to-CPU retry.
+6. Detects the language independently for each video when --language auto is selected.
+7. Calculates transcript-quality diagnostics and marks suspicious output review_required instead of silently calling it complete.
+8. Writes Markdown, SRT, VTT and JSON for each video, plus a playlist index.
+9. Deletes temporary audio after successful processing unless --keep-audio is selected.
+10. Reuses only transcripts that passed the current pipeline's quality checks; use --force to regenerate.
 
 The tool does not translate speech. It transcribes the spoken language. A Hindi talk produces a Hindi transcript; a Gujarati talk produces a Gujarati transcript, etc.
 
@@ -76,13 +78,13 @@ Current yt-dlp documentation recommends yt-dlp-ejs plus a supported JavaScript r
 
 Official Deno Windows instructions: https://docs.deno.com/runtime/getting_started/installation/
 
-### GPU notes for the RTX 3050
+### GPU notes for the RTX 3050 4 GB
 
-VidTrace reuses the existing faster-whisper CUDA detection and low-VRAM compute settings. Current CTranslate2 releases require CUDA 12 cuBLAS and cuDNN 9 for NVIDIA GPU inference. If these libraries are not available, VidTrace may use CPU; check the startup log for the reported device and compute type.
+The YouTube command now defaults to the medium Whisper model and requests int8_float16 when CUDA supports it. It verifies that a CUDA device exists, then falls back to CPU if CUDA initialization or inference fails. A CPU retry can be significantly slower. Check the log for the actual device and compute type rather than assuming the GPU is active.
 
-Official faster-whisper GPU requirements: https://github.com/SYSTRAN/faster-whisper#gpu
+Current CTranslate2 GPU inference requires compatible CUDA 12 cuBLAS and cuDNN 9 libraries. See the official faster-whisper GPU requirements: https://github.com/SYSTRAN/faster-whisper#gpu
 
-If you want to test CPU first, use the small or base model and check the run log. Do not assume CUDA is active just because an NVIDIA GPU is installed.
+For a faster, lighter run, select small. If a user-selected tiny/base/small model returns review_required, VidTrace performs one medium-model retry during that playlist run. The medium model may still fall back to CPU when VRAM is insufficient.
 
 ## Basic usage
 
@@ -142,9 +144,17 @@ vidtrace youtube-transcribe "https://www.youtube.com/playlist?list=PLAYLIST_ID" 
 vidtrace youtube-transcribe "https://www.youtube.com/watch?v=VIDEO_ID" --whisper-model medium
 ~~~
 
-A larger model may improve recognition but consumes more VRAM/RAM and takes longer. For a 4 GB laptop GPU, start with small.
+The YouTube command defaults to medium. Medium may improve Indic-language recognition over small but consumes more memory and may use CPU fallback on a 4 GB GPU. Use small when speed or VRAM is the priority.
 
-### 10. Keep the downloaded audio
+### 10. Disable YouTube captions and force Whisper
+
+~~~powershell
+vidtrace youtube-transcribe "https://www.youtube.com/watch?v=VIDEO_ID" --captions off
+~~~
+
+By default VidTrace prefers a matching manual YouTube caption track, then an automatic caption track. Auto mode uses caption tracks only when the video language or a unique supported caption language can be resolved; it does not guess between several unrelated languages. Use --captions off to force faster-whisper.
+
+### 11. Keep the downloaded audio
 
 ~~~powershell
 vidtrace youtube-transcribe "https://www.youtube.com/watch?v=VIDEO_ID" --keep-audio
@@ -152,7 +162,7 @@ vidtrace youtube-transcribe "https://www.youtube.com/watch?v=VIDEO_ID" --keep-au
 
 Without this flag, downloaded audio is removed after a successful transcript is written. Failed downloads are retained in the temporary cache to help resume/retry.
 
-### 11. Re-run completed videos
+### 12. Re-run completed videos
 
 ~~~powershell
 vidtrace youtube-transcribe "https://www.youtube.com/playlist?list=PLAYLIST_ID" --force
@@ -182,7 +192,14 @@ youtube_transcripts/
             └── transcript.sa.vtt
 ~~~
 
-The exact extension depends on Whisper's detected language. With experimental Prakrit mode, the Markdown filename is transcript.prakrit_experimental.md and includes a language warning.
+The exact extension depends on the detected language or the caption language. With experimental Prakrit mode, the Markdown filename is transcript.prakrit_experimental.md and includes a language warning.
+
+Each transcript now includes a Quality assessment section. Status values are:
+- passed: no obvious automatic quality warning was detected.
+- review_required: repetition, symbol-heavy output, low log probability, or another warning was detected. Review the transcript before using it as research evidence.
+- failed: no usable text was produced.
+
+These are conservative automated checks. A passed status does not establish that Jain terminology, scripture quotations, or gāthā numbers are correct.
 
 ### Markdown transcript contents
 
@@ -191,7 +208,10 @@ Each transcript.<language>.md contains:
 - Playlist name and position.
 - Requested and detected language.
 - Language-detection confidence (when reported).
-- Whisper model and audio duration.
+- Model and transcription source (YouTube manual captions, automatic captions, or faster-whisper).
+- Language confidence when speech recognition supplied it.
+- Quality score, review status and quality flags.
+- Audio duration when speech recognition was used.
 - Timestamped speech blocks.
 - An accuracy warning for scriptural names, gāthās and Jain terminology.
 
@@ -199,8 +219,9 @@ The Markdown transcript is the recommended file to upload for research review. K
 
 ## Resume behaviour
 
-- Completed videos with matching metadata are skipped on subsequent runs.
-- Use --force to reprocess.
+- Only transcripts that passed the current pipeline quality checks are skipped on later runs.
+- Existing transcripts from the older pipeline version are regenerated once because they have no quality assessment.
+- review_required transcripts are processed again on a later run; use --force to regenerate any transcript.
 - A failed video does not stop the rest of the playlist.
 - Successful transcript files are preserved if you interrupt the process.
 - Failed video audio may remain in .audio_cache/ for retry. Remove this folder manually if you no longer need the cached audio.
