@@ -804,6 +804,7 @@ def run_youtube_transcription(
                                 caption_quality = assess_transcript(
                                     caption_segments,
                                     language_probability=None,
+                                    duration_seconds=video_info.get("duration"),
                                     source=caption_source,
                                 )
                                 caption_meta = {
@@ -867,6 +868,7 @@ def run_youtube_transcription(
                     asr_quality = assess_transcript(
                         asr_segments,
                         language_probability=asr_meta.get("language_probability"),
+                        duration_seconds=asr_meta.get("audio_duration"),
                         source="faster_whisper",
                     )
 
@@ -893,6 +895,7 @@ def run_youtube_transcription(
                         retry_quality = assess_transcript(
                             retry_segments,
                             language_probability=retry_meta.get("language_probability"),
+                            duration_seconds=retry_meta.get("audio_duration"),
                             source="faster_whisper",
                         )
                         if retry_quality["score"] >= asr_quality["score"]:
