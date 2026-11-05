@@ -168,6 +168,22 @@ Without this flag, downloaded audio is removed after a successful transcript is 
 vidtrace youtube-transcribe "https://www.youtube.com/playlist?list=PLAYLIST_ID" --force
 ~~~
 
+### Regenerate the existing Jain research outputs
+
+The transcripts committed under `YT text extraction/` were produced by the older pipeline and do not contain quality metadata. Do not use them as verified research sources. Regenerate them with the new pipeline, writing back to the same collection folder:
+
+~~~powershell
+vidtrace youtube-transcribe "https://www.youtube.com/playlist?list=PLAYLIST_ID" --output-dir "YT text extraction" --whisper-model medium --force
+~~~
+
+For a video known to be Hindi, specify the language so Whisper can use the Hindi Jain terminology prompt and matching Hindi caption tracks:
+
+~~~powershell
+vidtrace youtube-transcribe "https://www.youtube.com/watch?v=VIDEO_ID" --language hi --output-dir "YT text extraction" --whisper-model medium --force
+~~~
+
+Use `--captions off` only when you specifically want to bypass YouTube caption tracks and run speech recognition on the downloaded audio. A suspicious result will be marked `review_required`; it is not automatically corrected or certified.
+
 ## Output structure
 
 Default output directory: ./youtube_transcripts/
