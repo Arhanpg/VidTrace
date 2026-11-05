@@ -30,9 +30,14 @@ class WhisperTranscriber:
     word-level timestamps, and proper GPU memory release.
     """
 
-    def __init__(self, config: VidTraceConfig):
+    def __init__(
+        self,
+        config: VidTraceConfig,
+        initial_prompt: str | None = None,
+    ):
         self.model_name = config.whisper_model
         self.language = config.language
+        self.initial_prompt = initial_prompt
         self.model = None
         self.device = "cpu"
         self.compute_type = "int8"
@@ -108,11 +113,14 @@ class WhisperTranscriber:
             # Extremely useful for aligning speech with OCR.
             word_timestamps=True,
             initial_prompt=(
-                "This is a technical programming lecture. "
-                "The lecturer discusses Python, Java, "
-                "Kotlin, JavaScript, APIs, databases, "
-                "AI, machine learning, LLMs, agents, "
-                "LangChain, LangGraph and software engineering."
+                self.initial_prompt
+                or (
+                    "This is a technical programming lecture. "
+                    "The lecturer discusses Python, Java, "
+                    "Kotlin, JavaScript, APIs, databases, "
+                    "AI, machine learning, LLMs, agents, "
+                    "LangChain, LangGraph and software engineering."
+                )
             ),
         )
 
