@@ -10,11 +10,13 @@ import pytest
 from vidtrace.models.events import TranscriptSegment
 from vidtrace.youtube.transcriber import (
     PRAKRIT_WARNING,
+    choose_caption_track,
     collect_video_entries,
     language_name,
     render_markdown,
     render_srt,
     render_vtt,
+    parse_vtt,
     resolve_language,
     slugify,
     validate_youtube_url,
@@ -227,3 +229,73 @@ def test_collect_video_entries_limits_videos(monkeypatch) -> None:
         max_videos=2,
     )
     assert len(entries) == 2
+
+
+
+def test_choose_caption_track_prefers_manual_for_requested_language() -> None:
+    info = {
+        "language": "hi",
+        "subtitles": {
+            "hi": [{"ext": "vtt", "url": "https://example.invalid/manual.vtt"}],
+        },
+        "automatic_captions": {
+            "hi": [{"ext": "vtt", "url": "https://example.invalid/auto.vtt"}],
+        },
+    }
+    assert choose_caption_track(info, "hi") == ("manual", "hi")
+
+
+def test_choose_caption_track_uses_auto_when_manual_is_absent() -> None:
+    info = {
+        "language": "gu-IN",
+        "subtitles": {},
+        "automatic_captions": {
+            "gu": [{"ext": "vtt", "url": "https://example.invalid/gu.vtt"}],
+        },
+    }
+    assert choose_caption_track(info, None) == ("automatic", "gu")
+
+
+def test_choose_caption_track_does_not_guess_between_multiple_languages() -> None:
+    info = {
+        "subtitles": {},
+        "automatic_captions": {
+            "hi": [{"ext": "vtt", "url": "https://example.invalid/hi.vtt"}],
+            "gu": [{"ext": "vtt", "url": "https://example.invalid/gu.vtt"}],
+        },
+    }
+    assert choose_caption_track(info, None) is None
+
+
+def test_parse_vtt_preserves_unicode_and_removes_markup(tmp_path: Path) -> None:
+    from pathlib import Path
+
+    caption_path = tmp_path / "captions.vtt"
+    caption_path.write_text(
+        "WEBVTT\\n\\n"
+        "00:00:01.000 --> 00:00:02.500 align:start position:0%\\n"
+        "<c>नमो अरिहंताणं</c> &amp; नमो सिद्धाणं\\n\\n"
+        "00:00:02.500 --> 00:00:04.000\\n"
+        "समवसरण का वर्णन\\n",
+        encoding="utf-8",
+    )
+    segments = parse_vtt(caption_path)
+    assert len(segments) == 2
+    assert segments[0].start == 1.0
+    assert segments[0].end == 2.5
+    assert "नमो अरिहंताणं" in segments[0].text
+    assert "&" in segments[0].text
+    assert segments[1].text == "समवसरण का वर्णन"
+
+
+def test_parse_vtt_deduplicates_identical_rolling_cues(tmp_path: Path) -> None:
+    caption_path = tmp_path / "repeated.vtt"
+    caption_path.write_text(
+        "WEBVTT\\n\\n"
+        "00:00:01.000 --> 00:00:02.000\\n"
+        "नमो अरिहंताणं\\n\\n"
+        "00:00:02.000 --> 00:00:03.000\\n"
+        "नमो अरिहंताणं\\n",
+        encoding="utf-8",
+    )
+    assert len(parse_vtt(caption_path)) == 1
