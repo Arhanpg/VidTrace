@@ -199,7 +199,7 @@ Each transcript now includes a Quality assessment section. Status values are:
 - review_required: repetition, symbol-heavy output, low log probability, or another warning was detected. Review the transcript before using it as research evidence.
 - failed: no usable text was produced.
 
-These are conservative automated checks. A passed status does not establish that Jain terminology, scripture quotations, or gāthā numbers are correct.
+These are conservative automated checks. A passed status does not establish that Jain terminology, scripture quotations, or gāthā numbers are correct. Automatically generated YouTube captions are always marked review_required because they are still machine-generated.
 
 ### Markdown transcript contents
 
@@ -216,6 +216,14 @@ Each transcript.<language>.md contains:
 - An accuracy warning for scriptural names, gāthās and Jain terminology.
 
 The Markdown transcript is the recommended file to upload for research review. Keep the JSON file as a machine-readable backup and SRT/VTT for subtitles.
+
+### Exit codes
+
+- 0: all processed transcripts passed automated checks (or were skipped because they had previously passed).
+- 1: one or more videos failed processing.
+- 2: processing finished, but one or more transcripts require human review.
+
+A review_required result is not a claim that the transcript is wrong; it means the program will not silently certify it as clean.
 
 ## Resume behaviour
 
