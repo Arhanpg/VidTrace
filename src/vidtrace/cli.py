@@ -277,6 +277,7 @@ def _cmd_youtube_transcribe(args: argparse.Namespace) -> int:
         playlist_end=args.playlist_end,
         max_videos=args.max_videos,
         initial_prompt=args.initial_prompt,
+        captions=args.captions,
     )
 
 
@@ -432,9 +433,9 @@ def build_parser() -> argparse.ArgumentParser:
     )
     youtube_parser.add_argument(
         "--whisper-model",
-        default="small",
+        default="medium",
         choices=["tiny", "base", "small", "medium", "large-v3"],
-        help="faster-whisper model size (default: small).",
+        help="faster-whisper model size (default: medium; int8/CPU fallback is automatic).",
     )
     youtube_parser.add_argument(
         "--output-dir",
@@ -474,6 +475,15 @@ def build_parser() -> argparse.ArgumentParser:
         "--initial-prompt",
         default=None,
         help="Override the built-in Jain terminology prompt.",
+    )
+    youtube_parser.add_argument(
+        "--captions",
+        choices=["prefer", "off"],
+        default="prefer",
+        help=(
+            "Prefer matching YouTube manual/automatic captions before Whisper "
+            "(default: prefer). Use off to force speech recognition."
+        ),
     )
     youtube_parser.add_argument(
         "--verbose", "-v",
