@@ -828,16 +828,16 @@ def run_youtube_transcription(
                 use_caption = False
                 if caption_candidate is not None:
                     cap_segments, cap_quality, cap_code = caption_candidate
-                    track_kind = caption_meta.get("track_kind")
+                    caption_kind = caption_meta.get("track_kind")
                     if cap_quality["status"] == "passed" or (
-                        track_kind == "manual" and cap_quality["status"] == "review_required"
+                        caption_kind == "manual" and cap_quality["status"] == "review_required"
                     ):
                         selected_segments = cap_segments
                         selected_quality = cap_quality
                         detected_code = cap_code
                         transcription_source = (
                             "youtube_manual_caption"
-                            if track_kind == "manual" else "youtube_auto_caption"
+                            if caption_kind == "manual" else "youtube_auto_caption"
                         )
                         use_caption = True
 
@@ -984,7 +984,12 @@ def run_youtube_transcription(
                 _write_json(video_dir / "transcript.json", transcript_json)
 
                 metadata = {
-                    **transcript_json["source"],
+                    "url": video_url,
+                    "video_id": video_id,
+                    "title": title,
+                    "playlist_title": collection_title,
+                    "playlist_id": collection_id,
+                    "playlist_index": playlist_index,
                     "generated_at_utc": datetime.now(timezone.utc).isoformat(),
                     "pipeline_version": PIPELINE_VERSION,
                     "requested_language": language,
