@@ -339,7 +339,7 @@ def choose_caption_track(
             declared_code = (
                 _caption_language_key(str(declared)) if declared else None
             )
-            if declared_code in families and len(families) == 1:
+            if declared_code in families:
                 target = declared_code
             else:
                 return None
