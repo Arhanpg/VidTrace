@@ -81,6 +81,9 @@ class TranscriptSegment:
     end: float
     text: str
     words: list[dict[str, Any]] = field(default_factory=list)
+    # Recognition diagnostics from faster-whisper. Empty for external captions
+    # and legacy transcript JSON files.
+    quality: dict[str, Any] = field(default_factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         return asdict(self)
