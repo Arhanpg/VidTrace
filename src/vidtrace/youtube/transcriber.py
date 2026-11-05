@@ -310,33 +310,39 @@ def choose_caption_track(
     if not isinstance(automatic, dict):
         automatic = {}
 
-    declared = (
-        video_info.get("language")
-        or video_info.get("original_language")
-        or video_info.get("audio_language")
-    )
-    declared_code = _caption_language_key(str(declared)) if declared else None
-    target = requested_language or declared_code
-
+    # In automatic mode, prefer YouTube's explicitly marked original
+    # caption track. The generic "language" field can describe channel or
+    # uploader locale rather than the actual speech language.
+    target = requested_language
     if target is None:
+        all_tracks = list(manual) + list(automatic)
         families = {
             _caption_language_key(str(key))
-            for key in list(manual) + list(automatic)
+            for key in all_tracks
             if _caption_language_key(str(key)) in LANGUAGE_NAMES
         }
-        original_keys = [
-            str(key)
-            for key in list(manual) + list(automatic)
+        original_families = {
+            _caption_language_key(str(key))
+            for key in all_tracks
             if str(key).lower().endswith("-orig")
             and _caption_language_key(str(key)) in LANGUAGE_NAMES
-        ]
-        original_families = {_caption_language_key(key) for key in original_keys}
+        }
         if len(original_families) == 1:
             target = next(iter(original_families))
         elif len(families) == 1:
             target = next(iter(families))
         else:
-            return None
+            declared = (
+                video_info.get("original_language")
+                or video_info.get("audio_language")
+            )
+            declared_code = (
+                _caption_language_key(str(declared)) if declared else None
+            )
+            if declared_code in families and len(families) == 1:
+                target = declared_code
+            else:
+                return None
 
     if target not in LANGUAGE_NAMES:
         return None
