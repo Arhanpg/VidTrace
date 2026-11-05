@@ -114,7 +114,8 @@ class WhisperTranscriber:
             word_timestamps=True,
             initial_prompt=(
                 self.initial_prompt
-                or (
+                if self.initial_prompt is not None
+                else (
                     "This is a technical programming lecture. "
                     "The lecturer discusses Python, Java, "
                     "Kotlin, JavaScript, APIs, databases, "
