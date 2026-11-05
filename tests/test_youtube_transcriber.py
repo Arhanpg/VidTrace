@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import sys
+from pathlib import Path
 from types import ModuleType
 
 import pytest
@@ -268,8 +269,6 @@ def test_choose_caption_track_does_not_guess_between_multiple_languages() -> Non
 
 
 def test_parse_vtt_preserves_unicode_and_removes_markup(tmp_path: Path) -> None:
-    from pathlib import Path
-
     caption_path = tmp_path / "captions.vtt"
     caption_path.write_text(
         "WEBVTT\\n\\n"
