@@ -199,7 +199,7 @@ class WhisperTranscriber:
             raw_segments, info = self._decode(audio_path)
 
         output: list[TranscriptSegment] = []
-        for index, segment in enumerate(raw_segments):
+        for segment in raw_segments:
             text = clean_text(str(segment.text))
             if not text:
                 continue
