@@ -544,7 +544,7 @@ def run_youtube_transcription(
                     "title": title,
                     "status": "completed",
                     "language_name": language_name(detected_code),
-                            "transcript_link": transcript_path.relative_to(root).as_posix(),
+                    "transcript_link": transcript_path.relative_to(root).as_posix(),
                 })
                 succeeded += 1
                 logger.info(
