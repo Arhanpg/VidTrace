@@ -54,8 +54,16 @@ ocr = [
     "paddleocr>=2.7",
     "paddlepaddle>=2.5",
 ]
+youtube = [
+    "yt-dlp>=2024.8.6",
+]
+youtube-transcribe = [
+    "faster-whisper>=1.0",
+    "ctranslate2>=4.0",
+    "yt-dlp>=2024.8.6",
+]
 all = [
-    "vidtrace[whisper,ocr]",
+    "vidtrace[whisper,ocr,youtube]",
 ]
 gpu = [
     "paddlepaddle-gpu>=2.5",
