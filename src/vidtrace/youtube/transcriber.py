@@ -410,21 +410,40 @@ def run_youtube_transcription(
                     old_meta = json.loads(existing_metadata.read_text(encoding="utf-8"))
                     transcript_filename = old_meta.get("transcript_file", "")
                     transcript_path = video_dir / transcript_filename
-                    record = {
-                        "playlist_index": playlist_index,
-                        "title": title,
-                        "status": "skipped (already complete)",
-                        "language_name": old_meta.get("detected_language_name", "Unknown"),
-                        "transcript_link": (
-                            str(transcript_path.relative_to(root)).replace("\\", "/")
-                            if transcript_path.exists() else None
-                        ),
-                    }
-                    records.append(record)
-                    skipped += 1
-                    logger.info("[%d/%d] Already complete: %s", position, len(entries), title)
-                    _write_playlist_index(root / "playlist_index.md", collection_title, records)
-                    continue
+                    same_request = (
+                        old_meta.get("requested_language") == language
+                        and old_meta.get("model") == model_name
+                    )
+                    if same_request and transcript_path.exists():
+                        record = {
+                            "playlist_index": playlist_index,
+                            "title": title,
+                            "status": "skipped (already complete)",
+                            "language_name": old_meta.get("detected_language_name", "Unknown"),
+                            "transcript_link": str(transcript_path.relative_to(root)).replace("\\\\", "/"),
+                        }
+                        records.append(record)
+                        skipped += 1
+                        logger.info("[%d/%d] Already complete: %s", position, len(entries), title)
+                        _write_playlist_index(root / "playlist_index.md", collection_title, records)
+                        _write_json(root / "run_summary.json", {
+                            "playlist_title": collection_title,
+                            "playlist_id": collection_id,
+                            "source_url": url,
+                            "requested_language": language,
+                            "whisper_model": model_name,
+                            "completed": succeeded,
+                            "skipped": skipped,
+                            "failed": failed,
+                            "records": records,
+                            "updated_at_utc": datetime.now(timezone.utc).isoformat(),
+                        })
+                        continue
+                    logger.info(
+                        "Existing transcript differs from requested language/model or is missing; "
+                        "reprocessing '%s'.",
+                        title,
+                    )
                 except (OSError, ValueError, KeyError):
                     logger.warning("Existing transcript metadata is unreadable; reprocessing.")
 
