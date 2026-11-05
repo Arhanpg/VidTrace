@@ -491,6 +491,7 @@ def _segments_to_json(segments: list[TranscriptSegment]) -> list[dict[str, Any]]
             "end": float(seg.end),
             "text": seg.text,
             "words": seg.words,
+            "quality": seg.quality,
         }
         for seg in segments
     ]
@@ -509,8 +510,10 @@ def render_markdown(
     audio_duration: float | None,
     segments: list[TranscriptSegment],
     warning: str | None = None,
+    quality: dict[str, Any] | None = None,
+    transcription_source: str = "faster_whisper",
 ) -> str:
-    """Render a timestamped Markdown transcript."""
+    """Render a timestamped Markdown transcript with quality diagnostics."""
     generated = datetime.now(timezone.utc).isoformat(timespec="seconds")
     lines = [
         f"# {title}", "",
@@ -529,6 +532,7 @@ def render_markdown(
             if language_probability is not None else "not reported"
         ),
         f"- **Whisper model:** {model_name}",
+        f"- **Transcription source:** {transcription_source}",
         "- **Audio duration:** " + (
             format_time(audio_duration)
             if audio_duration is not None else "not reported"
@@ -542,6 +546,17 @@ def render_markdown(
     ]
     if warning:
         lines.extend(["## Language warning", "", f"> {warning}", ""])
+    if quality is not None:
+        flags = quality.get("flags") or []
+        lines.extend([
+            "## Quality assessment",
+            "",
+            f"- **Status:** {quality.get('status', 'unknown')}",
+            f"- **Quality score:** {quality.get('score', 'not available')}/100",
+            f"- **Flags:** {', '.join(flags) if flags else 'None'}",
+            "- **Important:** A passed automated check is not a scholarly verification.",
+            "",
+        ])
     lines.extend(["## Timestamped transcript", ""])
     if not segments:
         lines.extend(["_No speech segments were returned by the model._", ""])
