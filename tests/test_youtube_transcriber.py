@@ -271,11 +271,11 @@ def test_choose_caption_track_does_not_guess_between_multiple_languages() -> Non
 def test_parse_vtt_preserves_unicode_and_removes_markup(tmp_path: Path) -> None:
     caption_path = tmp_path / "captions.vtt"
     caption_path.write_text(
-        "WEBVTT\\n\\n"
-        "00:00:01.000 --> 00:00:02.500 align:start position:0%\\n"
-        "<c>नमो अरिहंताणं</c> &amp; नमो सिद्धाणं\\n\\n"
-        "00:00:02.500 --> 00:00:04.000\\n"
-        "समवसरण का वर्णन\\n",
+        "WEBVTT\n\n"
+        "00:00:01.000 --> 00:00:02.500 align:start position:0%\n"
+        "<c>नमो अरिहंताणं</c> &amp; नमो सिद्धाणं\n\n"
+        "00:00:02.500 --> 00:00:04.000\n"
+        "समवसरण का वर्णन\n",
         encoding="utf-8",
     )
     segments = parse_vtt(caption_path)
@@ -290,11 +290,11 @@ def test_parse_vtt_preserves_unicode_and_removes_markup(tmp_path: Path) -> None:
 def test_parse_vtt_deduplicates_identical_rolling_cues(tmp_path: Path) -> None:
     caption_path = tmp_path / "repeated.vtt"
     caption_path.write_text(
-        "WEBVTT\\n\\n"
-        "00:00:01.000 --> 00:00:02.000\\n"
-        "नमो अरिहंताणं\\n\\n"
-        "00:00:02.000 --> 00:00:03.000\\n"
-        "नमो अरिहंताणं\\n",
+        "WEBVTT\n\n"
+        "00:00:01.000 --> 00:00:02.000\n"
+        "नमो अरिहंताणं\n\n"
+        "00:00:02.000 --> 00:00:03.000\n"
+        "नमो अरिहंताणं\n",
         encoding="utf-8",
     )
     assert len(parse_vtt(caption_path)) == 1
