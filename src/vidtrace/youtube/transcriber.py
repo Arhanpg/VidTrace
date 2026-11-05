@@ -1,6 +1,7 @@
 """YouTube video/playlist downloader and multilingual transcript exporter."""
 from __future__ import annotations
 
+import html
 import json
 import logging
 import os
@@ -15,6 +16,7 @@ from vidtrace.audio.transcription import WhisperTranscriber
 from vidtrace.models.config import VidTraceConfig
 from vidtrace.models.events import TranscriptSegment
 from vidtrace.utils import format_srt_time, format_time, format_vtt_time
+from vidtrace.youtube.quality import assess_transcript
 
 logger = logging.getLogger(__name__)
 
@@ -259,6 +261,226 @@ def download_audio(video_url: str, work_dir: Path) -> tuple[Path, dict[str, Any]
     if audio_path is None:
         raise RuntimeError("yt-dlp finished without an audio file. Update yt-dlp and retry.")
     return audio_path, info if isinstance(info, dict) else None
+
+
+
+def _extract_video_info(video_url: str) -> dict[str, Any]:
+    """Read full video metadata, including manual/automatic subtitle tracks."""
+    _ensure_js_runtime_in_path()
+    try:
+        import yt_dlp
+    except ImportError as exc:
+        raise RuntimeError(
+            'yt-dlp is missing. Install with: pip install -e ".[youtube-transcribe]"'
+        ) from exc
+    options = {
+        "quiet": True,
+        "no_warnings": True,
+        "skip_download": True,
+        "noplaylist": True,
+        "ignoreerrors": False,
+    }
+    with yt_dlp.YoutubeDL(options) as ydl:
+        info = ydl.extract_info(video_url, download=False)
+    if not isinstance(info, dict):
+        raise RuntimeError("yt-dlp did not return video metadata.")
+    return info
+
+
+def _caption_language_key(track_key: str) -> str:
+    """Normalize YouTube caption identifiers such as hi-orig and hi-IN."""
+    return track_key.lower().replace("_", "-").split("-")[0]
+
+
+def choose_caption_track(
+    video_info: dict[str, Any],
+    requested_language: str | None,
+) -> tuple[str, str] | None:
+    """
+    Choose an exact-language YouTube caption track.
+
+    Manual captions take precedence over automatic captions. In auto mode,
+    only select when YouTube's declared language or a unique supported
+    Indian-language caption family resolves the language unambiguously.
+    """
+    manual = video_info.get("subtitles") or {}
+    automatic = video_info.get("automatic_captions") or {}
+    if not isinstance(manual, dict):
+        manual = {}
+    if not isinstance(automatic, dict):
+        automatic = {}
+
+    declared = (
+        video_info.get("language")
+        or video_info.get("original_language")
+        or video_info.get("audio_language")
+    )
+    declared_code = _caption_language_key(str(declared)) if declared else None
+    target = requested_language or declared_code
+
+    if target is None:
+        families = {
+            _caption_language_key(str(key))
+            for key in list(manual) + list(automatic)
+            if _caption_language_key(str(key)) in LANGUAGE_NAMES
+        }
+        original_keys = [
+            str(key)
+            for key in list(manual) + list(automatic)
+            if str(key).lower().endswith("-orig")
+            and _caption_language_key(str(key)) in LANGUAGE_NAMES
+        ]
+        original_families = {_caption_language_key(key) for key in original_keys}
+        if len(original_families) == 1:
+            target = next(iter(original_families))
+        elif len(families) == 1:
+            target = next(iter(families))
+        else:
+            return None
+
+    if target not in LANGUAGE_NAMES:
+        return None
+
+    manual_matches = [
+        str(key) for key in manual
+        if _caption_language_key(str(key)) == target
+    ]
+    auto_matches = [
+        str(key) for key in automatic
+        if _caption_language_key(str(key)) == target
+    ]
+
+    # YouTube's "-orig" track is usually the original track variant.
+    manual_matches.sort(key=lambda key: (not key.lower().endswith("-orig"), key))
+    auto_matches.sort(key=lambda key: (not key.lower().endswith("-orig"), key))
+    if manual_matches:
+        return "manual", manual_matches[0]
+    if auto_matches:
+        return "automatic", auto_matches[0]
+    return None
+
+
+def _parse_caption_time(value: str) -> float | None:
+    value = value.strip().split()[0]
+    parts = value.split(":")
+    try:
+        if len(parts) == 3:
+            hours, minutes, seconds = parts
+            return int(hours) * 3600 + int(minutes) * 60 + float(seconds)
+        if len(parts) == 2:
+            minutes, seconds = parts
+            return int(minutes) * 60 + float(seconds)
+    except (ValueError, IndexError):
+        return None
+    return None
+
+
+def parse_vtt(path: Path) -> list[TranscriptSegment]:
+    """Parse WebVTT cues into timestamped segments, stripping cue markup."""
+    raw = path.read_text(encoding="utf-8-sig", errors="replace")
+    output: list[TranscriptSegment] = []
+    start: float | None = None
+    end: float | None = None
+    cue_lines: list[str] = []
+
+    def flush() -> None:
+        nonlocal cue_lines, start, end
+        if start is None or end is None or end <= start:
+            cue_lines = []
+            return
+        cleaned_lines: list[str] = []
+        for line in cue_lines:
+            line = re.sub(r"<\d{1,2}:\d{2}(?::\d{2})?\.\d+>", " ", line)
+            line = re.sub(r"<[^>]*>", " ", line)
+            line = html.unescape(line).replace("\u200b", "").replace("\ufeff", "")
+            line = re.sub(r"\s+", " ", line).strip()
+            if line and (not cleaned_lines or line != cleaned_lines[-1]):
+                cleaned_lines.append(line)
+        text = " ".join(cleaned_lines).strip()
+        if text:
+            if output and output[-1].text.casefold() == text.casefold():
+                # YouTube sometimes repeats an identical rolling caption cue.
+                cue_lines = []
+                return
+            output.append(
+                TranscriptSegment(
+                    index=len(output),
+                    start=start,
+                    end=end,
+                    text=text,
+                    words=[],
+                    quality={},
+                )
+            )
+        cue_lines = []
+
+    for line in raw.splitlines():
+        line = line.strip()
+        if "-->" in line:
+            flush()
+            left, right = line.split("-->", 1)
+            start = _parse_caption_time(left)
+            end_match = re.match(r"\s*([0-9:.]+)", right)
+            end = _parse_caption_time(end_match.group(1)) if end_match else None
+            continue
+        if not line or line == "WEBVTT" or line.startswith(
+            ("NOTE", "STYLE", "REGION", "Kind:", "Language:")
+        ):
+            continue
+        # Cue identifiers and settings are not spoken words.
+        if start is None and "-->" not in line:
+            continue
+        if re.fullmatch(r"\d+", line):
+            continue
+        cue_lines.append(line)
+
+    flush()
+    return output
+
+
+def download_caption_track(
+    video_url: str,
+    work_dir: Path,
+    track_kind: str,
+    track_language: str,
+) -> Path | None:
+    """Download one selected caption track only, without downloading video."""
+    _ensure_js_runtime_in_path()
+    try:
+        import yt_dlp
+    except ImportError as exc:
+        raise RuntimeError(
+            'yt-dlp is missing. Install with: pip install -e ".[youtube-transcribe]"'
+        ) from exc
+
+    caption_dir = work_dir / "captions"
+    caption_dir.mkdir(parents=True, exist_ok=True)
+    for old_file in caption_dir.glob("source.*"):
+        old_file.unlink(missing_ok=True)
+
+    options = {
+        "quiet": True,
+        "no_warnings": True,
+        "skip_download": True,
+        "noplaylist": True,
+        "writesubtitles": track_kind == "manual",
+        "writeautomaticsub": track_kind == "automatic",
+        "subtitleslangs": [track_language],
+        "subtitlesformat": "vtt/best",
+        "outtmpl": str(caption_dir / "source.%(ext)s"),
+        "overwrites": True,
+    }
+    with yt_dlp.YoutubeDL(options) as ydl:
+        ydl.download([video_url])
+
+    candidates = [
+        file for file in caption_dir.glob("source.*")
+        if file.is_file() and file.suffix.lower() in {".vtt", ".srt"}
+    ]
+    if not candidates:
+        return None
+    candidates.sort(key=lambda file: (file.suffix.lower() != ".vtt", file.name))
+    return candidates[0]
 
 
 def _segments_to_json(segments: list[TranscriptSegment]) -> list[dict[str, Any]]:
