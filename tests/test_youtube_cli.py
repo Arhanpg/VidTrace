@@ -27,6 +27,8 @@ def test_youtube_transcribe_parser_defaults_to_auto_detection() -> None:
         "https://youtu.be/VIDEO_ID",
     ])
     assert args.language == "auto"
+    assert args.whisper_model == "medium"
+    assert args.captions == "prefer"
     assert args.output_dir.name == "youtube_transcripts"
     assert args.keep_audio is False
     assert args.force is False
