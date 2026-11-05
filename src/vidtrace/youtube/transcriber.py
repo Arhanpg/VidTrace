@@ -928,6 +928,22 @@ def run_youtube_transcription(
                                 cap_quality["score"], asr_quality["score"],
                             )
 
+                if (
+                    transcription_source == "youtube_auto_caption"
+                    and selected_quality.get("status") == "passed"
+                ):
+                    # Automatically generated captions are still ASR output.
+                    # They may be useful, but should never be presented as
+                    # human-verified research transcription.
+                    selected_quality = {
+                        **selected_quality,
+                        "status": "review_required",
+                        "flags": [
+                            *selected_quality.get("flags", []),
+                            "automatic_captions_not_human_verified",
+                        ],
+                    }
+
                 if language.lower() in {"prakrit", "prākrit", "pali-prakrit"}:
                     filename_language = "prakrit_experimental"
                 else:
@@ -949,7 +965,9 @@ def run_youtube_transcription(
                     detected_language=detected_code,
                     language_probability=language_probability,
                     model_name=model_used or "YouTube captions",
-                    audio_duration=asr_meta.get("audio_duration"),
+                    audio_duration=(
+                        asr_meta.get("audio_duration") or video_info.get("duration")
+                    ),
                     segments=selected_segments,
                     warning=language_warning,
                     quality=selected_quality,
@@ -1005,7 +1023,9 @@ def run_youtube_transcription(
                     "quality": selected_quality,
                     "caption_metadata": caption_meta,
                     "transcript_file": transcript_filename,
-                    "audio_duration": asr_meta.get("audio_duration"),
+                    "audio_duration": (
+                        asr_meta.get("audio_duration") or video_info.get("duration")
+                    ),
                     "elapsed_seconds": asr_meta.get("elapsed_seconds"),
                     "device": asr_meta.get("device"),
                     "compute_type": asr_meta.get("compute_type"),
@@ -1070,4 +1090,8 @@ def run_youtube_transcription(
         "Finished | passed=%d | review_required=%d | skipped=%d | failed=%d | output=%s",
         passed, review_required, skipped, failed, root,
     )
-    return 1 if failed else 0
+    if failed:
+        return 1
+    if review_required:
+        return 2
+    return 0
