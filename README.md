@@ -34,6 +34,9 @@ vidtrace ocr lecture.mp4
 # Search extracted timeline
 vidtrace search vidtrace_output/ "StateGraph"
 
+# Transcribe a YouTube video or playlist to timestamped Markdown
+vidtrace youtube-transcribe "https://www.youtube.com/playlist?list=PLAYLIST_ID" --language auto
+
 # Inspect checkpoint state
 vidtrace status lecture.mp4
 ```
@@ -179,6 +182,21 @@ pip install vidtrace
 pip install "vidtrace[whisper]"
 ```
 
+### YouTube video / playlist transcription
+
+```bash
+pip install -e ".[youtube-transcribe]"
+
+# One video or a full playlist; detect language for each video
+vidtrace youtube-transcribe "https://www.youtube.com/playlist?list=PLAYLIST_ID"
+
+# Force Hindi or Gujarati when you know the language
+vidtrace youtube-transcribe "https://www.youtube.com/watch?v=VIDEO_ID" --language hi
+vidtrace youtube-transcribe "https://www.youtube.com/watch?v=VIDEO_ID" --language gu
+```
+
+See [YouTube transcription guide](docs/youtube-transcription.md) for Windows setup, Deno, output folders, language support, Prakrit limitations and troubleshooting.
+
 ### OCR
 
 ```bash
@@ -277,6 +295,8 @@ Pipeline Orchestrator
 src/vidtrace/
 ├── audio/
 │   └── transcription.py
+├── youtube/
+│   └── transcriber.py
 ├── vision/
 │   ├── sampler.py
 │   ├── preprocessing.py
@@ -339,6 +359,9 @@ python benchmarks/run_benchmark.py --video path/to/video.mp4 --preset coding
 ### v0.3 — Intelligence
 - [ ] Semantic embeddings
 - [ ] Multimodal RAG
+- [x] YouTube video / playlist audio download
+- [x] Per-video language detection and language-labelled Markdown/SRT/VTT
+- [x] Playlist transcript index and resume support
 - [ ] Speaker diarization
 - [ ] Slide / scene segmentation
 - [ ] Better OCR-to-code correction
