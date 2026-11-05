@@ -24,6 +24,7 @@ def assess_transcript(
     segments: list[TranscriptSegment],
     *,
     language_probability: float | None = None,
+    duration_seconds: float | None = None,
     source: str = "faster_whisper",
 ) -> dict[str, Any]:
     """
@@ -86,6 +87,12 @@ def assess_transcript(
         statistics.fmean(compression_ratios) if compression_ratios else None
     )
     lang_prob = _number(language_probability)
+    duration = _number(duration_seconds)
+    words_per_minute = (
+        token_count / (duration / 60.0)
+        if duration is not None and duration >= 90.0
+        else None
+    )
 
     flags: list[str] = []
     score = 100
@@ -106,6 +113,17 @@ def assess_transcript(
     if len(joined) >= 30 and punctuation_symbol_ratio >= 0.55:
         flags.append("symbol_or_punctuation_heavy")
         score -= 35
+
+    # Very sparse output from a long spoken recording is a strong warning.
+    # This threshold is deliberately conservative: long silences, chanting,
+    # music and pauses can legitimately lower speaking rate, so the flag
+    # requests human review instead of deleting or rewriting text.
+    if words_per_minute is not None and words_per_minute < 8.0:
+        flags.append("very_low_transcript_density")
+        score -= 35
+    elif words_per_minute is not None and words_per_minute < 15.0:
+        flags.append("low_transcript_density")
+        score -= 15
 
     if mean_log_prob is not None and mean_log_prob < -1.0:
         flags.append("low_average_log_probability")
@@ -143,4 +161,6 @@ def assess_transcript(
         "mean_no_speech_prob": round(mean_no_speech, 4) if mean_no_speech is not None else None,
         "mean_compression_ratio": round(mean_compression, 4) if mean_compression is not None else None,
         "language_probability": round(lang_prob, 4) if lang_prob is not None else None,
+        "duration_seconds": round(duration, 3) if duration is not None else None,
+        "words_per_minute": round(words_per_minute, 2) if words_per_minute is not None else None,
     }
