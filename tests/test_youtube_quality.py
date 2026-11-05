@@ -53,3 +53,27 @@ def test_empty_transcript_is_failed() -> None:
     result = assess_transcript([], language_probability=None)
     assert result["status"] == "failed"
     assert "no_recognizable_text" in result["flags"]
+
+
+
+def test_sparse_transcript_from_long_recording_is_flagged() -> None:
+    segments = _segments("समवसरण का वर्णन")
+    result = assess_transcript(
+        segments,
+        language_probability=0.99,
+        duration_seconds=600.0,
+    )
+    assert "very_low_transcript_density" in result["flags"]
+    assert result["status"] == "review_required"
+    assert result["words_per_minute"] < 8.0
+
+
+def test_short_clip_is_not_density_penalized() -> None:
+    segments = _segments("समवसरण का वर्णन")
+    result = assess_transcript(
+        segments,
+        language_probability=0.99,
+        duration_seconds=20.0,
+    )
+    assert "very_low_transcript_density" not in result["flags"]
+    assert result["words_per_minute"] is None
