@@ -11,7 +11,7 @@ from __future__ import annotations
 import hashlib
 import json
 import logging
-from dataclasses import asdict, dataclass, field
+from dataclasses import dataclass, field
 from enum import Enum
 from pathlib import Path
 from typing import Any
@@ -141,8 +141,8 @@ class VideoCheckpoint:
 
     def get_stage_status(self, stage: str) -> str:
         """Get the status of a pipeline stage."""
-        stage_data = self.stages.get(stage, {})
-        return stage_data.get("status", StageStatus.PENDING.value)
+        stage_data: dict[str, Any] = self.stages.get(stage, {})
+        return str(stage_data.get("status", StageStatus.PENDING.value))
 
     def should_run_stage(self, stage: str, force: bool = False) -> bool:
         """Determine if a stage should run based on checkpoint state."""
